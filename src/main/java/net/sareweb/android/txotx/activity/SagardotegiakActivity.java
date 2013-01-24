@@ -48,7 +48,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 				prefs));
 
 		actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(showHomeBack);
 
 	}
