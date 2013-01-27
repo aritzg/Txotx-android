@@ -3,6 +3,7 @@ package net.sareweb.android.txotx.fragment;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.activity.SagardotegiDetailActivity_;
 import net.sareweb.android.txotx.adapter.SagardotegiAdapter;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.rest.SagardotegiRESTClient;
@@ -53,6 +54,6 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Sagardotegi sagardotegi = (Sagardotegi) view.getTag();
 		Log.d(TAG, "Selected sagardotegi " + sagardotegi.getSagardotegiId());
-		//TODO:gertaera zerrenda
+		SagardotegiDetailActivity_.intent(getSherlockActivity()).sagardotegi(sagardotegi).start();
 	}
 }

@@ -37,6 +37,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SagardotegiakActivity_" />
+        <activity android:name=".activity.SagardotegiDetailActivity_" />
+        <meta-data
+			android:name="com.google.android.maps.v2.API_KEY"
+			android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ"/>
     </application>
 
 </manifest>

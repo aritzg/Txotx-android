@@ -2,17 +2,12 @@ package net.sareweb.android.txotx.activity;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.fragment.SagardotegiakFragment;
-import net.sareweb.android.txotx.model.Sagardotegi;
-import net.sareweb.android.txotx.rest.TxotxConnectionData;
-import net.sareweb.android.txotx.rest.SagardotegiRESTClient;
-import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.android.txotx.util.PrefUtils;
+import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -33,7 +28,6 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	private static String TAG = "SagardotegiakActivity";
 
 	@Extra boolean showHomeBack=false;
-	SagardotegiRESTClient sagardotegiRESTClient;
 	@FragmentById
 	SagardotegiakFragment sagardotegiakFragment;
 	@Pref
@@ -44,8 +38,6 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
-		sagardotegiRESTClient = new SagardotegiRESTClient(new TxotxConnectionData(
-				prefs));
 
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

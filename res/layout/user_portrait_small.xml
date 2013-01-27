@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ImageView
+        android:id="@+id/imgMember"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/txMemberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgMember"
+        android:layout_alignRight="@+id/imgMember"
+        android:layout_alignBottom="@+id/imgMember"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</merge>

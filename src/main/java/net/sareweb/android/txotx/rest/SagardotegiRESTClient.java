@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.http.HttpMethod;
 
+import android.util.Log;
+
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.lifedroid.rest.generic.LDRESTClient;
 
@@ -21,12 +23,13 @@ public class SagardotegiRESTClient extends LDRESTClient<Sagardotegi> {
 	
 	public List<Sagardotegi> getSagardotegiak(){
 		String requestURL = getBaseURL() + "/get-sagardotegiak";
+		Log.d(TAG,"requestURL: " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
 	
 	@Override
 	public String getPorltetContext() {
-		return "Txotx-porltet";
+		return "Txotx-portlet";
 	}
 
 	@Override

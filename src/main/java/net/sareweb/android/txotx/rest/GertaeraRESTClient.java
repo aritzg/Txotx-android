@@ -7,6 +7,8 @@ import net.sareweb.lifedroid.rest.generic.LDRESTClient;
 
 import org.springframework.http.HttpMethod;
 
+import android.util.Log;
+
 public class GertaeraRESTClient extends LDRESTClient<Gertaera> {
 
 	public GertaeraRESTClient(TxotxConnectionData connectionData) {
@@ -42,6 +44,7 @@ public class GertaeraRESTClient extends LDRESTClient<Gertaera> {
 		requestURL = addParamToRequestURL(requestURL, "sagardotegi-id", sagardotegiId);
 		requestURL = addParamToRequestURL(requestURL, "date", date);
 		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
+		Log.d(TAG,"requestURL : " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
 	
@@ -55,13 +58,13 @@ public class GertaeraRESTClient extends LDRESTClient<Gertaera> {
 	
 	@Override
 	public String getPorltetContext() {
-		return "Txotx-porltet";
+		return "Txotx-portlet";
 	}
 
 	@Override
 	public String getModelName() {
 		// TODO Auto-generated method stub
-		return "sagardotegi";
+		return "gertaera";
 	}
 
 }
