@@ -5,9 +5,8 @@ import java.util.List;
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.activity.SagardotegiDetailActivity_;
 import net.sareweb.android.txotx.adapter.SagardotegiAdapter;
+import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.model.Sagardotegi;
-import net.sareweb.android.txotx.rest.SagardotegiRESTClient;
-import net.sareweb.android.txotx.rest.TxotxConnectionData;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.ProgressDialog;
 import android.util.Log;
@@ -38,8 +37,7 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	@Background
 	public void getSagardotegiak(){
 		Log.d(TAG, "Gettings sagardotegiak");
-		SagardotegiRESTClient sagardotegiRestClient = new SagardotegiRESTClient(new TxotxConnectionData(prefs));
-		getSagardotegiakResult(sagardotegiRestClient.getSagardotegiak());
+		getSagardotegiakResult(SagardotegiCache.getSagardotegiak());
 	}
 
 	@UiThread

@@ -1,6 +1,7 @@
 package net.sareweb.android.txotx.activity;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
@@ -45,6 +46,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		UserCache.init(prefs);
+		SagardotegiCache.init(prefs);
 		if(PrefUtils.isUserLogged(prefs)){
 			finish();
 			SagardotegiakActivity_.intent(this).start();
