@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:text="Recent Events"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView android:id="@+id/gertaera_list_view"
                android:layout_width="match_parent"

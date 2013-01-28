@@ -11,6 +11,6 @@ public class Constants {
 	public static final String GERTAERA_MOTA_ARGAZKIA="GERTAERA_MOTA_ARGAZKIA";
 	public static final String GERTAERA_MOTA_BALORAZIOA="GERTAERA_MOTA_BALORAZIOA";
 	
-	public static final long IMAGE_FOLDER = 0;
-	public static final long GROUP = 120849;
+	//public static final long IMAGE_FOLDER = 0;
+	public static final long GROUP = 10180;
 }

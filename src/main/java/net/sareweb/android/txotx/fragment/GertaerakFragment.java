@@ -84,6 +84,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	@UiThread
 	void getGertaerakResult(List<Gertaera> gertaerak){
 		if(gertaerak!=null){
+			Log.d(TAG, "gertaerak " + gertaerak.size());
 			ListView gertaeraListView = (ListView) getActivity().findViewById(R.id.gertaera_list_view);
 			gertaeraListView.setAdapter(new GertaeraAdapter(getActivity(), gertaerak));
 			gertaeraListView.setOnItemClickListener(this);
@@ -116,7 +117,6 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(intent,
 					reqCode);
-			dialog.cancel();
 			break;
 
 		case R.id.imgCamera:
@@ -127,7 +127,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			Uri fileUri = Uri.fromFile(new File(""));
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 			startActivityForResult(intent, reqCode);
-			dialog.cancel();
+			
 			break;
 			
 		case R.id.btnComment:
@@ -150,14 +150,18 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	        	File dest = ImageUtils.getOutputMediaFile(String.valueOf(sagardotegi.getSagardotegiId()));
 
 				try {
+					progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Iruzkina bidaltzen...", true);
+					progressDialog.show();
 					ImageUtils.copyInputStreamToFile(getActivity().getContentResolver().openInputStream(targetUri), dest);
 					ImageUtils.resizeFile(dest);
 					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi, dest);
 					gehituArgazkiGertaera(dlFile, dest);
 				} catch (IOException e) {
+					progressDialog.cancel();
 					Log.e(TAG, "Error gettig/copying or uploading file",e);
 				}
 			}
+			dialog.cancel();
 			break;
 		default:
 			break;
@@ -193,8 +197,14 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 
 	@Background
 	void gehituArgazkiGertaera(DLFileEntry dlFileEntry, File file){
+		TextView txImageMessage =(TextView)dialog.findViewById(R.id.txImageMessage);
 		DLFileEntry dlFile = dlFileEntryRESTClient.addFileEntry(dlFileEntry, file);
-		gertaeraRESTClient.gehituArgazkiGertaera(sagardotegi.getSagardotegiId(), imageMessage, sagardotegi.getIrudiKarpetaId(), dlFileEntry.getTitle());
+		gehituArgazkiGertaeraResult(gertaeraRESTClient.gehituArgazkiGertaera(sagardotegi.getSagardotegiId(), txImageMessage.getText().toString(), sagardotegi.getIrudiKarpetaId(), dlFileEntry.getTitle()));
+	}
+	
+	@UiThread
+	void gehituArgazkiGertaeraResult(Gertaera gertaera){
+		progressDialog.cancel();
 	}
 	
 	@Background
@@ -202,7 +212,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		gehituTestuGertaeraResult(gertaeraRESTClient.gehituTestuGertaera(sagardotegi.getSagardotegiId(), testua));
 	}
 	
-	@Background
+	@UiThread
 	void gehituTestuGertaeraResult(Gertaera gertaera){
 		progressDialog.cancel();
 		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_TESTUA)){

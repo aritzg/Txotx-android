@@ -94,7 +94,7 @@ public class GertaeraAdapter extends BaseAdapter{
 
 	public void drawGertaeraIrudia(View convertView, Gertaera gertaera){
 		TextView txGertaeraText = (TextView) convertView.findViewById(R.id.txGertaeraText);
-		txGertaeraText.setText("XXX-k argazkia jarri du");
+		txGertaeraText.setText(gertaera.getTestua());
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
 	}

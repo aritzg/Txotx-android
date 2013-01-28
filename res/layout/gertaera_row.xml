@@ -22,7 +22,7 @@
             android:gravity="right|center_vertical"
             android:orientation="horizontal" >
 
-            <net.sareweb.android.barazkide.custom.UserPortrait_
+            <net.sareweb.android.txotx.custom.UserPortrait_
                 android:id="@+id/userPortrait"
                 android:layout_width="48dp"
                 android:layout_height="48dp" />

@@ -18,7 +18,7 @@
         android:title="Iruzkina"/>
     <item
         android:id="@+id/menu_txot"
-        android:icon="@drawable/log_out"
+        android:icon="@drawable/half_star"
         android:showAsAction="ifRoom|withText"
         android:title="Txotx!"/>
 </menu>
