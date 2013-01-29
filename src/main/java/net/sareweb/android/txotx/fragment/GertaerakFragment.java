@@ -28,6 +28,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -101,6 +102,11 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		showAddCommentDialog();
 	}
 	
+	@OptionsItem(R.id.menu_txoootx)
+	void addBalorazio() {
+		showAddBalorazioDialog();
+	}
+	
 	@Override
 	public void onClick(View v) {
 		Intent intent;
@@ -135,6 +141,13 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Iruzkina bidaltzen...", true);
 			progressDialog.show();
 			gehituTestuGertaera(txIruzkin.getText().toString());
+			break;
+			
+		case R.id.btnBalorazioa:
+			RatingBar rating = (RatingBar)dialog.findViewById(R.id.rating);
+			progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Balorazioa bidaltzen...", true);
+			progressDialog.show();
+			gehituBalorazioGertaera(rating.getProgress());
 			break;
 
 		}
@@ -194,6 +207,17 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		btnComment.setOnClickListener(this);
 		dialog.show();
 	}
+	
+	private void showAddBalorazioDialog(){
+		dialog = new Dialog(getActivity());
+		dialog.setTitle("Zure balorazioa?");
+		dialog.setContentView(R.layout.balorazio_dialog);
+		dialog.setCanceledOnTouchOutside(true);
+		
+		Button btnComment = (Button)dialog.findViewById(R.id.btnBalorazioa);
+		btnComment.setOnClickListener(this);
+		dialog.show();
+	}
 
 	@Background
 	void gehituArgazkiGertaera(DLFileEntry dlFileEntry, File file){
@@ -222,6 +246,24 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			Toast.makeText(getSherlockActivity(), "Ezin izan da iruzkina bidali! :(", Toast.LENGTH_SHORT).show();
 		}
 	}
+	
+	@Background
+	void gehituBalorazioGertaera(int balorazioa){
+		gehituBalorazioGertaeraResult(gertaeraRESTClient.gehituBalorazioGertaera(sagardotegi.getSagardotegiId(), "", balorazioa));
+	}
+	
+	@UiThread
+	void gehituBalorazioGertaeraResult(Gertaera gertaera){
+		progressDialog.cancel();
+		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_BALORAZIOA)){
+			dialog.cancel();
+			//TODO: add gertaera to array adapter ?!?		
+		}else{
+			Toast.makeText(getSherlockActivity(), "Ezin izan da balorazioa bidali! :(", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	
 	
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 100;
 	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 101;

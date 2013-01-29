@@ -36,6 +36,7 @@ public class GertaeraRESTClient extends LDRESTClient<Gertaera> {
 		requestURL = addParamToRequestURL(requestURL, "sagardotegi-id", sagardotegiId);
 		requestURL = addParamToRequestURL(requestURL, "testua", testua, true);
 		requestURL = addParamToRequestURL(requestURL, "balorazioa", balorazioa);
+		Log.d(TAG,"requestURL : " + requestURL);
 		return run(requestURL, HttpMethod.POST);
 	}
 	

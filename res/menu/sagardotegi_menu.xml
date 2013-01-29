@@ -17,8 +17,8 @@
         android:showAsAction="ifRoom|withText"
         android:title="Iruzkina"/>
     <item
-        android:id="@+id/menu_txot"
+        android:id="@+id/menu_txoootx"
         android:icon="@drawable/half_star"
         android:showAsAction="ifRoom|withText"
-        android:title="Txotx!"/>
+        android:title="Txooootx!"/>
 </menu>
