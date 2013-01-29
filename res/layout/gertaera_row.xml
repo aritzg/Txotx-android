@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/imgGertaera"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_weight="0"
         android:src="@drawable/ic_launcher" />
 
@@ -22,10 +22,6 @@
             android:gravity="right|center_vertical"
             android:orientation="horizontal" >
 
-            <net.sareweb.android.txotx.custom.UserPortrait_
-                android:id="@+id/userPortrait"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
 
             <TextView
                 android:id="@+id/txGertaeraDate"

@@ -65,10 +65,7 @@ public class GertaeraAdapter extends BaseAdapter{
 
 		TextView txGertaeraDate = (TextView) convertView.findViewById(R.id.txGertaeraDate);
 		Date tmpDate = new Date(gertaera.getCreateDate());
-		txGertaeraDate.setText(" @ " + sdf.format(tmpDate));
-
-		UserPortrait_ userPortraiet = (UserPortrait_) convertView.findViewById(R.id.userPortrait);
-		userPortraiet.updateForUser(gertaera.getUserId());
+		txGertaeraDate.setText(gertaera.getScreenName() + " @ " + sdf.format(tmpDate));
 
 		if(gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_TESTUA)){
 			drawGertaeraTestua(convertView, gertaera);
@@ -101,9 +98,10 @@ public class GertaeraAdapter extends BaseAdapter{
 
 	public void drawGertaeraBalorazioa(View convertView, Gertaera gertaera){
 		TextView txGertaeraText = (TextView) convertView.findViewById(R.id.txGertaeraText);
-		txGertaeraText.setText("Balorazioa");
+		txGertaeraText.setText(gertaera.getScreenName() + "-k " + gertaera.getBalorazioa() + " izar eman dizkio sagardotegi honi.");
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
-		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
+		imgGertaera.setPadding(10, 10, 10, 10);
+		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.rating);
 	}
 
 }
