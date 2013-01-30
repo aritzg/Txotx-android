@@ -10,6 +10,7 @@ import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.rest.DLFileEntryRESTClient;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.FragmentById;
+import com.googlecode.androidannotations.annotations.OnActivityResult;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -63,6 +65,21 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 		if(sagardotegi!=null)setSagardotegiContent(sagardotegi);
 	}
 
+	@Override
+	public void onDestroyView() {
+		try {
+			FragmentTransaction transaction = getSherlockActivity()
+					.getSupportFragmentManager().beginTransaction();
+
+			transaction.remove(mapFragment);
+
+			transaction.commit();
+		} catch (Exception e) {
+		}
+
+		super.onDestroyView();
+	}
+	
 	public void setSagardotegiContent(Sagardotegi sagardotegi){
 		this.sagardotegi=sagardotegi;
 		txIzena.setText(sagardotegi.getIzena());
