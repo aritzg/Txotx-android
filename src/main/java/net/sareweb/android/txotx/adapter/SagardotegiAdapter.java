@@ -50,7 +50,8 @@ public class SagardotegiAdapter extends BaseAdapter{
 		
 		TextView txSagardotegiName = (TextView) convertView.findViewById(R.id.txSagardotegiName);
 		String name=sagardotegi.getIzena();
-		txSagardotegiName.setText(name);
+		String herria=sagardotegi.getHerria();
+		txSagardotegiName.setText(name + " (" + herria + ")");
 		
 		
 		convertView.setTag(sagardotegiak.get(position));

@@ -69,17 +69,19 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	public void onResume() {
 		Log.d(TAG,"onAttach");
 		super.onResume();
-		if(sagardotegi.getSagardotegiId()!=0)getGertaerak(sagardotegi.getSagardotegiId());
+		if(sagardotegi.getSagardotegiId()!=0)setGertaeraContent(sagardotegi.getSagardotegiId());
 	}
 
 
 	public void setGertaeraContent(long sagardotegiId){
+		progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Gertaerak kargatzen...", true);
+		progressDialog.show();
 		getGertaerak(sagardotegiId);
 	}
 
 	@Background
 	void getGertaerak(long sagardotegiId){
-		getGertaerakResult(gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegiId, System.currentTimeMillis(), 100));
+		getGertaerakResult(gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegiId, 0, 100));
 	}
 
 	@UiThread
@@ -90,6 +92,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			gertaeraListView.setAdapter(new GertaeraAdapter(getActivity(), gertaerak));
 			gertaeraListView.setOnItemClickListener(this);
 		}
+		progressDialog.cancel();
 	}
 	
 	@OptionsItem(R.id.menu_image)
