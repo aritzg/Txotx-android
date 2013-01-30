@@ -38,11 +38,17 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	SagardotegiRESTClient sagardotegiRESTClient;
 	
 	@ViewById
-	TextView txIzena;
-	@ViewById
 	ImageView imgSagardotegi;
 	@ViewById
 	ImageView imgMap;
+	@ViewById
+	TextView txTlf;
+	@ViewById
+	TextView txEmail;
+	@ViewById
+	TextView txWeb;
+	@ViewById
+	TextView txHelbide;
 	@FragmentArg
 	Sagardotegi sagardotegi;
 	@FragmentById
@@ -82,7 +88,10 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	
 	public void setSagardotegiContent(Sagardotegi sagardotegi){
 		this.sagardotegi=sagardotegi;
-		txIzena.setText(sagardotegi.getIzena());
+		txTlf.setText(sagardotegi.getTelefonoa());
+		txEmail.setText(sagardotegi.getEmaila());
+		txWeb.setText(sagardotegi.getWeborria());
+		txHelbide.setText(sagardotegi.getHelbidea());
 		imgLoader.displayImage(ImageUtils.getSagardotegiImageUrl(sagardotegi), imgSagardotegi);
 		showHideMap(sagardotegi);
 	}
