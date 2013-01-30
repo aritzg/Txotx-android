@@ -71,7 +71,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 
 	@OptionsItem(R.id.menu_about)
 	void aboutSelected() {
-		//TODO:AboutActivity_.intent(this).start();
+		AboutActivity_.intent(this).start();
 	}
 
 	@OptionsItem(R.id.menu_log_out)

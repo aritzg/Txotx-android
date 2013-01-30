@@ -38,6 +38,7 @@
         </activity>
         <activity android:name=".activity.SagardotegiakActivity_" />
         <activity android:name=".activity.SagardotegiDetailActivity_" />
+        <activity android:name=".activity.AboutActivity_" />
         <meta-data
 			android:name="com.google.android.maps.v2.API_KEY"
 			android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ"/>
