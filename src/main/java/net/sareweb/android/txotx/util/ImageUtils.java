@@ -53,7 +53,7 @@ public class ImageUtils {
 	public static File getOutputMediaFile(String prefix){
 
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-	              Environment.DIRECTORY_PICTURES), "Onddo");
+	              Environment.DIRECTORY_PICTURES), "Txotx");
 	    if (! mediaStorageDir.exists()){
 	        if (! mediaStorageDir.mkdirs()){
 	            Log.e(TAG, "failed to create directory");

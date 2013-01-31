@@ -57,6 +57,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	ProgressDialog progressDialog;
 	DLFileEntryRESTClient dlFileEntryRESTClient;
 	String imageMessage="";
+	Uri fileUri=null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -133,7 +134,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			reqCode=CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT;
 
 			intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-			Uri fileUri = Uri.fromFile(new File(""));
+			fileUri = Uri.fromFile(ImageUtils.getOutputMediaFile(prefs.user().get()));
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 			startActivityForResult(intent, reqCode);
 			
@@ -177,6 +178,26 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 					Log.e(TAG, "Error gettig/copying or uploading file",e);
 				}
 			}
+			dialog.cancel();
+			break;
+		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT:
+			if (resultCode == getActivity().RESULT_OK) {
+
+	        	File dest = ImageUtils.getOutputMediaFile(prefs.user().get());
+
+	        	try {
+					ImageUtils.copyInputStreamToFile(getSherlockActivity().getContentResolver().openInputStream(fileUri), dest);
+					ImageUtils.resizeFile(dest);
+
+					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi, dest);
+					gehituArgazkiGertaera(dlFile, dest);
+				} 
+	        	catch (IOException e) {
+	        		progressDialog.cancel();
+					Log.e(TAG, "Error gettig/copying or uploading file",e);
+				}
+
+	        }
 			dialog.cancel();
 			break;
 		default:
