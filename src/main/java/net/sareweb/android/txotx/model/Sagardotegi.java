@@ -16,10 +16,14 @@ public class Sagardotegi extends LDObject {
 	private long edukiera;
 	private long irudiKarpetaId;
 	private String irudia;
+	private long irudiKopurua;
+	private long iruzkinKopurua;
 	private long balorazioKopurua;
 	private double balorazioenBB;
 	private long createDate;
 	private long modifiedDate;
+	
+	
 	public long getSagardotegiId() {
 		return sagardotegiId;
 	}
@@ -116,5 +120,16 @@ public class Sagardotegi extends LDObject {
 	public void setModifiedDate(long modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-	
+	public long getIrudiKopurua() {
+		return irudiKopurua;
+	}
+	public void setIrudiKopurua(long irudiKopurua) {
+		this.irudiKopurua = irudiKopurua;
+	}
+	public long getIruzkinKopurua() {
+		return iruzkinKopurua;
+	}
+	public void setIruzkinKopurua(long iruzkinKopurua) {
+		this.iruzkinKopurua = iruzkinKopurua;
+	}
 }

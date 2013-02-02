@@ -58,6 +58,15 @@ public class SagardotegiAdapter extends BaseAdapter{
 		Double bb = sagardotegi.getBalorazioenBB();
 		txBB.setText(String.format("%.1f", sagardotegi.getBalorazioenBB()));
 		
+		TextView txCountPic = (TextView) convertView.findViewById(R.id.txCountPic);
+		txCountPic.setText(String.valueOf(sagardotegi.getIrudiKopurua()));
+		
+		TextView txCountMsg = (TextView) convertView.findViewById(R.id.txCountMsg);
+		txCountMsg.setText(String.valueOf(sagardotegi.getIruzkinKopurua()));
+		
+		TextView txCountVal = (TextView) convertView.findViewById(R.id.txCountVal);
+		txCountVal.setText(String.valueOf(sagardotegi.getBalorazioKopurua()));
+		
 		convertView.setTag(sagardotegiak.get(position));
 		return convertView;
 	}

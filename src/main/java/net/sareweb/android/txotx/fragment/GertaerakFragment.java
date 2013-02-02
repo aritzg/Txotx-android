@@ -208,7 +208,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	        	File dest = ImageUtils.getOutputMediaFile(String.valueOf(sagardotegi.getSagardotegiId()));
 
 				try {
-					progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Iruzkina bidaltzen...", true);
+					progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Argazkia bidaltzen...", true);
 					progressDialog.show();
 					ImageUtils.copyInputStreamToFile(getActivity().getContentResolver().openInputStream(targetUri), dest);
 					ImageUtils.resizeFile(dest);
@@ -300,6 +300,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	@UiThread
 	void gehituArgazkiGertaeraResult(Gertaera gertaera){
+		Log.d(TAG, "gehituArgazkiGertaeraResult");
 		progressDialog.cancel();
 	}
 	
