@@ -75,18 +75,24 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	public void onResume() {
 		Log.d(TAG,"onAttach");
 		super.onResume();
-		if(sagardotegi.getSagardotegiId()!=0)setGertaeraContent(sagardotegi.getSagardotegiId());
+		if(sagardotegi.getSagardotegiId()!=0){
+			load(true);
+		}
 	}
 
-
-	public void setGertaeraContent(long sagardotegiId){
+	void load(boolean all){
 		showGertaerakKargatzen();
-		getGertaerak(sagardotegiId);
+		if(all){
+			getGertaerak();
+		}
+		else{
+			getGertaeraBerriagoak();
+		}
 	}
 
 	@Background
-	void getGertaerak(long sagardotegiId){
-		this.gertaerak=gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegiId, 0, 100);
+	void getGertaerak(){
+		this.gertaerak=gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegi.getSagardotegiId(), 0, 100);
 		getGertaerakResult();
 	}
 
@@ -123,6 +129,11 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			gertaeraAdapter.notifyDataSetChanged();
 		}
 		progressDialog.cancel();
+	}
+	
+	@OptionsItem(R.id.menu_reload)
+	void menuReload(){
+		load(false);
 	}
 	
 	
@@ -302,8 +313,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		progressDialog.cancel();
 		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_TESTUA)){
 			dialog.cancel();
-			showGertaerakKargatzen();
-			getGertaeraBerriagoak();	
+			load(false);	
 		}else{
 			Toast.makeText(getSherlockActivity(), "Ezin izan da iruzkina bidali! :(", Toast.LENGTH_SHORT).show();
 		}
@@ -319,8 +329,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		progressDialog.cancel();
 		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_BALORAZIOA)){
 			dialog.cancel();
-			showGertaerakKargatzen();
-			getGertaeraBerriagoak();		
+			load(false);		
 		}else{
 			Toast.makeText(getSherlockActivity(), "Ezin izan da balorazioa bidali! :(", Toast.LENGTH_SHORT).show();
 		}

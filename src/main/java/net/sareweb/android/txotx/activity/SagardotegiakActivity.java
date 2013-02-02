@@ -48,15 +48,15 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		loadSagardotegiak();
+		loadSagardotegiak(false);
 	}
 
 
-	private void loadSagardotegiak() {
+	private void loadSagardotegiak(boolean refresh) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		sagardotegiakFragment.setSagardotegiakContent();
+		sagardotegiakFragment.setSagardotegiakContent(refresh);
 		fragmentTransaction.commitAllowingStateLoss();
 	}
 
@@ -67,6 +67,11 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 		if(!showHomeBack){
 			//TODO:DashboardActivity_.intent(this).start();
 		}
+	}
+	
+	@OptionsItem(R.id.menu_reload)
+	void reloadSelected(){
+		loadSagardotegiak(true);
 	}
 
 	@OptionsItem(R.id.menu_about)

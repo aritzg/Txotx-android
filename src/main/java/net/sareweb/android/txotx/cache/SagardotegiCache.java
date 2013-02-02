@@ -25,8 +25,8 @@ public class SagardotegiCache {
 	}
 
 
-	public static List<Sagardotegi> getSagardotegiak(){
-		if(sagardotegiak==null || sagardotegiak.size()==0){
+	public static List<Sagardotegi> getSagardotegiak(boolean refresh){
+		if(sagardotegiak==null || sagardotegiak.size()==0 || refresh){
 			sagardotegiak = sagardotegiRESTClient.getSagardotegiak();
 		}
 		return sagardotegiak;
