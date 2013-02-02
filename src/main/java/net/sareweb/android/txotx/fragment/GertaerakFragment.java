@@ -2,6 +2,7 @@ package net.sareweb.android.txotx.fragment;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
@@ -58,6 +59,10 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	DLFileEntryRESTClient dlFileEntryRESTClient;
 	String imageMessage="";
 	Uri fileUri=null;
+	long azkenGertaerarenData=0;
+	GertaeraAdapter gertaeraAdapter = null;
+	ListView gertaeraListView;
+	List<Gertaera> gertaerak = new ArrayList<Gertaera>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,26 +80,51 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 
 
 	public void setGertaeraContent(long sagardotegiId){
-		progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Gertaerak kargatzen...", true);
-		progressDialog.show();
+		showGertaerakKargatzen();
 		getGertaerak(sagardotegiId);
 	}
 
 	@Background
 	void getGertaerak(long sagardotegiId){
-		getGertaerakResult(gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegiId, 0, 100));
+		this.gertaerak=gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegiId, 0, 100);
+		getGertaerakResult();
 	}
 
 	@UiThread
-	void getGertaerakResult(List<Gertaera> gertaerak){
+	void getGertaerakResult(){
 		if(gertaerak!=null){
-			Log.d(TAG, "gertaerak " + gertaerak.size());
-			ListView gertaeraListView = (ListView) getActivity().findViewById(R.id.gertaera_list_view);
-			gertaeraListView.setAdapter(new GertaeraAdapter(getActivity(), gertaerak));
+			if(gertaerak.size()>0){
+				azkenGertaerarenData = gertaerak.get(0).getCreateDate(); 
+			}
+			gertaeraListView = (ListView) getActivity().findViewById(R.id.gertaera_list_view);
+			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak);
+			gertaeraListView.setAdapter(gertaeraAdapter);
 			gertaeraListView.setOnItemClickListener(this);
 		}
 		progressDialog.cancel();
 	}
+	
+	@Background
+	void getGertaeraBerriagoak(){
+		Log.d(TAG, "Gertaera zerrenda eguneratzen");
+		try {
+			getGertaeraBerriagoakResult(gertaeraRESTClient.getGertaerakNewerThanDate(sagardotegi.getSagardotegiId(), azkenGertaerarenData, 100));
+		} catch (Exception e) {
+			getGertaeraBerriagoakResult(null);
+		}
+		
+	}
+
+	@UiThread
+	void getGertaeraBerriagoakResult(List<Gertaera> gertaeraBerriak){
+		if(gertaeraBerriak!=null && gertaeraBerriak.size()>0){
+			azkenGertaerarenData = gertaeraBerriak.get(0).getCreateDate();
+			gertaerak.addAll(0,gertaeraBerriak);
+			gertaeraAdapter.notifyDataSetChanged();
+		}
+		progressDialog.cancel();
+	}
+	
 	
 	@OptionsItem(R.id.menu_image)
 	void addImage(){
@@ -242,6 +272,13 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		btnComment.setOnClickListener(this);
 		dialog.show();
 	}
+	
+	private void showGertaerakKargatzen(){
+		progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Gertaerak kargatzen...", true);
+		progressDialog.show();
+	}
+	
+	
 
 	@Background
 	void gehituArgazkiGertaera(DLFileEntry dlFileEntry, File file){
@@ -265,7 +302,8 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		progressDialog.cancel();
 		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_TESTUA)){
 			dialog.cancel();
-			//TODO: add gertaera to array adapter ?!?		
+			showGertaerakKargatzen();
+			getGertaeraBerriagoak();	
 		}else{
 			Toast.makeText(getSherlockActivity(), "Ezin izan da iruzkina bidali! :(", Toast.LENGTH_SHORT).show();
 		}
@@ -281,7 +319,8 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		progressDialog.cancel();
 		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_BALORAZIOA)){
 			dialog.cancel();
-			//TODO: add gertaera to array adapter ?!?		
+			showGertaerakKargatzen();
+			getGertaeraBerriagoak();		
 		}else{
 			Toast.makeText(getSherlockActivity(), "Ezin izan da balorazioa bidali! :(", Toast.LENGTH_SHORT).show();
 		}

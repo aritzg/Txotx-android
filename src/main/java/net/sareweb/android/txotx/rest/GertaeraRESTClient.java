@@ -50,10 +50,11 @@ public class GertaeraRESTClient extends LDRESTClient<Gertaera> {
 	}
 	
 	public List<Gertaera> getGertaerakNewerThanDate(long sagardotegiId, long date, int blockSize){
-		String requestURL = getBaseURL() + "/get-gertaerak-older-than-date";
+		String requestURL = getBaseURL() + "/get-gertaerak-newer-than-date";
 		requestURL = addParamToRequestURL(requestURL, "sagardotegi-id", sagardotegiId);
 		requestURL = addParamToRequestURL(requestURL, "date", date);
 		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
+		Log.d(TAG,"requestURL : " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
 	

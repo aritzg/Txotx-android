@@ -6,6 +6,7 @@ import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.model.Sagardotegi;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,9 @@ public class SagardotegiAdapter extends BaseAdapter{
 		String herria=sagardotegi.getHerria();
 		txSagardotegiName.setText(name + " (" + herria + ")");
 		
+		TextView txBB = (TextView) convertView.findViewById(R.id.txBB);
+		Double bb = sagardotegi.getBalorazioenBB();
+		txBB.setText(String.format("%.1f", sagardotegi.getBalorazioenBB()));
 		
 		convertView.setTag(sagardotegiak.get(position));
 		return convertView;

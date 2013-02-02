@@ -27,6 +27,13 @@
         android:layout_weight="1"
         android:text="sagardotegiName"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
+    <TextView
+        android:id="@+id/txBB"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+       android:layout_gravity="center_vertical"
+        android:text="10.0"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
    
 </LinearLayout>
