@@ -8,7 +8,6 @@ import net.sareweb.android.txotx.rest.TxotxConnectionData;
 import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.rest.DLFileEntryRESTClient;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -25,7 +23,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.FragmentById;
-import com.googlecode.androidannotations.annotations.OnActivityResult;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -107,12 +104,18 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 
 			GoogleMap map = mapFragment.getMap();
 			map.clear();
+			
 			LatLng latLng = new LatLng(sagardotegi.getLat(), sagardotegi.getLng());
-			CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(latLng, 8);
-			map.moveCamera(cu);
 			MarkerOptions mo =new MarkerOptions();
 			mo.position(latLng);
 			map.addMarker(mo);
+			
+			
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+			map.animateCamera(CameraUpdateFactory.scrollBy(20,20));
+			
+			
+			
 			imgMap.setVisibility(View.GONE);
 		}
 	}

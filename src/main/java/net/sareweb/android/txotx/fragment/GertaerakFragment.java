@@ -2,11 +2,14 @@ package net.sareweb.android.txotx.fragment;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.adapter.GertaeraAdapter;
+import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Gertaera;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.rest.GertaeraRESTClient;
@@ -20,6 +23,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -35,6 +39,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
@@ -63,12 +68,14 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	GertaeraAdapter gertaeraAdapter = null;
 	ListView gertaeraListView;
 	List<Gertaera> gertaerak = new ArrayList<Gertaera>();
+	ImageLoader imgLoader;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		dlFileEntryRESTClient = new DLFileEntryRESTClient(new TxotxConnectionData(prefs));
 		gertaeraRESTClient = new GertaeraRESTClient(new TxotxConnectionData(prefs));
+		imgLoader = new ImageLoader(getActivity());
 	}
 
 	@Override
@@ -208,8 +215,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	        	File dest = ImageUtils.getOutputMediaFile(String.valueOf(sagardotegi.getSagardotegiId()));
 
 				try {
-					progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Argazkia bidaltzen...", true);
-					progressDialog.show();
+					Log.d(TAG, "Argazkia bidaltzen...");
 					ImageUtils.copyInputStreamToFile(getActivity().getContentResolver().openInputStream(targetUri), dest);
 					ImageUtils.resizeFile(dest);
 					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi, dest);
@@ -289,6 +295,25 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		progressDialog.show();
 	}
 	
+	private void showArgazkiaDialog(Gertaera gertaera){
+		dialog = new Dialog(getActivity(),R.style.Theme_Sherlock_Light);
+		dialog.setContentView(R.layout.image_dialog);
+		dialog.setCanceledOnTouchOutside(true);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd hh:mm");
+		Date tmpDate = new Date(gertaera.getCreateDate());
+		TextView txTitle =(TextView)dialog.findViewById(R.id.txTitle);
+		txTitle.setText(gertaera.getScreenName() + " @ " + sdf.format(tmpDate));
+		
+		ImageView imgGertaera = (ImageView)dialog.findViewById(R.id.imgGertaera);
+		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
+		
+		TextView txImageMessage =(TextView)dialog.findViewById(R.id.txImageMessage);
+		txImageMessage.setText(gertaera.getTestua());
+	
+		dialog.show();
+	}
+	
 	
 
 	@Background
@@ -301,7 +326,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	@UiThread
 	void gehituArgazkiGertaeraResult(Gertaera gertaera){
 		Log.d(TAG, "gehituArgazkiGertaeraResult");
-		progressDialog.cancel();
+		load(false);
 	}
 	
 	@Background
@@ -343,7 +368,10 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+		Gertaera gertaera = (Gertaera) view.getTag();
+		if(gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_ARGAZKIA)){
+			showArgazkiaDialog(gertaera);
+		}
 	}
 
 }
