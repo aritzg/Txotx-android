@@ -9,6 +9,7 @@ import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,6 +53,6 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Sagardotegi sagardotegi = (Sagardotegi) view.getTag();
 		Log.d(TAG, "Selected sagardotegi " + sagardotegi.getSagardotegiId());
-		SagardotegiDetailActivity_.intent(getSherlockActivity()).sagardotegi(sagardotegi).start();
+		SagardotegiDetailActivity_.intent(getSherlockActivity()).flags(Intent.FLAG_ACTIVITY_NO_HISTORY).sagardotegi(sagardotegi).start();
 	}
 }

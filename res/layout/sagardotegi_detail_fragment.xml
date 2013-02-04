@@ -37,7 +37,7 @@
                     android:visibility="gone"
                     map:uiScrollGestures="false"
                     map:uiZoomControls="false"
-                    map:uiZoomGestures="false" />
+                    map:uiZoomGestures="true"/>
             </LinearLayout>
 
             <ImageView
@@ -79,7 +79,9 @@
                     android:id="@+id/txTlf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +100,8 @@
                     android:id="@+id/txEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
             <LinearLayout
@@ -117,7 +120,8 @@
                     android:id="@+id/txWeb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
             <LinearLayout
@@ -137,8 +141,8 @@
                     android:id="@+id/txHelbide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

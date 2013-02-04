@@ -49,7 +49,8 @@ public class LogInActivity extends Activity implements OnClickListener{
 		SagardotegiCache.init(prefs);
 		if(PrefUtils.isUserLogged(prefs)){
 			finish();
-			SagardotegiakActivity_.intent(this).start();
+			DashboardActivity_.intent(this).redirect(true).start();
+			//SagardotegiakActivity_.intent(this).start();
 		}
 	}
 	
@@ -127,7 +128,8 @@ public class LogInActivity extends Activity implements OnClickListener{
 		else{
 			loginUser(user);
 			finish();
-			SagardotegiakActivity_.intent(this).start();
+			DashboardActivity_.intent(this).redirect(true).start();
+			//SagardotegiakActivity_.intent(this).start();
 		}
 		dialog.cancel();
 	}
@@ -247,7 +249,8 @@ public class LogInActivity extends Activity implements OnClickListener{
 			Toast.makeText(this, "User registered", Toast.LENGTH_LONG).show();
 			dialog.cancel();
 			finish();
-			SagardotegiakActivity_.intent(this).start();
+			DashboardActivity_.intent(this).redirect(true).start();
+			//SagardotegiakActivity_.intent(this).start();
 			break;
 		case REGISTER_ERROR:
 			Toast.makeText(this, "Error creating user!", Toast.LENGTH_LONG).show();

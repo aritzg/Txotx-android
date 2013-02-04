@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.activity.DashboardActivity_;
 import net.sareweb.android.txotx.adapter.GertaeraAdapter;
 import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Gertaera;
@@ -136,6 +137,11 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			gertaeraAdapter.notifyDataSetChanged();
 		}
 		progressDialog.cancel();
+	}
+	
+	@OptionsItem({R.id.menu_home,android.R.id.home})
+	void homeSelected() {
+		DashboardActivity_.intent(getSherlockActivity()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP).start();
 	}
 	
 	@OptionsItem(R.id.menu_reload)

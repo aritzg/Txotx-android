@@ -27,7 +27,6 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 
 	private static String TAG = "SagardotegiakActivity";
 
-	@Extra boolean showHomeBack=false;
 	@FragmentById
 	SagardotegiakFragment sagardotegiakFragment;
 	@Pref
@@ -41,7 +40,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayHomeAsUpEnabled(showHomeBack);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 	}
 
@@ -64,9 +63,6 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	@OptionsItem({R.id.menu_home,android.R.id.home})
 	void homeSelected() {
 		finish();
-		if(!showHomeBack){
-			DashboardActivity_.intent(this).start();
-		}
 	}
 	
 	@OptionsItem(R.id.menu_reload)
