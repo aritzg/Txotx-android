@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:txotx="http://schemas.android.com/apk/res/net.sareweb.android.txotx"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:src="@drawable/logo" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+       
+            <net.sareweb.android.txotx.custom.DashboardButton_
+                android:id="@+id/btnList"
+                android:layout_weight="1"
+                txotx:buttonText="Zerrenda"
+                txotx:imgResId="@drawable/list" />
+
+            <net.sareweb.android.txotx.custom.DashboardButton_
+                android:id="@+id/btnMap"
+                android:layout_weight="1"
+                txotx:buttonText="Mapa"
+                txotx:imgResId="@drawable/sagardotegi_map" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <net.sareweb.android.txotx.custom.DashboardButton_
+                android:id="@+id/btnAbout"
+                android:layout_weight="1"
+                txotx:buttonText="Txotx!-i buruz"
+                txotx:imgResId="@drawable/logo" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

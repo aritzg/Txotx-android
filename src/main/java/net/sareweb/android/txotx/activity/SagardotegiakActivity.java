@@ -65,7 +65,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	void homeSelected() {
 		finish();
 		if(!showHomeBack){
-			//TODO:DashboardActivity_.intent(this).start();
+			DashboardActivity_.intent(this).start();
 		}
 	}
 	
