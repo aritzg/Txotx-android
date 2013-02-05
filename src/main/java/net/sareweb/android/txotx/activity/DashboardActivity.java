@@ -29,6 +29,7 @@ public class DashboardActivity extends SherlockActivity {
 
 	@Click(R.id.btnMap)
 	public void clickOnSagardotegiMap(){
+		SagardotegiMapActivity_.intent(this).start();
 	}
 
 

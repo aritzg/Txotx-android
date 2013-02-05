@@ -11,6 +11,9 @@ public class Constants {
 	public static final String GERTAERA_MOTA_ARGAZKIA="GERTAERA_MOTA_ARGAZKIA";
 	public static final String GERTAERA_MOTA_BALORAZIOA="GERTAERA_MOTA_BALORAZIOA";
 	
+	public static double DEFAULT_LAT=43.300251;
+	public static double DEFAULT_LNG=-1.99838;
+	
 	//public static final long IMAGE_FOLDER = 0;
 	public static final long GROUP = 10180;
 }
