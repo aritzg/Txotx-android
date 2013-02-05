@@ -1,6 +1,7 @@
 package net.sareweb.android.txotx.fragment;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.rest.SagardotegiRESTClient;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.FragmentById;
@@ -59,7 +61,8 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 		sagardotegiRESTClient = new SagardotegiRESTClient(new TxotxConnectionData(prefs));
 
 		imgLoader = new ImageLoader(getActivity());
-
+		
+		gertaerakAldezAurretikEkarri();
 	}
 
 	@Override
@@ -118,6 +121,11 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 			
 			imgMap.setVisibility(View.GONE);
 		}
+	}
+	
+	@Background
+	public void gertaerakAldezAurretikEkarri(){
+		GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), true);
 	}
 	
 	

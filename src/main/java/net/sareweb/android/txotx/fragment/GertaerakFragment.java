@@ -10,6 +10,7 @@ import java.util.List;
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.activity.DashboardActivity_;
 import net.sareweb.android.txotx.adapter.GertaeraAdapter;
+import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Gertaera;
 import net.sareweb.android.txotx.model.Sagardotegi;
@@ -100,7 +101,8 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 
 	@Background
 	void getGertaerak(){
-		this.gertaerak=gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegi.getSagardotegiId(), 0, 100);
+		//this.gertaerak=gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegi.getSagardotegiId(), 0, 100);
+		this.gertaerak=GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), false);
 		getGertaerakResult();
 	}
 
@@ -122,7 +124,8 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	void getGertaeraBerriagoak(){
 		Log.d(TAG, "Gertaera zerrenda eguneratzen");
 		try {
-			getGertaeraBerriagoakResult(gertaeraRESTClient.getGertaerakNewerThanDate(sagardotegi.getSagardotegiId(), azkenGertaerarenData, 100));
+			//getGertaeraBerriagoakResult(gertaeraRESTClient.getGertaerakNewerThanDate(sagardotegi.getSagardotegiId(), azkenGertaerarenData, 100));
+			getGertaeraBerriagoakResult(GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), true));
 		} catch (Exception e) {
 			getGertaeraBerriagoakResult(null);
 		}

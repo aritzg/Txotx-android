@@ -1,6 +1,7 @@
 package net.sareweb.android.txotx.activity;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
@@ -47,6 +48,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		UserCache.init(prefs);
 		SagardotegiCache.init(prefs);
+		GertaeraCache.init(prefs);
 		if(PrefUtils.isUserLogged(prefs)){
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
