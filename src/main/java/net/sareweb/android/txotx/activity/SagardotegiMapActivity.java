@@ -81,17 +81,19 @@ public class SagardotegiMapActivity extends SherlockFragmentActivity  implements
 	@UiThread
 	public void getSagardotegiaksResult(List<Sagardotegi> sagardotegiak){
 		GoogleMap map = mapFragment.getMap();
-		HashMap<Marker, Sagardotegi> sagardotegiHM = new HashMap<Marker, Sagardotegi>();
+		map.clear();
+		HashMap<String, Sagardotegi> sagardotegiHM = new HashMap<String, Sagardotegi>();
 		for(Sagardotegi sagardotegi : sagardotegiak){
 			if(sagardotegi.getLat()!=0 && sagardotegi.getLng()!=0){
 				LatLng sagardotegiPosition = new LatLng(sagardotegi.getLat(), sagardotegi.getLng());
 				MarkerOptions mo = new MarkerOptions();
 				mo.position(sagardotegiPosition);
-				sagardotegiHM.put(map.addMarker(mo), sagardotegi);
+				sagardotegiHM.put(map.addMarker(mo).getId(), sagardotegi);
 			}
 		}
-		map.setInfoWindowAdapter(new SagardotegiInfoWindowAdapter(this, sagardotegiHM));
-	
+		SagardotegiInfoWindowAdapter siwAdapter = (new SagardotegiInfoWindowAdapter(this, sagardotegiHM));
+		map.setInfoWindowAdapter(siwAdapter);
+		map.setOnInfoWindowClickListener(siwAdapter);
 	}
 
 	@OptionsItem(android.R.id.home)
