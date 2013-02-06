@@ -66,7 +66,6 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	DLFileEntryRESTClient dlFileEntryRESTClient;
 	String imageMessage="";
 	Uri fileUri=null;
-	long azkenGertaerarenData=0;
 	GertaeraAdapter gertaeraAdapter = null;
 	ListView gertaeraListView;
 	List<Gertaera> gertaerak = new ArrayList<Gertaera>();
@@ -109,9 +108,6 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	@UiThread
 	void getGertaerakResult(){
 		if(gertaerak!=null){
-			if(gertaerak.size()>0){
-				azkenGertaerarenData = gertaerak.get(0).getCreateDate(); 
-			}
 			gertaeraListView = (ListView) getActivity().findViewById(R.id.gertaera_list_view);
 			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak);
 			gertaeraListView.setAdapter(gertaeraAdapter);
@@ -134,11 +130,6 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 
 	@UiThread
 	void getGertaeraBerriagoakResult(List<Gertaera> gertaeraBerriak){
-		if(gertaeraBerriak!=null && gertaeraBerriak.size()>0){
-			azkenGertaerarenData = gertaeraBerriak.get(0).getCreateDate();
-			gertaerak.addAll(0,gertaeraBerriak);
-			gertaeraAdapter.notifyDataSetChanged();
-		}
 		progressDialog.cancel();
 	}
 	

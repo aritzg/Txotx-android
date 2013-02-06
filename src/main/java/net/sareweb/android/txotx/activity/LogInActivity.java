@@ -46,6 +46,13 @@ public class LogInActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if(!ConnectionUtils.isOnline(this)){
+			finish();
+			NoConnActivity_.intent(this).start();
+			return;
+		}
+		
 		UserCache.init(prefs);
 		SagardotegiCache.init(prefs);
 		GertaeraCache.init(prefs);
