@@ -36,6 +36,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		Log.d(TAG, "onCreate");
 
 		actionBar = getSupportActionBar();

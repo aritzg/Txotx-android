@@ -100,7 +100,6 @@ public class GertaeraAdapter extends BaseAdapter{
 		TextView txGertaeraText = (TextView) convertView.findViewById(R.id.txGertaeraText);
 		txGertaeraText.setText(gertaera.getScreenName() + "-k " + gertaera.getBalorazioa() + " izar eman dizkio sagardotegi honi.");
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
-		imgGertaera.setPadding(10, 10, 10, 10);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.rating);
 	}
 

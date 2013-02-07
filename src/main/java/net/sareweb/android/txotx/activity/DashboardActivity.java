@@ -35,6 +35,7 @@ public class DashboardActivity extends SherlockActivity {
 
 	@Click(R.id.btnAbout)
 	public void clickOnAbout(){
+		AboutActivity_.intent(this).start();
 	}
 
 }

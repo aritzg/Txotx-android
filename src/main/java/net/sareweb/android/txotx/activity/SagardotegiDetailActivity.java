@@ -5,6 +5,9 @@ import net.sareweb.android.txotx.fragment.SagardotegiDetailFragment;
 import net.sareweb.android.txotx.listener.tab.SagardotegiDetailTabListener;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -18,13 +21,20 @@ import com.googlecode.androidannotations.annotations.OptionsMenu;
 @EActivity(R.layout.sagardotegi_detail_activity)
 public class SagardotegiDetailActivity extends SherlockFragmentActivity{
 
-	@Extra
-	Sagardotegi sagardotegi;
+	private static String TAG = "SagardotegiDetailActivity";
+	@Extra Sagardotegi sagardotegi;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Log.d(TAG,"onCreate");
+		
+		/*if(savedInstanceState!=null){
+			//Workarond: Pantaila giratu da eta fragment kabiatuek erroreak ematen dituzte.
+			finish();
+			return;
+		}*/
+		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -40,13 +50,32 @@ public class SagardotegiDetailActivity extends SherlockFragmentActivity{
 		gardenEventsTab.setTabListener(new SagardotegiDetailTabListener(sagardotegi, SagardotegiDetailTabListener.SAGARDOTEGI_GERTAERAK, this));
 		actionBar.addTab(gardenEventsTab);
 
-		//actionBar.setSelectedNavigationItem(0);
+		actionBar.setSelectedNavigationItem(0);
 	}
 
 	@Override
 	protected void onResume() {
+		Log.d(TAG,"onResume");
 		super.onResume();
 		//gardenDetailFragment.setGardenContent(garden);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.d(TAG,"onPause");
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		Log.d(TAG,"onStop");
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		Log.d(TAG,"onDestry");
 	}
 
 	@OptionsItem

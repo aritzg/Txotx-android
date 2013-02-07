@@ -48,6 +48,11 @@ public class GertaeraCache {
 		}
 	}
 	
+	public static void gehituGertaera(Gertaera gertaera){
+		if(gertaera==null)return;
+		sagardotegiGertaerak.get(gertaera.getSagardotegiId()).appendGertaera(gertaera);
+	}
+	
 	
 	public static class GertaeraZerrenda{
 		private long updateDate;
@@ -59,6 +64,14 @@ public class GertaeraCache {
 		
 		public void appendGertaerak(List<Gertaera> gertaeraBerriak){
 			gertaerak.addAll(0, gertaeraBerriak);
+			if(gertaerak.size()>0){
+				Gertaera g = gertaerak.get(0);	
+				updateDate = g.getCreateDate();
+			}
+		}
+		
+		public void appendGertaera(Gertaera gertaeraBerria){
+			gertaerak.add(0, gertaeraBerria);
 			if(gertaerak.size()>0){
 				Gertaera g = gertaerak.get(0);	
 				updateDate = g.getCreateDate();

@@ -10,7 +10,10 @@ import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.rest.DLFileEntryRESTClient;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +60,7 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        
 		dlFileEntryRESTClient = new DLFileEntryRESTClient(new TxotxConnectionData(prefs));
 		sagardotegiRESTClient = new SagardotegiRESTClient(new TxotxConnectionData(prefs));
 
@@ -64,13 +68,19 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 		
 		gertaerakAldezAurretikEkarri();
 	}
+	
+	@Override
+	public View onCreateView(android.view.LayoutInflater inflater, android.view.ViewGroup container, Bundle savedInstanceState) {
+		return super.onCreateView(inflater, container, savedInstanceState);
+	}
+	
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		if(sagardotegi!=null)setSagardotegiContent(sagardotegi);
 	}
-
+	
 	@Override
 	public void onDestroyView() {
 		try {
@@ -85,6 +95,7 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 
 		super.onDestroyView();
 	}
+
 	
 	public void setSagardotegiContent(Sagardotegi sagardotegi){
 		this.sagardotegi=sagardotegi;
@@ -125,7 +136,11 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	
 	@Background
 	public void gertaerakAldezAurretikEkarri(){
-		GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), true);
+		try {
+			GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), true);
+		} catch (Exception e) {
+			Log.e(TAG, "Errorea gertaerak aldez aurretik kargatzen");
+		}
 	}
 	
 	

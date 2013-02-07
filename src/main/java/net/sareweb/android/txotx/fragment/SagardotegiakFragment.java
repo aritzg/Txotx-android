@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
@@ -43,9 +44,15 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 
 	@UiThread
 	public void getSagardotegiakResult(List<Sagardotegi> sagardotegiak){
-		ListView gardensListView = (ListView) getActivity().findViewById(R.id.sagardotegiak_list_view);
-		gardensListView.setAdapter(new SagardotegiAdapter(getActivity(), sagardotegiak));
-		gardensListView.setOnItemClickListener(this);
+		if(sagardotegiak!=null){
+			ListView gardensListView = (ListView) getActivity().findViewById(R.id.sagardotegiak_list_view);
+			gardensListView.setAdapter(new SagardotegiAdapter(getActivity(), sagardotegiak));
+			gardensListView.setOnItemClickListener(this);
+		}
+		else{
+			Toast.makeText(getActivity(), "Errorea sagardotegiak kargatzen!!", Toast.LENGTH_LONG).show();
+			SagardotegiCache.init(prefs);
+		}
 		dialog.cancel();
 	}
 
@@ -53,6 +60,6 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Sagardotegi sagardotegi = (Sagardotegi) view.getTag();
 		Log.d(TAG, "Selected sagardotegi " + sagardotegi.getSagardotegiId());
-		SagardotegiDetailActivity_.intent(getSherlockActivity()).flags(Intent.FLAG_ACTIVITY_NO_HISTORY).sagardotegi(sagardotegi).start();
+		SagardotegiDetailActivity_.intent(getSherlockActivity()).sagardotegi(sagardotegi).start();
 	}
 }

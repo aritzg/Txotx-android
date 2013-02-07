@@ -62,6 +62,7 @@ public class SagardotegiMapActivity extends SherlockFragmentActivity  implements
 
 	@Override
 	protected void onResume() {
+		Log.d(TAG, "onResume");
 		super.onResume();
 		LatLng position = new LatLng(Constants.DEFAULT_LAT, Constants.DEFAULT_LNG);
 
@@ -80,6 +81,7 @@ public class SagardotegiMapActivity extends SherlockFragmentActivity  implements
 
 	@UiThread
 	public void getSagardotegiaksResult(List<Sagardotegi> sagardotegiak){
+		Log.d(TAG, "Sagardotegiak mapan jartzen");
 		GoogleMap map = mapFragment.getMap();
 		map.clear();
 		HashMap<String, Sagardotegi> sagardotegiHM = new HashMap<String, Sagardotegi>();

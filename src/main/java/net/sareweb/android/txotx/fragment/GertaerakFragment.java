@@ -326,7 +326,13 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	@UiThread
 	void gehituArgazkiGertaeraResult(Gertaera gertaera){
 		Log.d(TAG, "gehituArgazkiGertaeraResult");
-		load(false);
+		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_ARGAZKIA)){
+			dialog.cancel();
+			GertaeraCache.gehituGertaera(gertaera);
+			load(true);	
+		}else{
+			Toast.makeText(getSherlockActivity(), "Ezin izan da argazkia bidali! :(", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	@Background
@@ -339,7 +345,8 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		progressDialog.cancel();
 		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_TESTUA)){
 			dialog.cancel();
-			load(false);	
+			GertaeraCache.gehituGertaera(gertaera);
+			load(true);	
 		}else{
 			Toast.makeText(getSherlockActivity(), "Ezin izan da iruzkina bidali! :(", Toast.LENGTH_SHORT).show();
 		}
@@ -355,7 +362,8 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		progressDialog.cancel();
 		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_BALORAZIOA)){
 			dialog.cancel();
-			load(false);		
+			GertaeraCache.gehituGertaera(gertaera);
+			load(true);		
 		}else{
 			Toast.makeText(getSherlockActivity(), "Ezin izan da balorazioa bidali! :(", Toast.LENGTH_SHORT).show();
 		}
