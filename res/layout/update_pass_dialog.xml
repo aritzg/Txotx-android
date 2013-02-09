@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <EditText
+        android:id="@+id/txPass1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Pasahitz berria"/>
+    
+    <EditText
+        android:id="@+id/txPass2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+		android:hint="Pasahitz berria berriz"/>
+
+    <Button
+        android:id="@+id/btnUpdatePass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pasahitza aldatu" />
+
+</LinearLayout>

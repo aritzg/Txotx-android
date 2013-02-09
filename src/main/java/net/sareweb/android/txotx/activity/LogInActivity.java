@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -53,9 +54,9 @@ public class LogInActivity extends Activity implements OnClickListener{
 			return;
 		}
 		
-		UserCache.init(prefs);
+		/*UserCache.init(prefs);
 		SagardotegiCache.init(prefs);
-		GertaeraCache.init(prefs);
+		GertaeraCache.init(prefs);*/
 		if(PrefUtils.isUserLogged(prefs)){
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
@@ -99,10 +100,11 @@ public class LogInActivity extends Activity implements OnClickListener{
 			Account account = (Account)accounts[0];
 			registerDialog = new Dialog(this);
 			registerDialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-			registerDialog.setTitle("Create account");
+			registerDialog.setTitle("Kontua sortu");
 			registerDialog.setContentView(R.layout.register_dialog);
 			TextView txEmailAddress = (TextView)registerDialog.findViewById(R.id.txEmailAddress);
 			txEmailAddress.setText(account.name);
+			prefs.email().put(account.name);
 			registerDialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_launcher);
 			registerDialog.setCanceledOnTouchOutside(true);
 			Button createAccountButton = (Button)registerDialog.findViewById(R.id.btnCreateAccount);
@@ -118,24 +120,29 @@ public class LogInActivity extends Activity implements OnClickListener{
 	@Background
 	void validateUser(){
 		if(txPass.getText().toString().equals("")){
-			validateUserResult(null);
+			validateUserResult(null, null);
 		}
 		else{
+			prefs.email().put(txEmailAddress.getText().toString());
+			prefs.pass().put(txPass.getText().toString());
 			userRESTClient = new UserRESTClient(new TxotxConnectionData(prefs));
 			User user = userRESTClient.getUserByEmailAddress(txEmailAddress.getText().toString());
-			validateUserResult(user);
+			
+			validateUserResult(user, txPass.getText().toString());
 		}
 	}
 	
 	@UiThread
-	void validateUserResult(User user){
+	void validateUserResult(User user, String pass){
 		if(UserUtils.isEmptyUser(user)){
 			prefs.user().put("");
 			prefs.pass().put("");
+			prefs.userId().put(0);
 			Toast.makeText(this, "Incorrect user or password.", Toast.LENGTH_SHORT).show();
 		}
 		else{
-			loginUser(user);
+			Log.d(TAG, "got user email:" + user.getEmailAddress() + " screenName:" + user.getScreenName());
+			loginUser(user, pass);
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
 			//SagardotegiakActivity_.intent(this).start();
@@ -143,9 +150,11 @@ public class LogInActivity extends Activity implements OnClickListener{
 		dialog.cancel();
 	}
 	
-	private void loginUser(User user){
+	private void loginUser(User user, String pass){
+		prefs.email().put(user.getEmailAddress());
 		prefs.user().put(user.getScreenName());
-		prefs.pass().put(txPass.getText().toString());
+		prefs.pass().put(pass);
+		prefs.userId().put(user.getUserId());
 	}
 
 
@@ -160,7 +169,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 			EditText txPass2 = (EditText)registerDialog.findViewById(R.id.txPass2);
 			if(validRegisterForm(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(),txUserName.getText().toString(), txPass1.getText().toString(), txPass2.getText().toString())){
 				registerDialog.cancel();
-				dialog = ProgressDialog.show(this, "", "Creating account", true);
+				dialog = ProgressDialog.show(this, "", "Kontua sortzen", true);
 				dialog.show();
 				createAccount(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(), txUserName.getText().toString(), txPass1.getText().toString());
 			}
@@ -202,6 +211,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 	
 	@Background
 	void createAccount(String emailAddress, String name, String surname, String userName, String pass){
+		PrefUtils.clearUserPrefs(prefs);
 		userRESTClient = new UserRESTClient(new TxotxConnectionData(prefs));
 		User user = userRESTClient.getUserByEmailAddress(emailAddress);
 		if(!UserUtils.isEmptyUser(user)){//Retrieve user
@@ -238,8 +248,11 @@ public class LogInActivity extends Activity implements OnClickListener{
 				null,
 				null,
 				true);
-		if(!UserUtils.isEmptyUser(user)){//Check user has been created
-			loginUser(user);
+		if(!UserUtils.isEmptyUser(user)){
+			//When creating users email address is not returned??
+			user.setEmailAddress(emailAddress);
+			loginUser(user, pass);
+			Log.d(TAG, prefs.email().get()  + "/" + prefs.pass().get());
 			createAccountResult(REGISTER_OK);
 		}
 		else{

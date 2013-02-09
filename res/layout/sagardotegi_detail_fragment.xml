@@ -144,6 +144,27 @@
                     android:layout_gravity="center_vertical"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0" >
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:src="@drawable/social_group" />
+
+                <TextView
+                    android:id="@+id/txEdukiera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

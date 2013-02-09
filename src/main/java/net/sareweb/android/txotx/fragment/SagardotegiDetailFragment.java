@@ -51,6 +51,8 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	TextView txWeb;
 	@ViewById
 	TextView txHelbide;
+	@ViewById
+	TextView txEdukiera;
 	@FragmentArg
 	Sagardotegi sagardotegi;
 	@FragmentById
@@ -104,6 +106,11 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 		txWeb.setText(sagardotegi.getWeborria());
 		txHelbide.setText(sagardotegi.getHelbidea());
 		imgLoader.displayImage(ImageUtils.getSagardotegiImageUrl(sagardotegi), imgSagardotegi);
+		if(sagardotegi.getEdukiera()!=0){
+			txEdukiera.setText(sagardotegi.getEdukiera() + " lagun");
+		}else{
+			txEdukiera.setText("Edukiera ezezaguna");
+		}
 		showHideMap(sagardotegi);
 	}
 	

@@ -1,5 +1,6 @@
 package net.sareweb.android.txotx.rest;
 
+import android.util.Log;
 import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.rest.ConnectionData;
@@ -8,14 +9,14 @@ public class TxotxConnectionData extends ConnectionData {
 
 	private String user=null;
 	private String pass=null;
-	private String defaultUser=Constants.DEFAULT_USER;
-	private String defaultPass=Constants.DEFAULT_PASS;
+	private static String TAG = "TxotxConnectionData";
 
 	public TxotxConnectionData(TxotxPrefs_ prefs){
-		user = prefs.user().get();
-		if(user==null || "".equals(user))user=defaultUser;
+		user = prefs.email().get();
+		if(user==null || "".equals(user))user=Constants.DEFAULT_EMAIL;
 		pass = prefs.pass().get();
-		if(pass==null || "".equals(pass))pass=defaultPass;
+		if(pass==null || "".equals(pass))pass=Constants.DEFAULT_PASS;
+		Log.d(TAG, user + "/" + pass);
 	}
 
 	@Override
@@ -45,12 +46,12 @@ public class TxotxConnectionData extends ConnectionData {
 
 	@Override
 	public String getDefaultUser() {
-		return defaultUser;
+		return Constants.DEFAULT_USER;
 	}
 
 	@Override
 	public String getDefaultPass() {
-		return defaultPass;
+		return Constants.DEFAULT_PASS;
 	}
 
 	@Override

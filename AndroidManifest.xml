@@ -40,12 +40,21 @@
         <activity android:name=".activity.SagardotegiMapActivity_" />
         <activity android:name=".activity.SagardotegiDetailActivity_" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".activity.DashboardActivity_" />
+        <activity android:name=".activity.SettingsActivity_" />
         <activity android:name=".activity.AboutActivity_" />
         <activity android:name=".activity.NoConnActivity_" />
 
+        <!-- Debug
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ" />
+            android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ" /> -->
+            
+        <!-- Release -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAF5uG5kAJCsuUXb25O9_QOyADMEwMkyDk" />
+        
+        
     </application>
 
 </manifest>

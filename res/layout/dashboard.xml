@@ -49,6 +49,12 @@
                 android:layout_weight="1"
                 txotx:buttonText="Txotx!-i buruz"
                 txotx:imgResId="@drawable/logo" />
+            
+            <net.sareweb.android.txotx.custom.DashboardButton_
+                android:id="@+id/btnSettings"
+                android:layout_weight="1"
+                txotx:buttonText="Hobespenak"
+                txotx:imgResId="@drawable/settings" />
         </TableRow>
 
     </TableLayout>

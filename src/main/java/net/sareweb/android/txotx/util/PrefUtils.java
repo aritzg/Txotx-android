@@ -8,8 +8,10 @@ public class PrefUtils {
 	}
 	
 	public static void clearUserPrefs(TxotxPrefs_ prefs){
+		prefs.email().put("");
 		prefs.user().put("");
 		prefs.pass().put("");
+		prefs.userId().put(0);
 	}
 
 }
