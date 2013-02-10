@@ -15,11 +15,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Esaiguzu zerbait!"
-            android:inputType="textMultiLine" >
-
+            android:hint="Zer moduz sagardotegian? Esaiguzu zerbait!"
+            android:inputType="textMultiLine"
+            android:lines="4" >
         </EditText>
-
     </LinearLayout>
 
     <Button

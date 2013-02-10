@@ -84,14 +84,18 @@ public class GertaeraAdapter extends BaseAdapter{
 
 	public void drawGertaeraTestua(View convertView, Gertaera gertaera){
 		TextView txGertaeraText = (TextView) convertView.findViewById(R.id.txGertaeraText);
-		txGertaeraText.setText(gertaera.getTestua());
+		String testua =gertaera.getScreenName() +  "-(e)k iruzkin huts bat jarri du! \\o/";
+		if(!gertaera.getTestua().equals("") && !gertaera.getTestua().equals("ERROR")) testua = gertaera.getTestua();
+		txGertaeraText.setText(testua);
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
 	}
 
 	public void drawGertaeraIrudia(View convertView, Gertaera gertaera){
 		TextView txGertaeraText = (TextView) convertView.findViewById(R.id.txGertaeraText);
-		txGertaeraText.setText(gertaera.getTestua());
+		String testua =gertaera.getScreenName() +  "-(e)k ez dio argazkiari iruzkinik jarri!";
+		if(!gertaera.getTestua().equals("") && !gertaera.getTestua().equals("ERROR")) testua = gertaera.getTestua();
+		txGertaeraText.setText(testua);
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
 	}

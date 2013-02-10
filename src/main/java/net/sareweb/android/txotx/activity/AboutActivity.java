@@ -4,6 +4,7 @@ import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.android.txotx.util.ConnectionUtils;
 import net.sareweb.android.txotx.util.PrefUtils;
@@ -47,6 +48,7 @@ public class AboutActivity extends SherlockFragmentActivity{
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setTitle(actionBar.getTitle() + " " + Constants.VERSION);
 	}
 	
 	@OptionsItem(android.R.id.home)

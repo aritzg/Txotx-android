@@ -26,6 +26,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources.Theme;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -182,7 +183,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			reqCode=CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT;
 
 			intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-			fileUri = Uri.fromFile(ImageUtils.getOutputMediaFile(prefs.user().get()));
+			fileUri = Uri.fromFile(ImageUtils.getOutputTmpJpgFile());
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 			startActivityForResult(intent, reqCode);
 			
@@ -190,9 +191,15 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			
 		case R.id.btnComment:
 			TextView txIruzkin = (TextView)dialog.findViewById(R.id.txIruzkin);
-			progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Iruzkina bidaltzen...", true);
-			progressDialog.show();
-			gehituTestuGertaera(txIruzkin.getText().toString());
+			String iruzkina = txIruzkin.getText().toString();
+			if(iruzkina!=null && !iruzkina.equals("")){
+				progressDialog = ProgressDialog.show(getSherlockActivity(), "", "Iruzkina bidaltzen...", true);
+				progressDialog.show();
+				gehituTestuGertaera(iruzkina);
+			}
+			else{
+				Toast.makeText(getSherlockActivity(), "Komentariorik ez?! :(", Toast.LENGTH_SHORT).show();
+			}
 			break;
 			
 		case R.id.btnBalorazioa:
@@ -229,13 +236,13 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			break;
 		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT:
 			if (resultCode == getActivity().RESULT_OK) {
-
+				fileUri = Uri.fromFile(ImageUtils.getOutputTmpJpgFile());
 	        	File dest = ImageUtils.getOutputMediaFile(prefs.user().get());
 
 	        	try {
 					ImageUtils.copyInputStreamToFile(getSherlockActivity().getContentResolver().openInputStream(fileUri), dest);
-					ImageUtils.resizeFile(dest);
-
+					ImageUtils.resizeFile(dest);	
+					
 					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi, dest);
 					gehituArgazkiGertaera(dlFile, dest);
 				} 

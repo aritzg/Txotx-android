@@ -75,19 +75,19 @@ public class LogInActivity extends Activity implements OnClickListener{
 			txEmailAddress.setText(account.name);
 		}
 		else{
-			Toast.makeText(this, "No google email address bound to device!", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Mugikorrak ez du Google konturik esleiturik!", Toast.LENGTH_LONG).show();
 		}
 	}
 	
 	@Click(R.id.btnSignIn)
 	void clickOnSignIn(){
 		if(ConnectionUtils.isOnline(this)){
-			dialog = ProgressDialog.show(this, "", "Loging in...", true);
+			dialog = ProgressDialog.show(this, "", "Sartzen...", true);
 			dialog.show();
 			validateUser();
 		}
 		else{
-			Toast.makeText(this, "Sorry.No internet access available.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Ez dago internetara sarbiderik!!", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -112,7 +112,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 			registerDialog.show();
 		}
 		else{
-			Toast.makeText(this, "No google email address bound to device!", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Mugikorrak ez du Google konturik esleiturik!", Toast.LENGTH_LONG).show();
 		}
 		
 	}
@@ -138,7 +138,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 			prefs.user().put("");
 			prefs.pass().put("");
 			prefs.userId().put(0);
-			Toast.makeText(this, "Incorrect user or password.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Erabiltzaile edo pasahitza ez dira zuzenak!", Toast.LENGTH_SHORT).show();
 		}
 		else{
 			Log.d(TAG, "got user email:" + user.getEmailAddress() + " screenName:" + user.getScreenName());
@@ -169,24 +169,24 @@ public class LogInActivity extends Activity implements OnClickListener{
 			EditText txPass2 = (EditText)registerDialog.findViewById(R.id.txPass2);
 			if(validRegisterForm(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(),txUserName.getText().toString(), txPass1.getText().toString(), txPass2.getText().toString())){
 				registerDialog.cancel();
-				dialog = ProgressDialog.show(this, "", "Kontua sortzen", true);
+				dialog = ProgressDialog.show(this, "", "Kontua sortzen...", true);
 				dialog.show();
 				createAccount(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(), txUserName.getText().toString(), txPass1.getText().toString());
 			}
 		}
 		else{
-			Toast.makeText(this, "Sorry.No internet access available.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Ez dago internetara sarbiderik!!", Toast.LENGTH_SHORT).show();
 		}
 		
 	}
 	
 	private boolean validRegisterForm(String emailAddress, String name, String surname, String userName, String pass1, String pass2) {
 		if(name.equals("")){
-			Toast.makeText(this, "Name required!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Izena beharrezkoa da!", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		if(surname.equals("")){
-			Toast.makeText(this, "Surname required!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Abizena beharrezkoa da!", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		
@@ -195,15 +195,15 @@ public class LogInActivity extends Activity implements OnClickListener{
 			return false;
 		}
 		if(userName.equals("")){
-			Toast.makeText(this, "UserName required!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Erabiltzaile izena beharrezkoa da!", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		if(pass1.length()==0){
-			Toast.makeText(this, "Empty passwords not allowed!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Pasahitz huts ez da onartzen!", Toast.LENGTH_SHORT).show();
 			return false;			
 		}
 		if(!pass1.equals(pass2.toString())){
-			Toast.makeText(this, "Passwords are not equal", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Pasahitzak ez dira berdinak!", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
@@ -215,12 +215,12 @@ public class LogInActivity extends Activity implements OnClickListener{
 		userRESTClient = new UserRESTClient(new TxotxConnectionData(prefs));
 		User user = userRESTClient.getUserByEmailAddress(emailAddress);
 		if(!UserUtils.isEmptyUser(user)){//Retrieve user
-			createAccountResult(USER_EXISTS);
+			createAccountResult(USER_EXISTS_1);
 			return;
 		}
 		user = userRESTClient.getUserByScreenName(userName);
 		if(!UserUtils.isEmptyUser(user)){//Retrieve user
-			createAccountResult(USER_EXISTS);
+			createAccountResult(USER_EXISTS_2);
 			return;
 		}
 		user = userRESTClient.addUser(
@@ -263,26 +263,31 @@ public class LogInActivity extends Activity implements OnClickListener{
 	@UiThread
 	void createAccountResult(int result){
 		switch (result) {
-		case USER_EXISTS:
-			Toast.makeText(this, "User already exists!", Toast.LENGTH_LONG).show();
+		case USER_EXISTS_1:
+			Toast.makeText(this, "Dagoeneko existitzen da erabiltzaile bat email honekin!", Toast.LENGTH_LONG).show();
+			dialog.cancel();
+			break;
+		case USER_EXISTS_2:
+			Toast.makeText(this, "Erabiltzaile izena hartuta dago. Aukeratu beste erabiltzaile izen bat mesedez!", Toast.LENGTH_LONG).show();
 			dialog.cancel();
 			break;
 		case REGISTER_OK:
-			Toast.makeText(this, "User registered", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Erabiltzailea sortua!!", Toast.LENGTH_LONG).show();
 			dialog.cancel();
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
 			//SagardotegiakActivity_.intent(this).start();
 			break;
 		case REGISTER_ERROR:
-			Toast.makeText(this, "Error creating user!", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Errorea gertatu da erabiltzailea sortzerakoan! :(", Toast.LENGTH_LONG).show();
 			dialog.cancel();
 			break;
 		}
 	}
 	
 	private static final int REGISTER_OK = 0;
-	private static final int USER_EXISTS = 1;
-	private static final int REGISTER_ERROR = 2;
+	private static final int USER_EXISTS_1 = 1;
+	private static final int USER_EXISTS_2 = 2;
+	private static final int REGISTER_ERROR = 3;
 
 }

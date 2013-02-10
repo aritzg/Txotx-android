@@ -31,7 +31,7 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	private ProgressDialog dialog;
 
 	public void setSagardotegiakContent(boolean refresh){
-		dialog = ProgressDialog.show(getSherlockActivity(), "", "Loading sagardotegiak...", true);
+		dialog = ProgressDialog.show(getSherlockActivity(), "", "Sagardotegiak eskuratzen...", true);
 		dialog.show();
 		getSagardotegiak(refresh);
 	}
