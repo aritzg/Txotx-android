@@ -64,6 +64,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	Sagardotegi sagardotegi;
 	Dialog dialog;
 	ProgressDialog progressDialog;
+	ProgressDialog imageProgressDialog;
 	DLFileEntryRESTClient dlFileEntryRESTClient;
 	String imageMessage="";
 	Uri fileUri=null;
@@ -217,6 +218,10 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		switch (requestCode) {
 		case GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT:
 			if (resultCode == getActivity().RESULT_OK) {
+				
+				imageProgressDialog = ProgressDialog.show(getSherlockActivity(), "", "Argazkia bidaltzen...", true, true);
+				imageProgressDialog.show();
+				
 				Uri targetUri = data.getData();
 
 	        	File dest = ImageUtils.getOutputMediaFile(String.valueOf(sagardotegi.getSagardotegiId()));
@@ -226,9 +231,10 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 					ImageUtils.copyInputStreamToFile(getActivity().getContentResolver().openInputStream(targetUri), dest);
 					ImageUtils.resizeFile(dest);
 					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi, dest);
+					
 					gehituArgazkiGertaera(dlFile, dest);
 				} catch (IOException e) {
-					progressDialog.cancel();
+					imageProgressDialog.cancel();
 					Log.e(TAG, "Error gettig/copying or uploading file",e);
 				}
 			}
@@ -236,6 +242,11 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			break;
 		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT:
 			if (resultCode == getActivity().RESULT_OK) {
+				
+				imageProgressDialog = ProgressDialog.show(getSherlockActivity(), "", "Argazkia bidaltzen...", true);
+				imageProgressDialog.show();
+				
+				
 				fileUri = Uri.fromFile(ImageUtils.getOutputTmpJpgFile());
 	        	File dest = ImageUtils.getOutputMediaFile(prefs.user().get());
 
@@ -247,7 +258,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 					gehituArgazkiGertaera(dlFile, dest);
 				} 
 	        	catch (IOException e) {
-	        		progressDialog.cancel();
+	        		imageProgressDialog.cancel();
 					Log.e(TAG, "Error gettig/copying or uploading file",e);
 				}
 
@@ -261,7 +272,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	private void showAddImageDialog(){
 		dialog = new Dialog(getActivity());
-		dialog.setTitle("Gallery or Camera?");
+		dialog.setTitle("Irudi galeria edo kamera?");
 		dialog.setContentView(R.layout.img_camera_dialog);
 		dialog.setCanceledOnTouchOutside(true);
 		
@@ -332,13 +343,18 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	@UiThread
 	void gehituArgazkiGertaeraResult(Gertaera gertaera){
+		imageProgressDialog.cancel();
+		
 		Log.d(TAG, "gehituArgazkiGertaeraResult");
-		if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_ARGAZKIA)){
-			dialog.cancel();
-			GertaeraCache.gehituGertaera(gertaera);
-			load(true);	
-		}else{
-			Toast.makeText(getSherlockActivity(), "Ezin izan da argazkia bidali! :(", Toast.LENGTH_SHORT).show();
+		try {
+			if(gertaera!=null && gertaera.getGertaeraMota()!=null && gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_ARGAZKIA)){
+				GertaeraCache.gehituGertaera(gertaera);
+				load(true);	
+			}else{
+				Toast.makeText(getSherlockActivity(), "Ezin izan da argazkia bidali! :(", Toast.LENGTH_SHORT).show();
+			}
+		} catch (Exception e) {
+			Log.e(TAG, "Errorea gehituArgazkiGertaeraResult");
 		}
 	}
 	

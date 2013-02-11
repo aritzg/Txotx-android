@@ -48,7 +48,7 @@ public class AboutActivity extends SherlockFragmentActivity{
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setTitle(actionBar.getTitle() + " " + Constants.VERSION);
+		actionBar.setTitle(getResources().getString(R.string.app_name) + " " + Constants.VERSION);
 	}
 	
 	@OptionsItem(android.R.id.home)

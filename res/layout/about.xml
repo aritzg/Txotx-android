@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text=" @aritzg"
+            android:text=" @txootx"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#62748f"
             android:textSize="20sp" />
