@@ -45,16 +45,30 @@
             android:layout_weight="1" >
 
             <net.sareweb.android.txotx.custom.DashboardButton_
-                android:id="@+id/btnAbout"
+                android:id="@+id/btnSailkapena"
                 android:layout_weight="1"
-                txotx:buttonText="Txotx!-i buruz"
-                txotx:imgResId="@drawable/logo" />
+                txotx:buttonText="Sailkapena"
+                txotx:imgResId="@drawable/ranking" />
             
             <net.sareweb.android.txotx.custom.DashboardButton_
                 android:id="@+id/btnSettings"
                 android:layout_weight="1"
                 txotx:buttonText="Hobespenak"
                 txotx:imgResId="@drawable/settings" />
+        </TableRow>
+        
+         <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <net.sareweb.android.txotx.custom.DashboardButton_
+                android:id="@+id/btnAbout"
+                android:layout_weight="1"
+                txotx:buttonText="Txotx!-i buruz"
+                txotx:imgResId="@drawable/logo" />
+            
         </TableRow>
 
     </TableLayout>

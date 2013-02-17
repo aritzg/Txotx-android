@@ -42,6 +42,10 @@ public class DashboardActivity extends SherlockActivity {
 		SagardotegiMapActivity_.intent(this).start();
 	}
 
+	@Click(R.id.btnSailkapena)
+	public void clickOnSailkapena(){
+		SailkapenaActivity_.intent(this).start();
+	}
 
 	@Click(R.id.btnAbout)
 	public void clickOnAbout(){
