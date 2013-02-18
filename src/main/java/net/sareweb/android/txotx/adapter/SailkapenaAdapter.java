@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SailkapenaAdapter extends BaseAdapter{
@@ -60,6 +61,21 @@ public class SailkapenaAdapter extends BaseAdapter{
 		txCountMsg.setText(String.valueOf(sailkapena.getIruzkinKopurua()));
 		TextView txCountVal = (TextView)convertView.findViewById(R.id.txCountVal);
 		txCountVal.setText(String.valueOf(sailkapena.getBalorazioKopurua()));
+		
+		switch (position) {
+		case 0:
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.green1));
+			break;
+		case 1:
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.green2));
+			break;
+		case 2:
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.green3));
+			break;
+		default:
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.green4));
+			break;
+		}
 		
 		return convertView;
 	}
