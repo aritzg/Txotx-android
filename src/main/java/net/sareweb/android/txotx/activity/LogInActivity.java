@@ -5,6 +5,7 @@ import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.android.txotx.util.ConnectionUtils;
 import net.sareweb.android.txotx.util.PrefUtils;
@@ -15,7 +16,9 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -58,6 +61,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 		SagardotegiCache.init(prefs);
 		GertaeraCache.init(prefs);*/
 		if(PrefUtils.isUserLogged(prefs)){
+			registerDevice();
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
 			//SagardotegiakActivity_.intent(this).start();
@@ -143,6 +147,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 		else{
 			Log.d(TAG, "got user email:" + user.getEmailAddress() + " screenName:" + user.getScreenName());
 			loginUser(user, pass);
+			registerDevice();
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
 			//SagardotegiakActivity_.intent(this).start();
@@ -274,6 +279,7 @@ public class LogInActivity extends Activity implements OnClickListener{
 		case REGISTER_OK:
 			Toast.makeText(this, "Erabiltzailea sortua!!", Toast.LENGTH_LONG).show();
 			dialog.cancel();
+			registerDevice();
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
 			//SagardotegiakActivity_.intent(this).start();
@@ -285,6 +291,14 @@ public class LogInActivity extends Activity implements OnClickListener{
 		}
 	}
 	
+	private void registerDevice() {
+		Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
+		// sets the app name in the intent
+		registrationIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
+		registrationIntent.putExtra("sender", Constants.SENDER_ID);
+		startService(registrationIntent);
+	}
+
 	private static final int REGISTER_OK = 0;
 	private static final int USER_EXISTS_1 = 1;
 	private static final int USER_EXISTS_2 = 2;

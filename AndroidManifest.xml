@@ -2,19 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sareweb.android.txotx"
     android:installLocation="preferExternal"
-    android:versionCode="4"
-    android:versionName="v0.4" >
+    android:versionCode="5"
+    android:versionName="v0.5" >
 
     <permission
-        android:name="net.sareweb.android.barazkide.permission.MAPS_RECEIVE"
+        android:name="net.sareweb.android.txotx.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="net.sareweb.android.txotx.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="net.sareweb.android.barazkide.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="net.sareweb.android.txotx.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="net.sareweb.android.txotx.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -37,25 +43,41 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SagardotegiakActivity_" />
-        <activity android:name=".activity.SagardotegiMapActivity_" android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <activity android:name=".activity.SagardotegiDetailActivity_" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+            android:name=".activity.SagardotegiMapActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".activity.SagardotegiDetailActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.DashboardActivity_" />
         <activity android:name=".activity.SailkapenaActivity_" />
         <activity android:name=".activity.SettingsActivity_" />
         <activity android:name=".activity.AboutActivity_" />
         <activity android:name=".activity.NoConnActivity_" />
+        
+        <receiver
+            android:name=".receiver.TxotxReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="net.sareweb.android.txotx" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".service.TxotxIntentService_" />
 
-        <!-- Debug 
+        <!--
+        Debug 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ" /> -->
-            
+            android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ" />
+        -->
+
+
         <!-- Release -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAF5uG5kAJCsuUXb25O9_QOyADMEwMkyDk" />
-        
-        
     </application>
 
 </manifest>
