@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="Name"/>
+        android:hint="Izena"/>
 
     <EditText
         android:id="@+id/txSurname"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="Surname"/>
+        android:hint="Abizena"/>
 
     <EditText
         android:id="@+id/txUserName"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="User name"/>
+        android:hint="Erabiltzaile izena"/>
     
     <EditText
         android:id="@+id/txPass1"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="Password"/>
+        android:hint="Pasahitza"/>
     
     <EditText
         android:id="@+id/txPass2"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-		android:hint="Password again"/>
+		android:hint="Pasahitza berriz"/>
 
     <Button
         android:id="@+id/btnCreateAccount"
