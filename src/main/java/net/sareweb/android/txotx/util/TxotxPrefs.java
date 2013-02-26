@@ -9,4 +9,5 @@ public interface TxotxPrefs {
 	String user();
 	String pass();
 	long userId();
+	String registrationId();
 }

@@ -2,8 +2,11 @@ package net.sareweb.android.txotx.activity;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.fragment.SagardotegiakFragment;
+import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.PrefUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -80,6 +83,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	void logOutSelected() {
 		PrefUtils.clearUserPrefs(prefs);
 		finish();
+		unregisterDevice();
 		LogInActivity_.intent(this).start();
 	}
 
@@ -87,6 +91,14 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	public boolean onNavigationItemSelected(int arg0, long arg1) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private void unregisterDevice() {
+		Intent registrationIntent = new Intent("com.google.android.c2dm.intent.UNREGISTER");
+		// sets the app name in the intent
+		registrationIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
+		registrationIntent.putExtra("sender", Constants.SENDER_ID);
+		startService(registrationIntent);
 	}
 
 }

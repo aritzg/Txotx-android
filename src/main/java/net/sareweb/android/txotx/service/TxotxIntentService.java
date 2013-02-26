@@ -1,5 +1,6 @@
 package net.sareweb.android.txotx.service;
 
+import net.sareweb.android.txotx.model.GoogleDevice;
 import net.sareweb.android.txotx.notification.TxotxNotifications;
 import net.sareweb.android.txotx.rest.GoogleDeviceRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
@@ -78,11 +79,12 @@ public class TxotxIntentService extends IntentService {
 		Log.d(TAG, "Handling registration");
 		if(error==null){
 			if(registration_id!=null){
-				Log.d(TAG, "registration_id: " + registration_id);
-				googleDeviceRESTClient.addGoogeDevice(prefs.email().get(), registration_id);
+				GoogleDevice googleDevice = googleDeviceRESTClient.addGoogeDevice(prefs.email().get(), registration_id);
+				prefs.registrationId().put(googleDevice.getRegistrationId());
 			}
 			else if(unregistered != null) {
-			
+				Log.d(TAG, "registration_id: " + registration_id);
+				googleDeviceRESTClient.unregisterGoogleDevice(prefs.registrationId().get());
 			}
 		}
 	}

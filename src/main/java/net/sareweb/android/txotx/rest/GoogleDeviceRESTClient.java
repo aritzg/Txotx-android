@@ -21,6 +21,13 @@ public class GoogleDeviceRESTClient extends LDRESTClient<GoogleDevice> {
 		return run(requestURL, HttpMethod.GET);
 	}
 	
+	public GoogleDevice unregisterGoogleDevice(String registrationId){
+		String requestURL = getBaseURL() + "/unregister-google-device";
+		requestURL = addParamToRequestURL(requestURL, "registration-id", registrationId);
+		Log.d(TAG,"requestURL : " + requestURL);
+		return run(requestURL, HttpMethod.GET);
+	}
+	
 	@Override
 	public String getPorltetContext() {
 		return "Txotx-portlet";
