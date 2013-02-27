@@ -4,6 +4,7 @@ import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
+import net.sareweb.android.txotx.rest.SagardotegiRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
 import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
@@ -44,8 +45,10 @@ public class LogInActivity extends Activity implements OnClickListener{
 	@ViewById EditText txPass;
 	@Pref TxotxPrefs_ prefs;
 	UserRESTClient userRESTClient;
+	SagardotegiRESTClient sagardotegiRESTClient;
 	private ProgressDialog dialog;
 	private Dialog registerDialog;
+	private Dialog resetDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,28 @@ public class LogInActivity extends Activity implements OnClickListener{
 		
 	}
 	
+	@Click(R.id.btnResetPass)
+	void clickOnResetPass(){
+		AccountManager am = AccountManager.get(this);
+		Account[] accounts = am.getAccountsByType("com.google");
+
+			if(accounts!=null && accounts.length > 0){
+				Account account = (Account)accounts[0];
+				resetDialog = new Dialog(this);
+				resetDialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+				resetDialog.setTitle("Pasahitza berrezarri");
+				resetDialog.setContentView(R.layout.pass_reset_dialog);
+				TextView txEmailAddress = (TextView)resetDialog.findViewById(R.id.txEmailAddress);
+				txEmailAddress.setText(account.name);
+				resetDialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_launcher);
+				resetDialog.setCanceledOnTouchOutside(true);
+				Button btnResetConfirm = (Button)resetDialog.findViewById(R.id.btnResetConfirm);
+				btnResetConfirm.setOnClickListener(this);
+				resetDialog.show();
+		}
+	}
+	
+	
 	@Background
 	void validateUser(){
 		if(txPass.getText().toString().equals("")){
@@ -166,18 +191,34 @@ public class LogInActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		if(ConnectionUtils.isOnline(this)){
-			EditText txName = (EditText)registerDialog.findViewById(R.id.txName);
-			EditText txSurname = (EditText)registerDialog.findViewById(R.id.txSurname);
-			TextView txEmailAddress = (TextView)registerDialog.findViewById(R.id.txEmailAddress);
-			EditText txUserName = (EditText)registerDialog.findViewById(R.id.txUserName);
-			EditText txPass1 = (EditText)registerDialog.findViewById(R.id.txPass1);
-			EditText txPass2 = (EditText)registerDialog.findViewById(R.id.txPass2);
-			if(validRegisterForm(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(),txUserName.getText().toString(), txPass1.getText().toString(), txPass2.getText().toString())){
-				registerDialog.cancel();
-				dialog = ProgressDialog.show(this, "", "Kontua sortzen...", true);
-				dialog.show();
-				createAccount(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(), txUserName.getText().toString(), txPass1.getText().toString());
+			switch (v.getId()) {
+			case R.id.btnCreateAccount:
+				EditText txName = (EditText)registerDialog.findViewById(R.id.txName);
+				EditText txSurname = (EditText)registerDialog.findViewById(R.id.txSurname);
+				TextView txEmailAddress = (TextView)registerDialog.findViewById(R.id.txEmailAddress);
+				EditText txUserName = (EditText)registerDialog.findViewById(R.id.txUserName);
+				EditText txPass1 = (EditText)registerDialog.findViewById(R.id.txPass1);
+				EditText txPass2 = (EditText)registerDialog.findViewById(R.id.txPass2);
+				if(validRegisterForm(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(),txUserName.getText().toString(), txPass1.getText().toString(), txPass2.getText().toString())){
+					registerDialog.cancel();
+					dialog = ProgressDialog.show(this, "", "Kontua sortzen...", true);
+					dialog.show();
+					createAccount(txEmailAddress.getText().toString(), txName.getText().toString(), txSurname.getText().toString(), txUserName.getText().toString(), txPass1.getText().toString());
+				}
+				break;
+			case R.id.btnResetConfirm:
+				sagardotegiRESTClient = new SagardotegiRESTClient(new TxotxConnectionData());
+				TextView txEmailAddress2 = (TextView)resetDialog.findViewById(R.id.txEmailAddress);
+				resetPass(txEmailAddress2.getText().toString());
+				resetDialog.cancel();
+				break;	
+			
+
+			default:
+				break;
 			}
+			
+			
 		}
 		else{
 			Toast.makeText(this, "Ez dago internetara sarbiderik!!", Toast.LENGTH_SHORT).show();
@@ -289,6 +330,17 @@ public class LogInActivity extends Activity implements OnClickListener{
 			dialog.cancel();
 			break;
 		}
+	}
+	
+	@Background
+	void resetPass(String emailAddress){
+		sagardotegiRESTClient.resetPassword(emailAddress);
+		resetPassResult();
+	}
+	
+	@UiThread
+	void resetPassResult(){
+		Toast.makeText(this, "Pasahitz berria zure emailera bidaliko da.", Toast.LENGTH_LONG).show();
 	}
 	
 	private void registerDevice() {

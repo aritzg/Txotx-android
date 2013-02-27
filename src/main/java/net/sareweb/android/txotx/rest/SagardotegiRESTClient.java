@@ -27,6 +27,13 @@ public class SagardotegiRESTClient extends LDRESTClient<Sagardotegi> {
 		return getList(requestURL, HttpMethod.GET);
 	}
 	
+	public void resetPassword(String emailAddress){
+		String requestURL = getBaseURL() + "/reset-password";
+		requestURL = addParamToRequestURL(requestURL, "email-address", emailAddress);
+		run(requestURL, HttpMethod.GET);
+		return;
+	}
+	
 	@Override
 	public String getPorltetContext() {
 		return "Txotx-portlet";

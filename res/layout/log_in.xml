@@ -40,5 +40,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Kontua sortu" />
-
+	
+    <Button
+        android:id="@+id/btnResetPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pasahitza berrezarri" />
 </LinearLayout>

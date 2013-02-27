@@ -71,21 +71,25 @@ public class TxotxIntentService extends IntentService {
 	}
 
 	private void handleRegistration(Intent intent) {
-		String error = intent.getExtras().getString("error");
-		String registration_id = intent.getExtras().getString("registration_id");
-		String unregistered = intent.getExtras().getString("unregistered");
-		
-		googleDeviceRESTClient = new GoogleDeviceRESTClient(new TxotxConnectionData(prefs));
-		Log.d(TAG, "Handling registration");
-		if(error==null){
-			if(registration_id!=null){
-				GoogleDevice googleDevice = googleDeviceRESTClient.addGoogeDevice(prefs.email().get(), registration_id);
-				prefs.registrationId().put(googleDevice.getRegistrationId());
+		try {
+			String error = intent.getExtras().getString("error");
+			String registration_id = intent.getExtras().getString("registration_id");
+			String unregistered = intent.getExtras().getString("unregistered");
+			
+			googleDeviceRESTClient = new GoogleDeviceRESTClient(new TxotxConnectionData(prefs));
+			Log.d(TAG, "Handling registration");
+			if(error==null){
+				if(registration_id!=null){
+					GoogleDevice googleDevice = googleDeviceRESTClient.addGoogeDevice(prefs.email().get(), registration_id);
+					prefs.registrationId().put(googleDevice.getRegistrationId());
+				}
+				else if(unregistered != null) {
+					Log.d(TAG, "registration_id: " + registration_id);
+					googleDeviceRESTClient.unregisterGoogleDevice(prefs.registrationId().get());
+				}
 			}
-			else if(unregistered != null) {
-				Log.d(TAG, "registration_id: " + registration_id);
-				googleDeviceRESTClient.unregisterGoogleDevice(prefs.registrationId().get());
-			}
+		} catch (Exception e) {
+			Log.e(TAG, "Error handling registration");
 		}
 	}
 	

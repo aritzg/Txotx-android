@@ -18,6 +18,12 @@ public class TxotxConnectionData extends ConnectionData {
 		if(pass==null || "".equals(pass))pass=Constants.DEFAULT_PASS;
 		Log.d(TAG, user + "/" + pass);
 	}
+	
+	public TxotxConnectionData(){
+		user=Constants.DEFAULT_EMAIL;
+		pass=Constants.DEFAULT_PASS;
+		Log.d(TAG, user + "/" + pass);
+	}
 
 	@Override
 	public String getProtocol() {
