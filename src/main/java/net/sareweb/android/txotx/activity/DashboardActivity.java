@@ -47,6 +47,11 @@ public class DashboardActivity extends SherlockActivity {
 		SailkapenaActivity_.intent(this).start();
 	}
 
+	@Click(R.id.btnErronka)
+	public void clickOnErronka(){
+		OharraActivity_.intent(this).start();
+	}
+	
 	@Click(R.id.btnAbout)
 	public void clickOnAbout(){
 		AboutActivity_.intent(this).start();

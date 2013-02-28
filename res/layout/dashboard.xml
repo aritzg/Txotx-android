@@ -64,6 +64,12 @@
             android:layout_weight="1" >
 
             <net.sareweb.android.txotx.custom.DashboardButton_
+                android:id="@+id/btnErronka"
+                android:layout_weight="1"
+                txotx:buttonText="Erronka!"
+                txotx:imgResId="@drawable/erronka" />
+            
+            <net.sareweb.android.txotx.custom.DashboardButton_
                 android:id="@+id/btnAbout"
                 android:layout_weight="1"
                 txotx:buttonText="Txotx!-i buruz"

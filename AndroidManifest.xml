@@ -51,6 +51,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".activity.DashboardActivity_" />
         <activity android:name=".activity.SailkapenaActivity_" />
+        <activity android:name=".activity.OharraActivity_" />
         <activity android:name=".activity.SettingsActivity_" />
         <activity android:name=".activity.AboutActivity_" />
         <activity android:name=".activity.NoConnActivity_" />

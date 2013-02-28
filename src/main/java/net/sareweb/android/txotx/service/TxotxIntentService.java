@@ -67,6 +67,10 @@ public class TxotxIntentService extends IntentService {
 			Log.d(TAG, "Handling mention");
 			TxotxNotifications.showMention(this, intent);
 		}
+		else if(messageType.equals("oharra")){
+			Log.d(TAG, "Handling oharra");
+			TxotxNotifications.showOharra(this, intent);
+		}
 		
 	}
 

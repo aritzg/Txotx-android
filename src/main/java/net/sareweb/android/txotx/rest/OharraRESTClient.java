@@ -1,16 +1,9 @@
 package net.sareweb.android.txotx.rest;
 
-import java.util.List;
-
 import net.sareweb.android.txotx.model.Oharra;
 import net.sareweb.lifedroid.rest.generic.LDRESTClient;
-import net.sareweb.txotx.service.OharraLocalServiceUtil;
-import net.sareweb.txotx.util.mezulari.OharraMezulariThread;
 
 import org.springframework.http.HttpMethod;
-
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 
 import android.util.Log;
 

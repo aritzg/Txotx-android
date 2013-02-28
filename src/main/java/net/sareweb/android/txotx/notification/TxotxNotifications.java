@@ -1,8 +1,7 @@
 package net.sareweb.android.txotx.notification;
 
 import net.sareweb.android.txotx.R;
-import net.sareweb.android.txotx.activity.DashboardActivity_;
-import net.sareweb.android.txotx.activity.LogInActivity_;
+import net.sareweb.android.txotx.activity.OharraActivity_;
 import net.sareweb.android.txotx.activity.SagardotegiDetailActivity_;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -57,6 +56,35 @@ public class TxotxNotifications {
 		 NotificationManager mNotificationManager =
 			        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		 mNotificationManager.notify((int)sagardotegiIdLng, notification);
+	}
+	
+	public static void showOharra(Context context, Intent intent){
+		String izenburua = intent.getExtras().getString("izenburua");
+		String oharraId = intent.getExtras().getString("oharraId");
+		long oharraIdLng = Long.parseLong(oharraId);
+		
+		Builder builder = new NotificationCompat.Builder(context);
+		builder.setContentTitle("Txootx! Oharra!");
+		builder.setSmallIcon(R.drawable.notification);
+		builder.setContentText(izenburua);
+		 
+		Intent detailIntent = OharraActivity_.intent(context).oharraId(oharraIdLng).get();
+		 
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+		stackBuilder.addParentStack(OharraActivity_.class);
+		stackBuilder.addNextIntent(detailIntent);
+		PendingIntent resultPendingIntent =
+			        stackBuilder.getPendingIntent(
+			            0,
+			            PendingIntent.FLAG_UPDATE_CURRENT
+			        );
+		 builder.setContentIntent(resultPendingIntent);
+		 
+		 Notification notification = builder.build();
+		
+		 NotificationManager mNotificationManager =
+			        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		 mNotificationManager.notify((int)oharraIdLng, notification);
 	}
 
 }

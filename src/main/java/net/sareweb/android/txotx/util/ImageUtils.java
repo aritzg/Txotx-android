@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.sareweb.android.txotx.model.Gertaera;
+import net.sareweb.android.txotx.model.Oharra;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.lifedroid.model.DLFileEntry;
 
@@ -238,6 +239,18 @@ public class ImageUtils {
 					+ Constants.SERVICE_PORT + "/documents/" + Constants.GROUP
 					+ "/" + gertaera.getIrudiKarpetaId() + "/"
 					+ gertaera.getIrudia();
+			return imageUrl;
+		}
+	}
+	
+	public static String getOharraImageUrl(Oharra oharra) {
+		if (oharra.getIrudia() == null || oharra.getIrudia().equals("")) {
+			return "";
+		} else {
+			String imageUrl = "http://" + Constants.SERVICE_URL + ":"
+					+ Constants.SERVICE_PORT + "/documents/" + Constants.GROUP
+					+ "/" + oharra.getIrudiKarpetaId() + "/"
+					+ oharra.getIrudia();
 			return imageUrl;
 		}
 	}
