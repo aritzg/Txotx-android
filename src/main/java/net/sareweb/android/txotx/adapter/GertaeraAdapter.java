@@ -8,6 +8,8 @@ import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.custom.UserPortrait;
 import net.sareweb.android.txotx.custom.UserPortrait_;
+import net.sareweb.android.txotx.fragment.GertaerakFragment;
+import net.sareweb.android.txotx.fragment.GertaerakFragment_;
 import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Gertaera;
 import net.sareweb.android.txotx.util.Constants;
@@ -18,21 +20,24 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GertaeraAdapter extends BaseAdapter{
+public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 
 	private Context context;
 	private List<Gertaera> gertaerak;
 	private static String TAG = "GertaeraAdapter";
 	private ImageLoader imgLoader;
-
-	public GertaeraAdapter(Context context, List<Gertaera> gertaerak){
+	private GertaerakFragment gertaerakFragment;
+	
+	public GertaeraAdapter(Context context, List<Gertaera> gertaerak, GertaerakFragment gertaerakFragment){
 		this.context = context;
-		this.gertaerak = gertaerak; 
+		this.gertaerak = gertaerak;
+		this.gertaerakFragment = gertaerakFragment;
 		imgLoader = new ImageLoader(context);
 	}
 
@@ -76,6 +81,10 @@ public class GertaeraAdapter extends BaseAdapter{
 		else if(gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_BALORAZIOA)){
 			drawGertaeraBalorazioa(convertView, gertaera);
 		}
+		
+		ImageView imgReply = (ImageView) convertView.findViewById(R.id.imgReply);
+		imgReply.setTag("@" + gertaera.getScreenName());
+		imgReply.setOnClickListener(this);	
 
 		convertView.setTag(gertaerak.get(position));
 		return convertView;
@@ -105,6 +114,13 @@ public class GertaeraAdapter extends BaseAdapter{
 		txGertaeraText.setText(gertaera.getScreenName() + "-k " + gertaera.getBalorazioa() + " izar eman dizkio sagardotegi honi.");
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.rating);
+	}
+
+	@Override
+	public void onClick(View v) {
+		String izena = (String)v.getTag();
+		Log.d(TAG, izena);
+		gertaerakFragment.showAddCommentDialog(izena);
 	}
 
 }

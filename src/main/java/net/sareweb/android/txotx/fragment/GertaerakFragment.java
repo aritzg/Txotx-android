@@ -111,7 +111,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	void getGertaerakResult(){
 		if(gertaerak!=null){
 			gertaeraListView = (ListView) getActivity().findViewById(R.id.gertaera_list_view);
-			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak);
+			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak, this);
 			gertaeraListView.setAdapter(gertaeraAdapter);
 			gertaeraListView.setOnItemClickListener(this);
 		}
@@ -153,7 +153,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	@OptionsItem(R.id.menu_comment)
 	void addComment() {
-		showAddCommentDialog();
+		showAddCommentDialog("");
 	}
 	
 	@OptionsItem(R.id.menu_txoootx)
@@ -286,13 +286,19 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		dialog.show();
 	}
 	
-	private void showAddCommentDialog(){
+	public void showAddCommentDialog(String iruzkin){
 		dialog = new Dialog(getActivity());
 		dialog.setTitle("Iruzkinik?");
 		dialog.setContentView(R.layout.iruzkin_dialog);
 		dialog.setCanceledOnTouchOutside(true);
 		
 		Button btnComment = (Button)dialog.findViewById(R.id.btnComment);
+		
+		if(iruzkin!=null && !iruzkin.equals("")){
+			TextView txIruzkin = (TextView)dialog.findViewById(R.id.txIruzkin);
+			txIruzkin.setText(iruzkin);
+		}
+		
 		btnComment.setOnClickListener(this);
 		dialog.show();
 	}

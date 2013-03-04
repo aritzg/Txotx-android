@@ -51,10 +51,11 @@
                 txotx:imgResId="@drawable/ranking" />
             
             <net.sareweb.android.txotx.custom.DashboardButton_
-                android:id="@+id/btnSettings"
+                android:id="@+id/btnErronka"
                 android:layout_weight="1"
-                txotx:buttonText="Hobespenak"
-                txotx:imgResId="@drawable/settings" />
+                txotx:buttonText="Erronka!"
+                txotx:imgResId="@drawable/erronka" />
+            
         </TableRow>
         
          <TableRow
@@ -62,12 +63,12 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1" >
-
-            <net.sareweb.android.txotx.custom.DashboardButton_
-                android:id="@+id/btnErronka"
+			
+			<net.sareweb.android.txotx.custom.DashboardButton_
+                android:id="@+id/btnSettings"
                 android:layout_weight="1"
-                txotx:buttonText="Erronka!"
-                txotx:imgResId="@drawable/erronka" />
+                txotx:buttonText="Hobespenak"
+                txotx:imgResId="@drawable/settings" />
             
             <net.sareweb.android.txotx.custom.DashboardButton_
                 android:id="@+id/btnAbout"

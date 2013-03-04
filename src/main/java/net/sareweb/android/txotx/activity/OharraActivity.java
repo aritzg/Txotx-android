@@ -77,7 +77,7 @@ public class OharraActivity extends SherlockActivity{
 	void getOharraResult(Oharra oharra){
 		progressDialog.cancel();
 		if(oharra==null || oharra.getOharraId()==0){
-			//TODO
+			txOharra.setText("Oraindik ez dago oharrik edota erronkarik!");
 		}
 		else{
 			actionBar.setTitle(oharra.getIzenburua());
