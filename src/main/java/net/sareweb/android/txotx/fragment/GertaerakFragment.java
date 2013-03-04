@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -295,8 +296,9 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		Button btnComment = (Button)dialog.findViewById(R.id.btnComment);
 		
 		if(iruzkin!=null && !iruzkin.equals("")){
-			TextView txIruzkin = (TextView)dialog.findViewById(R.id.txIruzkin);
-			txIruzkin.setText(iruzkin);
+			EditText txIruzkin = (EditText)dialog.findViewById(R.id.txIruzkin);
+			txIruzkin.setText(iruzkin + " ");
+			txIruzkin.setSelection(txIruzkin.getText().length());
 		}
 		
 		btnComment.setOnClickListener(this);
