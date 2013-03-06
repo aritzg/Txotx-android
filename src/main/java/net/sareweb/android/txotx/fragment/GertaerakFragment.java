@@ -31,6 +31,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -399,7 +400,6 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 			Toast.makeText(getSherlockActivity(), "Ezin izan da balorazioa bidali! :(", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
 	
 	
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 100;

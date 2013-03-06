@@ -15,6 +15,11 @@ import android.util.Log;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
+import com.actionbarsherlock.widget.SearchView.OnQueryTextListener;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentById;
@@ -26,7 +31,7 @@ import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 @EActivity(R.layout.sagardotegiak_activity)
 @OptionsMenu(R.menu.sagardotegiak_menu)
 public class SagardotegiakActivity extends SherlockFragmentActivity implements
-		OnNavigationListener {
+		OnNavigationListener, OnQueryTextListener{
 
 	private static String TAG = "SagardotegiakActivity";
 
@@ -35,6 +40,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	@Pref
 	TxotxPrefs_ prefs;
 	ActionBar actionBar;
+	private SearchView mSearchView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,7 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		sagardotegiakFragment.setSagardotegiakContent(refresh);
+		sagardotegiakFragment.setSagardotegiakContent(refresh, "");
 		fragmentTransaction.commitAllowingStateLoss();
 	}
 
@@ -86,6 +92,14 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 		unregisterDevice();
 		LogInActivity_.intent(this).start();
 	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem searchItem = menu.findItem(R.id.menu_search);
+        mSearchView = (SearchView) searchItem.getActionView();
+        mSearchView.setOnQueryTextListener(this);
+        return super.onCreateOptionsMenu(menu);
+	}
 
 	@Override
 	public boolean onNavigationItemSelected(int arg0, long arg1) {
@@ -99,6 +113,18 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 		registrationIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
 		registrationIntent.putExtra("sender", Constants.SENDER_ID);
 		startService(registrationIntent);
+	}
+	
+	@Override
+	public boolean onQueryTextChange(String text) {
+		sagardotegiakFragment.setSagardotegiakContent(false, text);
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String text) {
+		Log.d(TAG, "searching submit: " + text);
+		return false;
 	}
 
 }

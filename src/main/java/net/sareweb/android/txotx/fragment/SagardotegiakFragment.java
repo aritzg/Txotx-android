@@ -1,5 +1,6 @@
 package net.sareweb.android.txotx.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,16 +32,17 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	@Pref TxotxPrefs_ prefs;
 	private ProgressDialog dialog;
 
-	public void setSagardotegiakContent(boolean refresh){
+	public void setSagardotegiakContent(boolean refresh, String filter){
 		dialog = ProgressDialog.show(getSherlockActivity(), "", "Sagardotegiak eskuratzen...", true);
 		dialog.show();
-		getSagardotegiak(refresh);
-	}
-
+		getSagardotegiak(refresh, filter);
+	}	
+	
 	@Background
-	public void getSagardotegiak(boolean refresh){
+	public void getSagardotegiak(boolean refresh, String filter){
 		Log.d(TAG, "Gettings sagardotegiak");
-		getSagardotegiakResult(SagardotegiCache.getSagardotegiak(refresh));
+		List<Sagardotegi> sagardotegiak = SagardotegiCache.getSagardotegiak(refresh);
+		getSagardotegiakResult(filterSagardotegiak(sagardotegiak, filter));
 	}
 
 	@UiThread
@@ -47,6 +50,8 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 		if(sagardotegiak!=null){
 			ListView gardensListView = (ListView) getActivity().findViewById(R.id.sagardotegiak_list_view);
 			gardensListView.setAdapter(new SagardotegiAdapter(getActivity(), sagardotegiak));
+			SagardotegiAdapter adapter = (SagardotegiAdapter)gardensListView.getAdapter();
+			adapter.notifyDataSetChanged();
 			gardensListView.setOnItemClickListener(this);
 		}
 		else{
@@ -61,5 +66,17 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 		Sagardotegi sagardotegi = (Sagardotegi) view.getTag();
 		Log.d(TAG, "Selected sagardotegi " + sagardotegi.getSagardotegiId());
 		SagardotegiDetailActivity_.intent(getSherlockActivity()).sagardotegi(sagardotegi).start();
+	}
+	
+	private List<Sagardotegi> filterSagardotegiak(List<Sagardotegi> sagardotegiak, String filter){
+		List<Sagardotegi> sagardotegiakTmp = new ArrayList<Sagardotegi>();
+		if(sagardotegiak!=null) {
+			for(Sagardotegi sagardotegi : sagardotegiak){
+				if(sagardotegi.getIzena()!=null){
+					if(sagardotegi.getIzena().toLowerCase().contains(filter.toLowerCase()))sagardotegiakTmp.add(sagardotegi);
+				}
+			}
+		}
+		return sagardotegiakTmp;
 	}
 }
