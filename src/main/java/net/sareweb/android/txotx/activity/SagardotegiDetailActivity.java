@@ -84,15 +84,15 @@ public class SagardotegiDetailActivity extends SherlockFragmentActivity{
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle(sagardotegi.getIzena());
 
-		Tab gardenDetailTab = actionBar.newTab();
-		gardenDetailTab.setText("Sagardotegia");
-		gardenDetailTab.setTabListener(new SagardotegiDetailTabListener(sagardotegi, SagardotegiDetailTabListener.SAGARDOTEGI_DETAIL, this));
-		actionBar.addTab(gardenDetailTab);
+		Tab sagardotegiDetailTab = actionBar.newTab();
+		sagardotegiDetailTab.setText("Sagardotegia");
+		sagardotegiDetailTab.setTabListener(new SagardotegiDetailTabListener(sagardotegi, SagardotegiDetailTabListener.SAGARDOTEGI_DETAIL, this));
+		actionBar.addTab(sagardotegiDetailTab);
 
-		Tab gardenEventsTab = actionBar.newTab();
-		gardenEventsTab.setText("Gertaerak");
-		gardenEventsTab.setTabListener(new SagardotegiDetailTabListener(sagardotegi, SagardotegiDetailTabListener.SAGARDOTEGI_GERTAERAK, this));
-		actionBar.addTab(gardenEventsTab);
+		Tab sagardotegiEventsTab = actionBar.newTab();
+		sagardotegiEventsTab.setText("Gertaerak");
+		sagardotegiEventsTab.setTabListener(new SagardotegiDetailTabListener(sagardotegi, SagardotegiDetailTabListener.SAGARDOTEGI_GERTAERAK, this));
+		actionBar.addTab(sagardotegiEventsTab);
 
 		if(sagardotegiId!=0){
 			actionBar.setSelectedNavigationItem(1);

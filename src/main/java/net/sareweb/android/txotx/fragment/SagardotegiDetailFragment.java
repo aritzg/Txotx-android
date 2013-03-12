@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -43,16 +44,16 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	ImageView imgSagardotegi;
 	@ViewById
 	ImageView imgMap;
-	@ViewById
-	TextView txTlf;
-	@ViewById
-	TextView txEmail;
-	@ViewById
-	TextView txWeb;
-	@ViewById
-	TextView txHelbide;
-	@ViewById
-	TextView txEdukiera;
+	@ViewById TextView txTlf;
+	@ViewById LinearLayout txTlfRow;
+	@ViewById TextView txEmail;
+	@ViewById LinearLayout txEmailRow;
+	@ViewById TextView txWeb;
+	@ViewById LinearLayout txWebRow;
+	@ViewById TextView txHelbide;
+	@ViewById LinearLayout txHelbideRow;
+	@ViewById TextView txEdukiera;
+	@ViewById LinearLayout txEdukieraRow;
 	@FragmentArg
 	Sagardotegi sagardotegi;
 	@FragmentById
@@ -101,16 +102,47 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	
 	public void setSagardotegiContent(Sagardotegi sagardotegi){
 		this.sagardotegi=sagardotegi;
-		txTlf.setText(sagardotegi.getTelefonoa());
-		txEmail.setText(sagardotegi.getEmaila());
-		txWeb.setText(sagardotegi.getWeborria());
-		txHelbide.setText(sagardotegi.getHelbidea());
-		imgLoader.displayImage(ImageUtils.getSagardotegiImageUrl(sagardotegi), imgSagardotegi);
+		if(sagardotegi.getTelefonoa()!=null && !sagardotegi.getTelefonoa().equals("")){
+			txTlf.setText(sagardotegi.getTelefonoa());
+			txTlfRow.setVisibility(View.VISIBLE);
+		}
+		else{
+			txTlfRow.setVisibility(View.GONE);
+		}
+		
+		if(sagardotegi.getEmaila()!=null && !sagardotegi.getEmaila().equals("")){
+			txEmail.setText(sagardotegi.getEmaila());
+			txEmailRow.setVisibility(View.VISIBLE);
+		}
+		else{
+			txEmailRow.setVisibility(View.GONE);
+		}
+		
+		if(sagardotegi.getWeborria()!=null && !sagardotegi.getWeborria().equals("")){
+			txWeb.setText(sagardotegi.getWeborria());
+			txWebRow.setVisibility(View.VISIBLE);
+		}
+		else{
+			txWebRow.setVisibility(View.GONE);
+		}
+		
+		if(sagardotegi.getHelbidea()!=null && !sagardotegi.getHelbidea().equals("")){
+			txHelbide.setText(sagardotegi.getHelbidea());
+			txHelbideRow.setVisibility(View.VISIBLE);
+		}
+		else{
+			txHelbideRow.setVisibility(View.GONE);
+		}
+		
 		if(sagardotegi.getEdukiera()!=0){
 			txEdukiera.setText(sagardotegi.getEdukiera() + " lagun");
 		}else{
 			txEdukiera.setText("Edukiera ezezaguna");
 		}
+		
+		
+		imgLoader.displayImage(ImageUtils.getSagardotegiImageUrl(sagardotegi), imgSagardotegi);
+		
 		showHideMap(sagardotegi);
 	}
 	
