@@ -68,17 +68,18 @@
         <service android:name=".service.TxotxIntentService_" />
 
         <!--
-        Debug 
+        Debug -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ" />
-        -->
+        
 
 
-        <!-- Release -->
+        <!-- Release
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAF5uG5kAJCsuUXb25O9_QOyADMEwMkyDk" />
+             -->
     </application>
 
 </manifest>

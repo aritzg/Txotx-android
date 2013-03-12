@@ -35,7 +35,7 @@
                     android:layout_height="match_parent"
                     class="com.google.android.gms.maps.SupportMapFragment"
                     android:visibility="gone"
-                    map:uiScrollGestures="false"
+                    map:uiScrollGestures="true"
                     map:uiZoomControls="false"
                     map:uiZoomGestures="true"/>
             </LinearLayout>
@@ -52,7 +52,8 @@
                 android:layout_height="150dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:visibility="gone"
+                android:padding="10dp"
+                android:visibility="visible"
                 android:src="@drawable/camera" />
         </RelativeLayout>
 

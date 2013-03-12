@@ -142,6 +142,12 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 		
 		
 		imgLoader.displayImage(ImageUtils.getSagardotegiImageUrl(sagardotegi), imgSagardotegi);
+		if(sagardotegi.getIrudia() == null || sagardotegi.getIrudia().equals("")){
+			imgSagardotegi.setVisibility(View.GONE);
+		}else{
+			imgSagardotegi.setVisibility(View.VISIBLE);
+			imgSagardotegi.setRotation(-10);
+		}
 		
 		showHideMap(sagardotegi);
 	}
