@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sareweb.android.txotx"
     android:installLocation="preferExternal"
-    android:versionCode="5"
-    android:versionName="v0.5" >
+    android:versionCode="6"
+    android:versionName="v0.6" >
 
     <permission
         android:name="net.sareweb.android.txotx.permission.MAPS_RECEIVE"

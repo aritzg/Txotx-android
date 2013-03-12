@@ -26,4 +26,5 @@
         android:icon="@drawable/half_star"
         android:showAsAction="ifRoom|withText"
         android:title="Txooootx!"/>
+
 </menu>
