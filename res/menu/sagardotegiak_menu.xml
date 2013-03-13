@@ -18,11 +18,6 @@
         android:showAsAction="ifRoom|withText"
         android:title="Reload"/>
     <item
-        android:id="@+id/menu_help"
-        android:icon="@drawable/help"
-        android:showAsAction="ifRoom|withText"
-        android:title="Help"/>
-    <item
         android:id="@+id/menu_about"
         android:icon="@drawable/about"
         android:showAsAction="ifRoom|withText"

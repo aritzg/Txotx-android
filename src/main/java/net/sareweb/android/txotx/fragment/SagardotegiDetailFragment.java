@@ -31,6 +31,7 @@ import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
+import com.googlecode.androidannotations.api.SdkVersionHelper;
 
 @EFragment(R.layout.sagardotegi_detail_fragment)
 public class SagardotegiDetailFragment extends SherlockFragment{
@@ -146,7 +147,9 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 			imgSagardotegi.setVisibility(View.GONE);
 		}else{
 			imgSagardotegi.setVisibility(View.VISIBLE);
-			imgSagardotegi.setRotation(-10);
+			/*if(SdkVersionHelper.getSdkInt()>11){
+				imgSagardotegi.setRotation(-10);
+			}*/
 		}
 		
 		showHideMap(sagardotegi);
@@ -162,20 +165,19 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 			mapFragment.getFragmentManager().beginTransaction().show(mapFragment).commit();
 
 			GoogleMap map = mapFragment.getMap();
-			map.clear();
-			
-			LatLng latLng = new LatLng(sagardotegi.getLat(), sagardotegi.getLng());
-			MarkerOptions mo =new MarkerOptions();
-			mo.position(latLng);
-			map.addMarker(mo);
-			
-			
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-			map.animateCamera(CameraUpdateFactory.scrollBy(20,20));
-			
-			
-			
-			imgMap.setVisibility(View.GONE);
+			if(map!=null){
+				map.clear();
+				
+				LatLng latLng = new LatLng(sagardotegi.getLat(), sagardotegi.getLng());
+				MarkerOptions mo =new MarkerOptions();
+				mo.position(latLng);
+				map.addMarker(mo);
+				
+				map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+				map.animateCamera(CameraUpdateFactory.scrollBy(20,20));
+				
+				imgMap.setVisibility(View.GONE);
+			}
 		}
 	}
 	

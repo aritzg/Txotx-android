@@ -33,6 +33,7 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	private ProgressDialog dialog;
 
 	public void setSagardotegiakContent(boolean refresh, String filter){
+		if(dialog!=null)dialog.dismiss();
 		dialog = ProgressDialog.show(getSherlockActivity(), "", "Sagardotegiak eskuratzen...", true);
 		dialog.show();
 		getSagardotegiak(refresh, filter);
@@ -60,7 +61,7 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 		}
 		dialog.cancel();
 	}
-
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Sagardotegi sagardotegi = (Sagardotegi) view.getTag();
