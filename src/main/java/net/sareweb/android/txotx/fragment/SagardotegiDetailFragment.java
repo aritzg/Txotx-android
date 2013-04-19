@@ -147,9 +147,9 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 			imgSagardotegi.setVisibility(View.GONE);
 		}else{
 			imgSagardotegi.setVisibility(View.VISIBLE);
-			/*if(SdkVersionHelper.getSdkInt()>11){
+			if(SdkVersionHelper.getSdkInt()>11){
 				imgSagardotegi.setRotation(-10);
-			}*/
+			}
 		}
 		
 		showHideMap(sagardotegi);
