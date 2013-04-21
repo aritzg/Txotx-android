@@ -71,6 +71,10 @@ public class TxotxIntentService extends IntentService {
 			Log.d(TAG, "Handling oharra");
 			TxotxNotifications.showOharra(this, intent);
 		}
+		else if(messageType.equals("followed")){
+			Log.d(TAG, "Handling message from followed");
+			TxotxNotifications.showFollowed(this, intent);
+		}
 		
 	}
 

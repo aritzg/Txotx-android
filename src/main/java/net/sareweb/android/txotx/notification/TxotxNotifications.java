@@ -86,5 +86,52 @@ public class TxotxNotifications {
 			        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		 mNotificationManager.notify((int)oharraIdLng, notification);
 	}
+	
+	public static void showFollowed(Context context, Intent intent){
+		String testua = intent.getExtras().getString("testua");
+		
+		String sagardotegiIzena = intent.getExtras().getString("sagardotegiIzena");
+		String sagardotegiId = intent.getExtras().getString("sagardotegiId");
+		long sagardotegiIdLng = Long.parseLong(sagardotegiId);
+		
+		String sagardoEgunIzena = intent.getExtras().getString("sagardoEgunIzena");
+		String sagardoEgunId = intent.getExtras().getString("sagardoEgunId");
+		long sagardoEgunIdLng = Long.parseLong(sagardoEgunId);
+		
+		String nork = intent.getExtras().getString("nork");
+		
+		 Builder builder = new NotificationCompat.Builder(context);
+		 
+		 
+		 if(sagardotegiIzena!=null && !sagardotegiIzena.equals("")){
+			 builder.setContentTitle(nork +"(e)k " + sagardotegiIzena + "sagardotegian.");
+		 }
+		 else if(sagardoEgunIzena!=null && !sagardoEgunIzena.equals("")){
+			 builder.setContentTitle(nork +"(e)k " + sagardoEgunIzena + "sagardotegian.");
+		 }
+		 
+		 //TODO: bidalo tokatzen den Activityra
+		 
+		 builder.setSmallIcon(R.drawable.notification);
+		 builder.setContentText(testua);
+		 
+		 Intent detailIntent = SagardotegiDetailActivity_.intent(context).sagardotegiId(sagardotegiIdLng).get();
+		 
+		 TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+		 stackBuilder.addParentStack(SagardotegiDetailActivity_.class);
+		 stackBuilder.addNextIntent(detailIntent);
+		 PendingIntent resultPendingIntent =
+			        stackBuilder.getPendingIntent(
+			            0,
+			            PendingIntent.FLAG_UPDATE_CURRENT
+			        );
+		 builder.setContentIntent(resultPendingIntent);
+		 
+		 Notification notification = builder.build();
+		
+		 NotificationManager mNotificationManager =
+			        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		 mNotificationManager.notify((int)sagardotegiIdLng, notification);
+	}
 
 }
