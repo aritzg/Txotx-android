@@ -347,7 +347,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	void gehituArgazkiGertaera(DLFileEntry dlFileEntry, File file){
 		TextView txImageMessage =(TextView)dialog.findViewById(R.id.txImageMessage);
 		DLFileEntry dlFile = dlFileEntryRESTClient.addFileEntry(dlFileEntry, file);
-		gehituArgazkiGertaeraResult(gertaeraRESTClient.gehituArgazkiGertaera(sagardotegi.getSagardotegiId(), txImageMessage.getText().toString(), sagardotegi.getIrudiKarpetaId(), dlFileEntry.getTitle()));
+		gehituArgazkiGertaeraResult(gertaeraRESTClient.gehituArgazkiGertaeraSagardotegian(sagardotegi.getSagardotegiId(), txImageMessage.getText().toString(), sagardotegi.getIrudiKarpetaId(), dlFileEntry.getTitle()));
 	}
 	
 	@UiThread
@@ -369,7 +369,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	@Background
 	void gehituTestuGertaera(String testua){
-		gehituTestuGertaeraResult(gertaeraRESTClient.gehituTestuGertaera(sagardotegi.getSagardotegiId(), testua));
+		gehituTestuGertaeraResult(gertaeraRESTClient.gehituTestuGertaeraSagardotegian(sagardotegi.getSagardotegiId(), testua));
 	}
 	
 	@UiThread
@@ -386,7 +386,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	@Background
 	void gehituBalorazioGertaera(int balorazioa){
-		gehituBalorazioGertaeraResult(gertaeraRESTClient.gehituBalorazioGertaera(sagardotegi.getSagardotegiId(), "", balorazioa));
+		gehituBalorazioGertaeraResult(gertaeraRESTClient.gehituBalorazioGertaeraSagardotegian(sagardotegi.getSagardotegiId(), "", balorazioa));
 	}
 	
 	@UiThread

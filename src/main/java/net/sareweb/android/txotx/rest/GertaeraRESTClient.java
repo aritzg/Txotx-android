@@ -15,15 +15,22 @@ public class GertaeraRESTClient extends LDRESTClient<Gertaera> {
 		super(connectionData);
 	}
 	
-	public Gertaera gehituTestuGertaera(long sagardotegiId, String testua){
-		String requestURL = getBaseURL() + "/gehitu-testu-gertaera";
+	public Gertaera gehituTestuGertaeraSagardotegian(long sagardotegiId, String testua){
+		String requestURL = getBaseURL() + "/gehitu-testu-gertaera-sagardotegian";
 		requestURL = addParamToRequestURL(requestURL, "sagardotegi-id", sagardotegiId);
 		requestURL = addParamToRequestURL(requestURL, "testua", testua, true);
 		return run(requestURL, HttpMethod.POST);
 	}
 	
-	public Gertaera gehituArgazkiGertaera(long sagardotegiId, String testua, long irudiKarpetaId, String irudia){
-		String requestURL = getBaseURL() + "/gehitu-argazki-gertaera";
+	public Gertaera gehituTestuGertaeraSagardoEgunean(long sagardoEgunId, String testua){
+		String requestURL = getBaseURL() + "/gehitu-testu-gertaera-sagardo-egunean";
+		requestURL = addParamToRequestURL(requestURL, "sagardo-egun-id", sagardoEgunId);
+		requestURL = addParamToRequestURL(requestURL, "testua", testua, true);
+		return run(requestURL, HttpMethod.POST);
+	}
+	
+	public Gertaera gehituArgazkiGertaeraSagardotegian(long sagardotegiId, String testua, long irudiKarpetaId, String irudia){
+		String requestURL = getBaseURL() + "/gehitu-argazki-gertaera-sagardotegian";
 		requestURL = addParamToRequestURL(requestURL, "sagardotegi-id", sagardotegiId);
 		requestURL = addParamToRequestURL(requestURL, "testua", testua, true);
 		requestURL = addParamToRequestURL(requestURL, "irudi-karpeta-id", irudiKarpetaId);
@@ -31,9 +38,27 @@ public class GertaeraRESTClient extends LDRESTClient<Gertaera> {
 		return run(requestURL, HttpMethod.POST);
 	}
 	
-	public Gertaera gehituBalorazioGertaera(long sagardotegiId, String testua, long balorazioa){
-		String requestURL = getBaseURL() + "/gehitu-balorazio-gertaera";
+	public Gertaera gehituArgazkiGertaeraSagardoEgunean(long sagardoEgunId, String testua, long irudiKarpetaId, String irudia){
+		String requestURL = getBaseURL() + "/gehitu-argazki-gertaera-sagardo-egunean";
+		requestURL = addParamToRequestURL(requestURL, "sagardo-egun-id", sagardoEgunId);
+		requestURL = addParamToRequestURL(requestURL, "testua", testua, true);
+		requestURL = addParamToRequestURL(requestURL, "irudi-karpeta-id", irudiKarpetaId);
+		requestURL = addParamToRequestURL(requestURL, "irudia", irudia);
+		return run(requestURL, HttpMethod.POST);
+	}
+		
+	public Gertaera gehituBalorazioGertaeraSagardotegian(long sagardotegiId, String testua, long balorazioa){
+		String requestURL = getBaseURL() + "/gehitu-balorazio-gertaera-sagardotegian";
 		requestURL = addParamToRequestURL(requestURL, "sagardotegi-id", sagardotegiId);
+		requestURL = addParamToRequestURL(requestURL, "testua", testua, true);
+		requestURL = addParamToRequestURL(requestURL, "balorazioa", balorazioa);
+		Log.d(TAG,"requestURL : " + requestURL);
+		return run(requestURL, HttpMethod.POST);
+	}
+	
+	public Gertaera gehituBalorazioGertaeraSagardoEgunean(long sagardoEgunId, String testua, long balorazioa){
+		String requestURL = getBaseURL() + "/gehitu-balorazio-gertaera-sagardo-egunean";
+		requestURL = addParamToRequestURL(requestURL, "sagardo-egun-id", sagardoEgunId);
 		requestURL = addParamToRequestURL(requestURL, "testua", testua, true);
 		requestURL = addParamToRequestURL(requestURL, "balorazioa", balorazioa);
 		Log.d(TAG,"requestURL : " + requestURL);

@@ -2,12 +2,10 @@ package net.sareweb.android.txotx.rest;
 
 import java.util.List;
 
+import net.sareweb.android.txotx.model.Jarraipen;
 import net.sareweb.lifedroid.rest.generic.LDRESTClient;
-import net.sareweb.txotx.model.Jarraipen;
 
 import org.springframework.http.HttpMethod;
-
-import com.liferay.portal.kernel.exception.SystemException;
 
 import android.util.Log;
 
