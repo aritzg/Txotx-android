@@ -11,6 +11,7 @@ import java.util.Date;
 
 import net.sareweb.android.txotx.model.Gertaera;
 import net.sareweb.android.txotx.model.Oharra;
+import net.sareweb.android.txotx.model.SagardoEgun;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.lifedroid.model.DLFileEntry;
 
@@ -227,6 +228,19 @@ public class ImageUtils {
 					+ Constants.SERVICE_PORT + "/documents/" + Constants.GROUP
 					+ "/" + sagardotegi.getIrudiKarpetaId() + "/"
 					+ sagardotegi.getIrudia();
+			return imageUrl;
+		}
+	}
+	
+	public static String getSagardoEgunImageUrl(SagardoEgun sagardoEgun) {
+		if (sagardoEgun.getIrudia() == null
+				|| sagardoEgun.getIrudia().equals("")) {
+			return "";
+		} else {
+			String imageUrl = "http://" + Constants.SERVICE_URL + ":"
+					+ Constants.SERVICE_PORT + "/documents/" + Constants.GROUP
+					+ "/" + sagardoEgun.getIrudiKarpetaId() + "/"
+					+ sagardoEgun.getIrudia();
 			return imageUrl;
 		}
 	}

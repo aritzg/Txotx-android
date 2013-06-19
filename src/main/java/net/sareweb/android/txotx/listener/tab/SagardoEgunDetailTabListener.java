@@ -1,8 +1,9 @@
 package net.sareweb.android.txotx.listener.tab;
 
 import net.sareweb.android.txotx.fragment.GertaerakFragment_;
+import net.sareweb.android.txotx.fragment.SagardoEgunDetailFragment_;
 import net.sareweb.android.txotx.fragment.SagardotegiDetailFragment_;
-import net.sareweb.android.txotx.model.Sagardotegi;
+import net.sareweb.android.txotx.model.SagardoEgun;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,15 +14,15 @@ import com.actionbarsherlock.app.ActionBar.TabListener;
 
 public class SagardoEgunDetailTabListener implements TabListener {
 
-	int selectedTab=SAGARDOTEGI_DETAIL;
+	int selectedTab=SAGARDOEGUN_DETAIL;
 	private Fragment mFragment;
 	public Activity mActivity;
-	private Sagardotegi sagardotegi;
+	private SagardoEgun sagardoEgun;
 
-	public SagardoEgunDetailTabListener( Sagardotegi sagardotegi, int selectedTab, Activity activity){
+	public SagardoEgunDetailTabListener( SagardoEgun sagardoEgun, int selectedTab, Activity activity){
 		this.selectedTab=selectedTab;
 		mActivity = activity;
-		this.sagardotegi=sagardotegi;
+		this.sagardoEgun=sagardoEgun;
 	}
 
 	@Override
@@ -32,21 +33,21 @@ public class SagardoEgunDetailTabListener implements TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
 		switch (selectedTab) {
-		case SAGARDOTEGI_DETAIL:
+		case SAGARDOEGUN_DETAIL:
 			if (mFragment == null) {
 				Bundle bundle= new Bundle();
-				bundle.putSerializable("sagardotegi", sagardotegi);
-				mFragment = (SagardotegiDetailFragment_)Fragment.instantiate(mActivity, SagardotegiDetailFragment_.class.getName(),bundle);
+				bundle.putSerializable("sagardoEgun", sagardoEgun);
+				mFragment = (SagardoEgunDetailFragment_)Fragment.instantiate(mActivity, SagardoEgunDetailFragment_.class.getName(),bundle);
 				fragmentTransaction.add(android.R.id.content, mFragment);
 			}
 			else{
 				fragmentTransaction.attach(mFragment);
 			}
 			break;
-		case SAGARDOTEGI_GERTAERAK:
+		case SAGARDOEGUN_GERTAERAK:
 			if (mFragment == null) {
 				Bundle bundle= new Bundle();
-				bundle.putSerializable("sagardotegi", sagardotegi);
+				bundle.putSerializable("sagardoEgun", sagardoEgun);
 				mFragment = (GertaerakFragment_)Fragment.instantiate(mActivity, GertaerakFragment_.class.getName(),bundle);
 				fragmentTransaction.add(android.R.id.content, mFragment);
 			}
@@ -65,7 +66,7 @@ public class SagardoEgunDetailTabListener implements TabListener {
 
 	}
 
-	public static final int SAGARDOTEGI_DETAIL=0;
-	public static final int SAGARDOTEGI_GERTAERAK=1;
+	public static final int SAGARDOEGUN_DETAIL=0;
+	public static final int SAGARDOEGUN_GERTAERAK=1;
 
 }

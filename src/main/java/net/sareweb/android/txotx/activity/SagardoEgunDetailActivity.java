@@ -86,12 +86,12 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 
 		Tab sagardoEgunDetailTab = actionBar.newTab();
 		sagardoEgunDetailTab.setText("SagardoEguna");
-		sagardoEgunDetailTab.setTabListener(new SagardoEgunDetailTabListener(sagardoEgun, SagardoEgunDetailTabListener.SAGARDOEgun_DETAIL, this));
+		sagardoEgunDetailTab.setTabListener(new SagardoEgunDetailTabListener(sagardoEgun, SagardoEgunDetailTabListener.SAGARDOEGUN_DETAIL, this));
 		actionBar.addTab(sagardoEgunDetailTab);
 
 		Tab sagardoEgunEventsTab = actionBar.newTab();
 		sagardoEgunEventsTab.setText("Gertaerak");
-		sagardoEgunEventsTab.setTabListener(new SagardoEgunDetailTabListener(sagardoEgun, SagardoEgunDetailTabListener.SAGARDOEgun_GERTAERAK, this));
+		sagardoEgunEventsTab.setTabListener(new SagardoEgunDetailTabListener(sagardoEgun, SagardoEgunDetailTabListener.SAGARDOEGUN_GERTAERAK, this));
 		actionBar.addTab(sagardoEgunEventsTab);
 
 		if(sagardoEgunId!=0){

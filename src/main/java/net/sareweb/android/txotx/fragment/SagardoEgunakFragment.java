@@ -26,7 +26,7 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
 @EFragment(R.layout.sagardoegunak_fragment)
-public class SagardoEgunakFragment{// extends SherlockFragment implements OnItemClickListener{
+public class SagardoEgunakFragment extends SherlockFragment implements OnItemClickListener{
 
 	private static String TAG = "SagardoEgunakFragment";
 	@Pref TxotxPrefs_ prefs;
@@ -49,11 +49,11 @@ public class SagardoEgunakFragment{// extends SherlockFragment implements OnItem
 	@UiThread
 	public void getSagardoEgunakResult(List<SagardoEgun> sagardoEgunak){
 		if(sagardoEgunak!=null){
-			ListView gardensListView = (ListView) getActivity().findViewById(R.id.sagardoegunak_list_view);
-			gardensListView.setAdapter(new SagardoEgunAdapter(getActivity(), sagardoEgunak));
-			SagardoEgunAdapter adapter = (SagardoEgunAdapter)gardensListView.getAdapter();
+			ListView sagardoEgunakListView = (ListView) getActivity().findViewById(R.id.sagardoegunak_list_view);
+			sagardoEgunakListView.setAdapter(new SagardoEgunAdapter(getActivity(), sagardoEgunak));
+			SagardoEgunAdapter adapter = (SagardoEgunAdapter)sagardoEgunakListView.getAdapter();
 			adapter.notifyDataSetChanged();
-			gardensListView.setOnItemClickListener(this);
+			sagardoEgunakListView.setOnItemClickListener(this);
 		}
 		else{
 			Toast.makeText(getActivity(), "Errorea sagardoEgunak kargatzen!!", Toast.LENGTH_LONG).show();

@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class SagardoEgunAdapter {//extends BaseAdapter{
+public class SagardoEgunAdapter extends BaseAdapter{
 
-	/*private Context context;
+	private Context context;
 	private List<SagardoEgun> sagardoEgunak;
 	private static String TAG = "SagardoEgunAdapter";
 	
@@ -69,6 +69,6 @@ public class SagardoEgunAdapter {//extends BaseAdapter{
 		
 		convertView.setTag(sagardoEgunak.get(position));
 		return convertView;
-	}*/
+	}
 
 }

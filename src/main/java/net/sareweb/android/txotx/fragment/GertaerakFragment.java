@@ -105,7 +105,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	@Background
 	void getGertaerak(){
 		//this.gertaerak=gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegi.getSagardotegiId(), 0, 100);
-		this.gertaerak=GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), false);
+		this.gertaerak=GertaeraCache.getGertaerak(sagardotegi.getSagardotegiId(), false);
 		getGertaerakResult();
 	}
 
@@ -125,7 +125,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 		Log.d(TAG, "Gertaera zerrenda eguneratzen");
 		try {
 			//getGertaeraBerriagoakResult(gertaeraRESTClient.getGertaerakNewerThanDate(sagardotegi.getSagardotegiId(), azkenGertaerarenData, 100));
-			getGertaeraBerriagoakResult(GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), true));
+			getGertaeraBerriagoakResult(GertaeraCache.getGertaerak(sagardotegi.getSagardotegiId(), true));
 		} catch (Exception e) {
 			getGertaeraBerriagoakResult(null);
 		}

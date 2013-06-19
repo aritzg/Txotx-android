@@ -184,7 +184,7 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 	@Background
 	public void gertaerakAldezAurretikEkarri(){
 		try {
-			GertaeraCache.getSagardotegiGertaerak(sagardotegi.getSagardotegiId(), true);
+			GertaeraCache.getGertaerak(sagardotegi.getSagardotegiId(), true);
 		} catch (Exception e) {
 			Log.e(TAG, "Errorea gertaerak aldez aurretik kargatzen");
 		}

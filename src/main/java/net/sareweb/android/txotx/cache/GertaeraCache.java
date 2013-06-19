@@ -17,40 +17,40 @@ public class GertaeraCache {
 
 	private static GertaeraRESTClient gertaeraRESTClient;
 	
-	private static HashMap<Long, GertaeraZerrenda> sagardotegiGertaerak = new HashMap<Long, GertaeraZerrenda>();
+	private static HashMap<Long, GertaeraZerrenda> gertaerak = new HashMap<Long, GertaeraZerrenda>();
 	
 	public static void init(TxotxPrefs_ preferences){
 		prefs = preferences;
 		gertaeraRESTClient = new GertaeraRESTClient(new TxotxConnectionData(prefs));
 	}
 	
-	public static List<Gertaera> getSagardotegiGertaerak(long sagardotegiId, boolean refresh){
-		GertaeraZerrenda zerrenda = sagardotegiGertaerak.get(sagardotegiId);
+	public static List<Gertaera> getGertaerak(long lekuId, boolean refresh){
+		GertaeraZerrenda zerrenda = gertaerak.get(lekuId);
 		if(!refresh && zerrenda!=null){
 			Log.d(TAG, "Ez da eguneratu behar eta zerrenda ez da NULL");
 			return zerrenda.getGertaerak();
 		}
 		else if(zerrenda==null){
 			Log.d(TAG, "Zerrenda null denez eguneratu egin behar da");
-			List<Gertaera> gertaerak = gertaeraRESTClient.getGertaerakOlderThanDate(sagardotegiId, 0, 100);
+			List<Gertaera> gertaeraEskuratuak = gertaeraRESTClient.getGertaerakOlderThanDate(lekuId, 0, 100);
 			GertaeraZerrenda zerrendaBerria = new  GertaeraZerrenda();
 			String s = new String();
-			zerrendaBerria.appendGertaerak(gertaerak);
-			sagardotegiGertaerak.put(sagardotegiId, zerrendaBerria);
-			return gertaerak;
+			zerrendaBerria.appendGertaerak(gertaeraEskuratuak);
+			gertaerak.put(lekuId, zerrendaBerria);
+			return gertaeraEskuratuak;
 		}
 		else{
 			Log.d(TAG, "Gertaera berriagoak ekarriko dira");
-			List<Gertaera> gertaerak = gertaeraRESTClient.getGertaerakNewerThanDate(sagardotegiId, zerrenda.getUpdateDate(), 100);
-			zerrenda.appendGertaerak(gertaerak);
-			sagardotegiGertaerak.put(sagardotegiId, zerrenda);
-			return gertaerak;
+			List<Gertaera> gertaeraEskuratuak = gertaeraRESTClient.getGertaerakNewerThanDate(lekuId, zerrenda.getUpdateDate(), 100);
+			zerrenda.appendGertaerak(gertaeraEskuratuak);
+			gertaerak.put(lekuId, zerrenda);
+			return gertaeraEskuratuak;
 		}
 	}
 	
 	public static void gehituGertaera(Gertaera gertaera){
 		if(gertaera==null)return;
-		sagardotegiGertaerak.get(gertaera.getSagardotegiId()).appendGertaera(gertaera);
+		gertaerak.get(gertaera.getSagardotegiId()).appendGertaera(gertaera);
 	}
 	
 	

@@ -103,13 +103,7 @@ public class SagardoEgunDetailFragment extends SherlockFragment{
 	
 	public void setSagardoEgunContent(SagardoEgun sagardoEgun){
 		this.sagardoEgun=sagardoEgun;
-		if(sagardoEgun.getTelefonoa()!=null && !sagardoEgun.getTelefonoa().equals("")){
-			txTlf.setText(sagardoEgun.getTelefonoa());
-			txTlfRow.setVisibility(View.VISIBLE);
-		}
-		else{
-			txTlfRow.setVisibility(View.GONE);
-		}
+	
 		
 		if(sagardoEgun.getEmaila()!=null && !sagardoEgun.getEmaila().equals("")){
 			txEmail.setText(sagardoEgun.getEmaila());
@@ -126,21 +120,6 @@ public class SagardoEgunDetailFragment extends SherlockFragment{
 		else{
 			txWebRow.setVisibility(View.GONE);
 		}
-		
-		if(sagardoEgun.getHelbidea()!=null && !sagardoEgun.getHelbidea().equals("")){
-			txHelbide.setText(sagardoEgun.getHelbidea());
-			txHelbideRow.setVisibility(View.VISIBLE);
-		}
-		else{
-			txHelbideRow.setVisibility(View.GONE);
-		}
-		
-		if(sagardoEgun.getEdukiera()!=0){
-			txEdukiera.setText(sagardoEgun.getEdukiera() + " lagun");
-		}else{
-			txEdukiera.setText("Edukiera ezezaguna");
-		}
-		
 		
 		imgLoader.displayImage(ImageUtils.getSagardoEgunImageUrl(sagardoEgun), imgSagardoEgun);
 		if(sagardoEgun.getIrudia() == null || sagardoEgun.getIrudia().equals("")){
@@ -184,7 +163,7 @@ public class SagardoEgunDetailFragment extends SherlockFragment{
 	@Background
 	public void gertaerakAldezAurretikEkarri(){
 		try {
-			GertaeraCache.getSagardoEgunGertaerak(sagardoEgun.getSagardoEgunId(), true);
+			GertaeraCache.getGertaerak(sagardoEgun.getSagardoEgunId(), true);
 		} catch (Exception e) {
 			Log.e(TAG, "Errorea gertaerak aldez aurretik kargatzen");
 		}
