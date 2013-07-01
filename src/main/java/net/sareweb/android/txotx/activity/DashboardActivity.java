@@ -2,6 +2,7 @@ package net.sareweb.android.txotx.activity;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.GertaeraCache;
+import net.sareweb.android.txotx.cache.SagardoEgunCache;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
@@ -25,10 +26,12 @@ public class DashboardActivity extends SherlockActivity {
 		
 		UserCache.init(prefs);
 		SagardotegiCache.init(prefs);
+		SagardoEgunCache.init(prefs);
 		GertaeraCache.init(prefs);
 		
 		if(redirect){
-			SagardotegiakActivity_.intent(this).start();
+			//SagardotegiakActivity_.intent(this).start();
+			SagardoEgunakActivity_.intent(this).start();
 		}
 	}
 

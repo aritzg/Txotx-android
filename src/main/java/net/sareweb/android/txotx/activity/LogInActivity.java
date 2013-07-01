@@ -60,14 +60,10 @@ public class LogInActivity extends Activity implements OnClickListener{
 			return;
 		}
 		
-		/*UserCache.init(prefs);
-		SagardotegiCache.init(prefs);
-		GertaeraCache.init(prefs);*/
 		if(PrefUtils.isUserLogged(prefs)){
 			registerDevice();
 			finish();
 			DashboardActivity_.intent(this).redirect(true).start();
-			//SagardotegiakActivity_.intent(this).start();
 		}
 	}
 	

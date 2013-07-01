@@ -8,20 +8,21 @@ import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.View;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
 import com.actionbarsherlock.widget.SearchView.OnQueryTextListener;
 import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
@@ -32,7 +33,7 @@ import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 @OptionsMenu(R.menu.sagardotegiak_menu)
 public class SagardotegiakActivity extends SherlockFragmentActivity implements
 		OnNavigationListener, OnQueryTextListener{
-
+	
 	private static String TAG = "SagardotegiakActivity";
 
 	@FragmentById
@@ -41,16 +42,37 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 	TxotxPrefs_ prefs;
 	ActionBar actionBar;
 	private SearchView mSearchView;
+	
+	 private DrawerLayout mDrawerLayout;
+	 private ActionBarDrawerToggle mDrawerToggle;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		Log.d(TAG, "onCreate");
-
+		
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle("aaa");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle("bbbb");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
 
 	}
 

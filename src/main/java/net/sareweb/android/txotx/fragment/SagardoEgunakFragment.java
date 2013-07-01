@@ -66,7 +66,7 @@ public class SagardoEgunakFragment extends SherlockFragment implements OnItemCli
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		SagardoEgun sagardoEgun = (SagardoEgun) view.getTag();
 		Log.d(TAG, "Selected sagardoEgun " + sagardoEgun.getSagardoEgunId());
-		//SagardoEgunDetailActivity_.intent(getSherlockActivity()).sagardoEgun(sagardoEgun).start();
+		SagardoEgunDetailActivity_.intent(getSherlockActivity()).sagardoEgun(sagardoEgun).start();
 	}
 	
 	private List<SagardoEgun> filterSagardoEgunak(List<SagardoEgun> sagardoEgunak, String filter){

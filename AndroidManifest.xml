@@ -49,6 +49,9 @@
         <activity
             android:name=".activity.SagardotegiDetailActivity_"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+            android:name=".activity.SagardoEgunDetailActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         
         <activity android:name=".activity.SagardoEgunakActivity_" />
         
