@@ -3,6 +3,7 @@ package net.sareweb.android.txotx.notification;
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.activity.OharraActivity_;
 import net.sareweb.android.txotx.activity.SagardotegiDetailActivity_;
+import net.sareweb.android.txotx.activity.TxotxActivity_;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -68,7 +69,8 @@ public class TxotxNotifications {
 		builder.setSmallIcon(R.drawable.notification);
 		builder.setContentText(izenburua);
 		 
-		Intent detailIntent = OharraActivity_.intent(context).oharraId(oharraIdLng).get();
+		//Intent detailIntent = OharraActivity_.intent(context).oharraId(oharraIdLng).get();
+		Intent detailIntent = TxotxActivity_.intent(context).fragmentToBeLoaded(TxotxActivity_.OHARRA_FRAGMENT).oharraId(oharraIdLng).get();
 		 
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 		stackBuilder.addParentStack(OharraActivity_.class);

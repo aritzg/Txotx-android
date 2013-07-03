@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:txotx="http://schemas.android.com/apk/res/net.sareweb.android.txotx"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- The main content view -->
+
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!-- The navigation drawer -->
+    <!--
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="#111"/>
+    -->
+
+    <LinearLayout
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#CCC"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:orientation="vertical" >
+
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnSagardotegiak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Sagardotegiak"
+            txotx:imgResId="@drawable/list" />
+        
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnSagardoEgunak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Sagardo Egunak"
+            txotx:imgResId="@drawable/list" />
+
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Mapa"
+            txotx:imgResId="@drawable/sagardotegi_map" />
+
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnSailkapena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Sailkapena"
+            txotx:imgResId="@drawable/ranking" />
+
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnErronka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Erronka!"
+            txotx:imgResId="@drawable/erronka" />
+
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Hobespenak"
+            txotx:imgResId="@drawable/settings" />
+
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Txotx!-i buruz"
+            txotx:imgResId="@drawable/logo" />
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>

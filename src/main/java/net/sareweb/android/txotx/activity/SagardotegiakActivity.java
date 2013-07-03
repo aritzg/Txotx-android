@@ -28,7 +28,7 @@ import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
-
+@Deprecated
 @EActivity(R.layout.sagardotegiak_activity)
 @OptionsMenu(R.menu.sagardotegiak_menu)
 public class SagardotegiakActivity extends SherlockFragmentActivity implements
@@ -57,22 +57,6 @@ public class SagardotegiakActivity extends SherlockFragmentActivity implements
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher) {
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle("aaa");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle("bbbb");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
 
 	}
 

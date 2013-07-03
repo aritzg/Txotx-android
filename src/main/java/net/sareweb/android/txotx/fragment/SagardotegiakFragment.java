@@ -11,6 +11,7 @@ import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +32,12 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	private static String TAG = "SagardotegiakFragment";
 	@Pref TxotxPrefs_ prefs;
 	private ProgressDialog dialog;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setSagardotegiakContent(true, "");
+	}
 
 	public void setSagardotegiakContent(boolean refresh, String filter){
 		if(dialog!=null)dialog.dismiss();

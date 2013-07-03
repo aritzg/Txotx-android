@@ -42,6 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.TxotxActivity_" />
         <activity android:name=".activity.SagardotegiakActivity_" />
         <activity
             android:name=".activity.SagardotegiMapActivity_"

@@ -63,7 +63,8 @@ public class LogInActivity extends Activity implements OnClickListener{
 		if(PrefUtils.isUserLogged(prefs)){
 			registerDevice();
 			finish();
-			DashboardActivity_.intent(this).redirect(true).start();
+			//DashboardActivity_.intent(this).redirect(true).start();
+			TxotxActivity_.intent(this).start();
 		}
 	}
 	
