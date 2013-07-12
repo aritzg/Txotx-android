@@ -21,6 +21,7 @@ public class TxotxIntentService extends IntentService {
 	private static PowerManager.WakeLock sWakeLock;
     private static final Object LOCK = TxotxIntentService.class;
     private GoogleDeviceRESTClient googleDeviceRESTClient;
+    private static Context context;
 	
     @Pref TxotxPrefs_ prefs;
     
@@ -28,7 +29,8 @@ public class TxotxIntentService extends IntentService {
 		super("txootx");
 	}
     
-    public static void runIntentInService(Context context, Intent intent) {
+    public static void runIntentInService(Context ctx, Intent intent) {
+    	context=ctx;
         synchronized(LOCK) {
             if (sWakeLock == null) {
                 PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -79,12 +81,12 @@ public class TxotxIntentService extends IntentService {
 	}
 
 	private void handleRegistration(Intent intent) {
-		try {
+		/*try {
 			String error = intent.getExtras().getString("error");
 			String registration_id = intent.getExtras().getString("registration_id");
 			String unregistered = intent.getExtras().getString("unregistered");
 			
-			googleDeviceRESTClient = new GoogleDeviceRESTClient(new TxotxConnectionData(prefs));
+			googleDeviceRESTClient = new GoogleDeviceRESTClient(new TxotxConnectionData(context));
 			Log.d(TAG, "Handling registration");
 			if(error==null){
 				if(registration_id!=null){
@@ -97,8 +99,8 @@ public class TxotxIntentService extends IntentService {
 				}
 			}
 		} catch (Exception e) {
-			Log.e(TAG, "Error handling registration");
-		}
+			Log.e(TAG, "Error handling registration",e);
+		}*/
 	}
 	
 

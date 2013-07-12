@@ -6,6 +6,7 @@ import net.sareweb.android.txotx.adapter.SailkapenaAdapter;
 import net.sareweb.android.txotx.model.Sailkapena;
 import net.sareweb.android.txotx.rest.SailkapenaRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class SailkapenaActivity extends SherlockActivity{
 
 	@Background
 	public void getSailkapenak(){
-		SailkapenaRESTClient sailkapenaRESTClient = new SailkapenaRESTClient(new TxotxConnectionData(prefs));
+		SailkapenaRESTClient sailkapenaRESTClient = new SailkapenaRESTClient(new TxotxConnectionData(this));
 		getgetSailkapenakResult(sailkapenaRESTClient.getSailkapenak());
 	}
 

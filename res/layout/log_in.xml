@@ -12,38 +12,4 @@
         android:layout_weight="3"
         android:src="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/txEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="mail@gmail.com"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <EditText
-        android:id="@+id/txPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text=""
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/btnSignIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:text="Sartu" />
-
-    <Button
-        android:id="@+id/btnCreateAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kontua sortu" />
-	
-    <Button
-        android:id="@+id/btnResetPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pasahitza berrezarri" />
 </LinearLayout>

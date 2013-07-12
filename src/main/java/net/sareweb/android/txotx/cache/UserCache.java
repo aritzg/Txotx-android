@@ -4,21 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
-import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.model.User;
 import net.sareweb.lifedroid.rest.UserRESTClient;
+import android.content.Context;
 
 public class UserCache {
-
-	private static TxotxPrefs_ prefs;
 
 	private static UserRESTClient userRESTClient;
 
 	private static Map<Long, User> users = new HashMap<Long, User>();
 
-	public static void init(TxotxPrefs_ preferences){
-		prefs = preferences;
-		userRESTClient = new UserRESTClient(new TxotxConnectionData(prefs));
+	public static void init(Context context){
+		userRESTClient = new UserRESTClient(new TxotxConnectionData(context));
 	}
 
 

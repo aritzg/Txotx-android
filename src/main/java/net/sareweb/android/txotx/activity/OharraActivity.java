@@ -9,6 +9,7 @@ import net.sareweb.android.txotx.model.Sailkapena;
 import net.sareweb.android.txotx.rest.OharraRESTClient;
 import net.sareweb.android.txotx.rest.SailkapenaRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.NotificationManager;
@@ -62,7 +63,7 @@ public class OharraActivity extends SherlockActivity{
 
 	@Background
 	void getOharra(){
-		OharraRESTClient oharraRESTClient = new OharraRESTClient(new TxotxConnectionData(prefs));
+		OharraRESTClient oharraRESTClient = new OharraRESTClient(new TxotxConnectionData(this));
 		if(oharraId==0){//erronka da
 			getOharraResult(oharraRESTClient.getAzkenErronka());
 		}

@@ -10,12 +10,11 @@ import net.sareweb.android.txotx.cache.SagardoEgunCache;
 import net.sareweb.android.txotx.model.SagardoEgun;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +30,12 @@ public class SagardoEgunakFragment extends SherlockFragment implements OnItemCli
 	private static String TAG = "SagardoEgunakFragment";
 	@Pref TxotxPrefs_ prefs;
 	private ProgressDialog dialog;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setSagardoEgunakContent(true, "");
+	}
 
 	public void setSagardoEgunakContent(boolean refresh, String filter){
 		if(dialog!=null)dialog.dismiss();
@@ -45,7 +50,7 @@ public class SagardoEgunakFragment extends SherlockFragment implements OnItemCli
 		List<SagardoEgun> sagardoEgunak = SagardoEgunCache.getSagardoEgunak(refresh);
 		getSagardoEgunakResult(filterSagardoEgunak(sagardoEgunak, filter));
 	}
-
+	
 	@UiThread
 	public void getSagardoEgunakResult(List<SagardoEgun> sagardoEgunak){
 		if(sagardoEgunak!=null){
@@ -57,7 +62,7 @@ public class SagardoEgunakFragment extends SherlockFragment implements OnItemCli
 		}
 		else{
 			Toast.makeText(getActivity(), "Errorea sagardoEgunak kargatzen!!", Toast.LENGTH_LONG).show();
-			SagardoEgunCache.init(prefs);
+			SagardoEgunCache.init(getSherlockActivity());
 		}
 		dialog.cancel();
 	}

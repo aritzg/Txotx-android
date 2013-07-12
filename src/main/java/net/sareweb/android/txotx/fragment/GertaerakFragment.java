@@ -21,30 +21,25 @@ import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.model.DLFileEntry;
 import net.sareweb.lifedroid.rest.DLFileEntryRESTClient;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources.Theme;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
-import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
@@ -78,8 +73,8 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dlFileEntryRESTClient = new DLFileEntryRESTClient(new TxotxConnectionData(prefs));
-		gertaeraRESTClient = new GertaeraRESTClient(new TxotxConnectionData(prefs));
+		dlFileEntryRESTClient = new DLFileEntryRESTClient(new TxotxConnectionData(getSherlockActivity()));
+		gertaeraRESTClient = new GertaeraRESTClient(new TxotxConnectionData(getSherlockActivity()));
 		imgLoader = new ImageLoader(getActivity());
 	}
 

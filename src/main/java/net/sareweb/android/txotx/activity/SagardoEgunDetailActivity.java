@@ -62,7 +62,7 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 	@Background
 	public void getSagardoEgunak(boolean refresh){
 		Log.d(TAG, "Gettings sagardoEgunak");
-		SagardoEgunCache.init(prefs);
+		SagardoEgunCache.init(this);
 		getSagardoEgunakResult(SagardoEgunCache.getSagardoEgunak(refresh));
 	}
 

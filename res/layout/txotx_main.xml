@@ -12,16 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <!-- The navigation drawer -->
-    <!--
-    <ListView android:id="@+id/left_drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111"/>
-    -->
 
     <LinearLayout
         android:id="@+id/left_drawer"
@@ -32,7 +22,8 @@
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
 
         <net.sareweb.android.txotx.custom.DashboardButton_
             android:id="@+id/btnSagardotegiak"
@@ -41,14 +32,14 @@
             android:layout_weight="1"
             txotx:buttonText="Sagardotegiak"
             txotx:imgResId="@drawable/list" />
-        
+
         <net.sareweb.android.txotx.custom.DashboardButton_
             android:id="@+id/btnSagardoEgunak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             txotx:buttonText="Sagardo Egunak"
-            txotx:imgResId="@drawable/list" />
+            txotx:imgResId="@drawable/sagardo_egun" />
 
         <net.sareweb.android.txotx.custom.DashboardButton_
             android:id="@+id/btnMap"
@@ -89,6 +80,21 @@
             android:layout_weight="1"
             txotx:buttonText="Txotx!-i buruz"
             txotx:imgResId="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:paddingBottom="20dp">
+
+            <com.google.android.gms.plus.PlusOneButton
+                xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
+                android:id="@+id/plus_one_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                plus:annotation="inline"
+                plus:size="tall" />
+        </LinearLayout>
+        
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

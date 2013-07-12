@@ -10,13 +10,11 @@ import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -64,7 +62,7 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 		}
 		else{
 			Toast.makeText(getActivity(), "Errorea sagardotegiak kargatzen!!", Toast.LENGTH_LONG).show();
-			SagardotegiCache.init(prefs);
+			SagardotegiCache.init(getSherlockActivity());
 		}
 		dialog.cancel();
 	}

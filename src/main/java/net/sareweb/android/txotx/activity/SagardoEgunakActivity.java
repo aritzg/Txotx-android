@@ -27,7 +27,7 @@ import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
-
+@Deprecated
 @EActivity(R.layout.sagardoegunak_activity)
 @OptionsMenu(R.menu.sagardoegunak_menu)
 public class SagardoEgunakActivity extends SherlockFragmentActivity implements
@@ -35,7 +35,7 @@ public class SagardoEgunakActivity extends SherlockFragmentActivity implements
 
 	private static String TAG = "SagardoEgunakActivity";
 
-	@FragmentById
+	//@FragmentById
 	SagardoEgunakFragment sagardoEgunakFragment;
 	@Pref
 	TxotxPrefs_ prefs;

@@ -10,8 +10,6 @@ import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.rest.DLFileEntryRESTClient;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
@@ -65,8 +63,8 @@ public class SagardoEgunDetailFragment extends SherlockFragment{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         
-		dlFileEntryRESTClient = new DLFileEntryRESTClient(new TxotxConnectionData(prefs));
-		sagardoEgunRESTClient = new SagardoEgunRESTClient(new TxotxConnectionData(prefs));
+		dlFileEntryRESTClient = new DLFileEntryRESTClient(new TxotxConnectionData(getSherlockActivity()));
+		sagardoEgunRESTClient = new SagardoEgunRESTClient(new TxotxConnectionData(getSherlockActivity()));
 
 		imgLoader = new ImageLoader(getActivity());
 		

@@ -4,24 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.util.Log;
-
 import net.sareweb.android.txotx.model.Gertaera;
 import net.sareweb.android.txotx.rest.GertaeraRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
-import net.sareweb.android.txotx.util.TxotxPrefs_;
+import net.sareweb.android.txotx.util.AccountUtil;
+import android.content.Context;
+import android.util.Log;
 
 public class GertaeraCache {
 	private static String TAG = "GertaeraCache";
-	private static TxotxPrefs_ prefs;
 
 	private static GertaeraRESTClient gertaeraRESTClient;
 	
 	private static HashMap<Long, GertaeraZerrenda> gertaerak = new HashMap<Long, GertaeraZerrenda>();
 	
-	public static void init(TxotxPrefs_ preferences){
-		prefs = preferences;
-		gertaeraRESTClient = new GertaeraRESTClient(new TxotxConnectionData(prefs));
+	public static void init(Context context){
+		gertaeraRESTClient = new GertaeraRESTClient(new TxotxConnectionData(context));
 	}
 	
 	public static List<Gertaera> getGertaerak(long lekuId, boolean refresh){

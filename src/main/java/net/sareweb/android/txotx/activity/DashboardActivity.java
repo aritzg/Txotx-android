@@ -14,6 +14,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
+@Deprecated
 @EActivity(R.layout.dashboard)
 public class DashboardActivity extends SherlockActivity {
 
@@ -24,10 +25,10 @@ public class DashboardActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		UserCache.init(prefs);
-		SagardotegiCache.init(prefs);
-		SagardoEgunCache.init(prefs);
-		GertaeraCache.init(prefs);
+		UserCache.init(this);
+		SagardotegiCache.init(this);
+		SagardoEgunCache.init(this);
+		GertaeraCache.init(this);
 		
 		if(redirect){
 			//SagardotegiakActivity_.intent(this).start();

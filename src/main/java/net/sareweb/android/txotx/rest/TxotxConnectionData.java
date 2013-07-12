@@ -1,6 +1,8 @@
 package net.sareweb.android.txotx.rest;
 
+import android.content.Context;
 import android.util.Log;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.lifedroid.rest.ConnectionData;
@@ -11,20 +13,11 @@ public class TxotxConnectionData extends ConnectionData {
 	private String pass=null;
 	private static String TAG = "TxotxConnectionData";
 
-	public TxotxConnectionData(TxotxPrefs_ prefs){
-		user = prefs.email().get();
-		if(user==null || "".equals(user))user=Constants.DEFAULT_EMAIL;
-		pass = prefs.pass().get();
-		if(pass==null || "".equals(pass))pass=Constants.DEFAULT_PASS;
-		Log.d(TAG, user + "/" + pass);
+	public TxotxConnectionData(Context context){
+		this.user=AccountUtil.getGoogleEmail(context);
+		this.pass=AccountUtil.getGoogleAuthToken(context);
 	}
 	
-	public TxotxConnectionData(){
-		user=Constants.DEFAULT_EMAIL;
-		pass=Constants.DEFAULT_PASS;
-		Log.d(TAG, user + "/" + pass);
-	}
-
 	@Override
 	public String getProtocol() {
 		return "http";
@@ -48,16 +41,6 @@ public class TxotxConnectionData extends ConnectionData {
 	@Override
 	public String getPass() {
 		return pass;
-	}
-
-	@Override
-	public String getDefaultUser() {
-		return Constants.DEFAULT_USER;
-	}
-
-	@Override
-	public String getDefaultPass() {
-		return Constants.DEFAULT_PASS;
 	}
 
 	@Override

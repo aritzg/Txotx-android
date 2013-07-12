@@ -50,7 +50,7 @@ public class OharraFragment extends SherlockFragment {
 
 	@Background
 	void getOharra(){
-		OharraRESTClient oharraRESTClient = new OharraRESTClient(new TxotxConnectionData(prefs));
+		OharraRESTClient oharraRESTClient = new OharraRESTClient(new TxotxConnectionData(getSherlockActivity()));
 		if(oharraId==0){//erronka da
 			getOharraResult(oharraRESTClient.getAzkenErronka());
 		}

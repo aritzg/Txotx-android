@@ -3,9 +3,7 @@ package net.sareweb.android.txotx.activity;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
-import net.sareweb.android.txotx.adapter.SagardotegiAdapter;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
-import net.sareweb.android.txotx.fragment.SagardotegiDetailFragment;
 import net.sareweb.android.txotx.listener.tab.SagardotegiDetailTabListener;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
@@ -13,11 +11,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -25,9 +19,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
-import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
-import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -62,7 +54,7 @@ public class SagardotegiDetailActivity extends SherlockFragmentActivity{
 	@Background
 	public void getSagardotegiak(boolean refresh){
 		Log.d(TAG, "Gettings sagardotegiak");
-		SagardotegiCache.init(prefs);
+		SagardotegiCache.init(this);
 		getSagardotegiakResult(SagardotegiCache.getSagardotegiak(refresh));
 	}
 

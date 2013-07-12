@@ -4,6 +4,7 @@ import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import net.sareweb.android.txotx.util.ConnectionUtils;
 import net.sareweb.android.txotx.util.PrefUtils;
@@ -93,7 +94,7 @@ public class SettingsActivity extends SherlockFragmentActivity implements OnClic
 	@Background
 	public void pasahitzaEguneratu(String pass1, String pass2){
 		if(userRESTClient==null){
-			userRESTClient = new UserRESTClient(new TxotxConnectionData(prefs));
+			userRESTClient = new UserRESTClient(new TxotxConnectionData(this));
 		}
 		pasahitzaEguneratuResult(userRESTClient.updatePassword(prefs.userId().get(), pass1, pass2, false), pass1);
 	}
