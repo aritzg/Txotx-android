@@ -24,7 +24,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="17" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -41,6 +41,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.apps.plus.VIEW_DEEP_LINK" />
+
+                <data android:scheme="vnd.google.deeplink" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.TxotxActivity_" />
         <activity android:name=".activity.SagardotegiakActivity_" />
@@ -49,44 +57,42 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".activity.SagardotegiDetailActivity_"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".activity.SagardoEgunDetailActivity_"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-        
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.SagardoEgunakActivity_" />
-        
         <activity android:name=".activity.DashboardActivity_" />
         <activity android:name=".activity.SailkapenaActivity_" />
         <activity android:name=".activity.OharraActivity_" />
         <activity android:name=".activity.SettingsActivity_" />
         <activity android:name=".activity.AboutActivity_" />
         <activity android:name=".activity.NoConnActivity_" />
-        
+
         <receiver
             android:name=".receiver.TxotxReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="net.sareweb.android.txotx" />
             </intent-filter>
         </receiver>
+
         <service android:name=".service.TxotxIntentService_" />
 
-        <!--
-        Debug -->
+<!--         Debug -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ" />
-        
 
-
-        <!-- Release 
+        <!--
+        Release 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAF5uG5kAJCsuUXb25O9_QOyADMEwMkyDk" />
-        -->     
+        -->
     </application>
 
 </manifest>

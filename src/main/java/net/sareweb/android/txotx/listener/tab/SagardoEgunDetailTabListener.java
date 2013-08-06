@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 
+@Deprecated
 public class SagardoEgunDetailTabListener implements TabListener {
 
 	int selectedTab=SAGARDOEGUN_DETAIL;

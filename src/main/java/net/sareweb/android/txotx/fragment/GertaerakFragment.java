@@ -108,7 +108,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	void getGertaerakResult(){
 		if(gertaerak!=null){
 			gertaeraListView = (ListView) getActivity().findViewById(R.id.gertaera_list_view);
-			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak, this);
+			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak);
 			gertaeraListView.setAdapter(gertaeraAdapter);
 			gertaeraListView.setOnItemClickListener(this);
 		}
@@ -227,7 +227,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 					Log.d(TAG, "Argazkia bidaltzen...");
 					ImageUtils.copyInputStreamToFile(getActivity().getContentResolver().openInputStream(targetUri), dest);
 					ImageUtils.resizeFile(dest);
-					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi, dest);
+					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi.getIrudiKarpetaId(), dest);
 					
 					gehituArgazkiGertaera(dlFile, dest);
 				} catch (IOException e) {
@@ -251,7 +251,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 					ImageUtils.copyInputStreamToFile(getSherlockActivity().getContentResolver().openInputStream(fileUri), dest);
 					ImageUtils.resizeFile(dest);	
 					
-					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi, dest);
+					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(sagardotegi.getIrudiKarpetaId(), dest);
 					gehituArgazkiGertaera(dlFile, dest);
 				} 
 	        	catch (IOException e) {

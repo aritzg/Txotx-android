@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/idLayout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_weight="0" >
+            android:layout_height="160dp" >
 
             <LinearLayout
                 android:id="@+id/mapFragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="160dp"
                 android:orientation="vertical" >
 
                 <ImageView
@@ -37,7 +36,7 @@
                     android:visibility="gone"
                     map:uiScrollGestures="true"
                     map:uiZoomControls="false"
-                    map:uiZoomGestures="true"/>
+                    map:uiZoomGestures="true" />
             </LinearLayout>
 
             <ImageView
@@ -50,128 +49,39 @@
                 android:id="@+id/imgSagardoEgun"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:padding="10dp"
-                android:visibility="visible"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera"
+                android:visibility="visible" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="vertical"
-            android:paddingLeft="10dp" >
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" >
 
-            <LinearLayout
-                android:id="@+id/txTlfRow"
-                android:layout_width="match_parent"
+            <com.google.android.gms.plus.PlusOneButton
+                xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
+                android:id="@+id/plus_one_button_sagardo_egun"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" >
+                plus:annotation="inline"
+                plus:size="tall" />
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/tlf" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/txTlf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/txEmailRow"
+            <ListView
+                android:id="@+id/gertaeraListView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" >
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/email" />
-
-                <TextView
-                    android:id="@+id/txEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/txWebRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill_vertical"
-                android:layout_weight="0" >
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/web" />
-
-                <TextView
-                    android:id="@+id/txWeb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/txHelbideRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" >
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:src="@drawable/helbide" />
-
-                <TextView
-                    android:id="@+id/txHelbide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-            
-            <LinearLayout
-                android:id="@+id/txEdukieraRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" >
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:src="@drawable/social_group" />
-
-                <TextView
-                    android:id="@+id/txEdukiera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:drawSelectorOnTop="false" />
         </LinearLayout>
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

@@ -7,10 +7,13 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 
 public class PlusOnConnectionFailedListener implements
 		OnConnectionFailedListener {
-
+	
+	private static final String TAG="PlusOnConnectionFailedListener";
+	
 	@Override
-	public void onConnectionFailed(ConnectionResult arg0) {
-		Log.d("BBBB", "onConnectionFailed");
+	public void onConnectionFailed(ConnectionResult result) {
+		
+		Log.d(TAG, "onConnectionFailed error code " + result.getErrorCode());
 	}
 
 }

@@ -25,12 +25,12 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
+@Deprecated
 @EActivity(R.layout.log_in)
 public class LogInActivity extends Activity{
 	
 	private static String TAG = "LogInActivity";
 	@ViewById TextView txEmailAddress;
-	@ViewById EditText txPass;
 	@Pref TxotxPrefs_ prefs;
 	UserRESTClient userRESTClient;
 	SagardotegiRESTClient sagardotegiRESTClient;

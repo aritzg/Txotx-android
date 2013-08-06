@@ -201,10 +201,10 @@ public class ImageUtils {
 	 * file.setMimeType(mimeType); return file; }
 	 */
 
-	public static DLFileEntry composeDLFileEntry(Sagardotegi sagardotegi, File f) {
+	public static DLFileEntry composeDLFileEntry(long folderId, File f) {
 		DLFileEntry dlFile = new DLFileEntry();
 		dlFile.setGroupId(Constants.GROUP);
-		dlFile.setFolderId(sagardotegi.getIrudiKarpetaId());
+		dlFile.setFolderId(folderId);
 		dlFile.setRepositoryId(Constants.GROUP);
 		dlFile.setSourceFileName(f.getName());
 		dlFile.setTitle(f.getName());

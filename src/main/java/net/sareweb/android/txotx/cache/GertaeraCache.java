@@ -42,7 +42,7 @@ public class GertaeraCache {
 			List<Gertaera> gertaeraEskuratuak = gertaeraRESTClient.getGertaerakNewerThanDate(lekuId, zerrenda.getUpdateDate(), 100);
 			zerrenda.appendGertaerak(gertaeraEskuratuak);
 			gertaerak.put(lekuId, zerrenda);
-			return gertaeraEskuratuak;
+			return zerrenda.getGertaerak();
 		}
 	}
 	

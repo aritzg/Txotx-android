@@ -4,5 +4,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
+    
+    <fragment
+        android:id="@+id/sagardo_egun_detail_fragment"
+        android:name="net.sareweb.android.txotx.fragment.SagardoEgunDetailFragment_"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

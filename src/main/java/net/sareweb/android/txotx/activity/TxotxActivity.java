@@ -53,9 +53,15 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	long oharraId;
 
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
+		
+		if(savedInstanceState!=null){
+			Log.d(TAG, "Restoring state info");
+			fragmentToBeLoaded = savedInstanceState.getInt(FRAGMENT, SAGARDOTEGIAK_FRAGMENT);
+			Log.d(TAG, "fragmentToBeLoaded " + fragmentToBeLoaded);
+		}
 		
 		UserCache.init(this);
 		SagardotegiCache.init(this);
@@ -96,9 +102,13 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		case OHARRA_FRAGMENT:
 			clickOnOharra();
 			break;
-
+		
+		case SAGARDO_EGUNAK_FRAGMENT:
+			clickOnSagardoEgunakList();
+			break;
+			
 		default:
-			clickOnSagardotegiList();
+			clickOnSagardoEgunakList();
 			break;
 		}
 
@@ -113,6 +123,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 				.replace(R.id.content_frame, fragment).commit();
 
 		mDrawerLayout.closeDrawers();
+		fragmentToBeLoaded=SAGARDOTEGIAK_FRAGMENT;
 	}
 
 	@Click(R.id.btnSagardoEgunak)
@@ -124,6 +135,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 				.replace(R.id.content_frame, fragment).commit();
 
 		mDrawerLayout.closeDrawers();
+		fragmentToBeLoaded=SAGARDO_EGUNAK_FRAGMENT;
 	}
 
 	@Click(R.id.btnMap)
@@ -135,6 +147,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 				.replace(R.id.content_frame, fragment).commit();
 
 		mDrawerLayout.closeDrawers();
+		fragmentToBeLoaded=MAP_FRAGMENT;
 	}
 
 	@Click(R.id.btnSailkapena)
@@ -146,6 +159,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 				.replace(R.id.content_frame, fragment).commit();
 
 		mDrawerLayout.closeDrawers();
+		fragmentToBeLoaded=SAILKAPENA_FRAGMENT;
 	}
 
 	@Click(R.id.btnErronka)
@@ -161,6 +175,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 
 		mDrawerLayout.closeDrawers();
 		oharraId = 0;
+		fragmentToBeLoaded=OHARRA_FRAGMENT;
 	}
 
 	@OptionsItem
@@ -192,9 +207,22 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		super.onConfigurationChanged(newConfig);
 		drawerToggle.onConfigurationChanged(newConfig);
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		Log.d(TAG, "Saving current state info");
+		outState.putInt(FRAGMENT, fragmentToBeLoaded);
+	}
 
+
+	private static final String FRAGMENT ="fragment";
 	public static final int NO_FRAGMENT = -1;
-	public static final int OHARRA_FRAGMENT = 1;
+	public static final int SAGARDOTEGIAK_FRAGMENT = 0;
+	public static final int SAGARDO_EGUNAK_FRAGMENT = 1;
+	public static final int MAP_FRAGMENT = 2;
+	public static final int SAILKAPENA_FRAGMENT = 3;
+	public static final int OHARRA_FRAGMENT = 4;
 
 	private static final int PLUS_ONE_REQUEST_CODE = 0;
 

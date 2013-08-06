@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    
+    <item
+        android:id="@+id/menu_image"
+        android:icon="@drawable/picture"
+        android:showAsAction="ifRoom|withText"
+        android:title="Argazkia"/>
+    <item
+        android:id="@+id/menu_comment"
+        android:icon="@drawable/comment"
+        android:showAsAction="ifRoom|withText"
+        android:title="Iruzkina"/>
+    <item
+        android:id="@+id/menu_txoootx"
+        android:icon="@drawable/half_star"
+        android:showAsAction="ifRoom|withText"
+        android:title="Txooootx!"/>
+    <item
+        android:id="@+id/menu_zabaldu"
+        android:icon="@drawable/share"
+        android:showAsAction="ifRoom|withText"
+        android:title="Zabaldu"/>
+    <item
+        android:id="@+id/menu_reload"
+        android:icon="@drawable/reload"
+        android:showAsAction="ifRoom|withText"
+        android:title="Reload"/>
+
+</menu>

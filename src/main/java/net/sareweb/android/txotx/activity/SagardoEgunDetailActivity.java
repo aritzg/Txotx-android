@@ -39,6 +39,8 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 	@Extra SagardoEgun sagardoEgun;
 	@Extra long sagardoEgunId; //used whe comming from notification
 	private ProgressDialog dialog;
+	@FragmentById(R.id.sagardo_egun_detail_fragment)
+	SagardoEgunDetailFragment sagardoEgunDetailFragment;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,13 +52,19 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 			NotificationManager mNotificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			mNotificationManager.cancel((int)sagardoEgunId);
 			
-			dialog = ProgressDialog.show(this, "", "SagardoEguna eskuratzen...", true);
+			dialog = ProgressDialog.show(this, "", "Sagardo Eguna eskuratzen...", true);
 			dialog.show();
 			getSagardoEgunak(true);
-		}else{
-			marraztuPantaila();
-		}
+		}/*else{
+			
+		}*/
 
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		marraztuPantaila();
 	}
 	
 	@Background
@@ -80,33 +88,18 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 	
 	private void  marraztuPantaila(){
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle(sagardoEgun.getIzena());
 
-		Tab sagardoEgunDetailTab = actionBar.newTab();
-		sagardoEgunDetailTab.setText("SagardoEguna");
-		sagardoEgunDetailTab.setTabListener(new SagardoEgunDetailTabListener(sagardoEgun, SagardoEgunDetailTabListener.SAGARDOEGUN_DETAIL, this));
-		actionBar.addTab(sagardoEgunDetailTab);
-
-		Tab sagardoEgunEventsTab = actionBar.newTab();
-		sagardoEgunEventsTab.setText("Gertaerak");
-		sagardoEgunEventsTab.setTabListener(new SagardoEgunDetailTabListener(sagardoEgun, SagardoEgunDetailTabListener.SAGARDOEGUN_GERTAERAK, this));
-		actionBar.addTab(sagardoEgunEventsTab);
-
-		if(sagardoEgunId!=0){
-			actionBar.setSelectedNavigationItem(1);
-		}
-		else{
-			actionBar.setSelectedNavigationItem(0);	
-		}
+		sagardoEgunDetailFragment.setSagardoEgunContent(sagardoEgun);
 	}
 
 	@OptionsItem
 	void homeSelected() {
 		finish();
 		if(sagardoEgunId!=0){
-			SagardoEgunakActivity_.intent(this).start();
+			//SagardoEgunakActivity_.intent(this).start();
+			TxotxActivity_.intent(this).fragmentToBeLoaded(TxotxActivity.SAGARDO_EGUNAK_FRAGMENT).start();
 		}
 	}
 

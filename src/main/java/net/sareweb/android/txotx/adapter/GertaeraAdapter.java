@@ -26,18 +26,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
+public class GertaeraAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<Gertaera> gertaerak;
 	private static String TAG = "GertaeraAdapter";
 	private ImageLoader imgLoader;
-	private GertaerakFragment gertaerakFragment;
 	
-	public GertaeraAdapter(Context context, List<Gertaera> gertaerak, GertaerakFragment gertaerakFragment){
+	public GertaeraAdapter(Context context, List<Gertaera> gertaerak){
+		Log.d(TAG, "gertaera prestatzen " + gertaerak.size() );
 		this.context = context;
 		this.gertaerak = gertaerak;
-		this.gertaerakFragment = gertaerakFragment;
 		imgLoader = new ImageLoader(context);
 	}
 
@@ -84,7 +83,7 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		
 		ImageView imgReply = (ImageView) convertView.findViewById(R.id.imgReply);
 		imgReply.setTag("@" + gertaera.getScreenName());
-		imgReply.setOnClickListener(this);	
+		//imgReply.setOnClickListener(this);	
 
 		convertView.setTag(gertaerak.get(position));
 		return convertView;
@@ -116,12 +115,6 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.rating);
 	}
 
-	@Override
-	public void onClick(View v) {
-		String izena = (String)v.getTag();
-		Log.d(TAG, izena);
-		gertaerakFragment.showAddCommentDialog(izena);
-	}
 
 }
 
