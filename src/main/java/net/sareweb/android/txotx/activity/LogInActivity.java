@@ -30,7 +30,6 @@ import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 public class LogInActivity extends Activity{
 	
 	private static String TAG = "LogInActivity";
-	@ViewById TextView txEmailAddress;
 	@Pref TxotxPrefs_ prefs;
 	UserRESTClient userRESTClient;
 	SagardotegiRESTClient sagardotegiRESTClient;

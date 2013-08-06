@@ -2,6 +2,7 @@ package net.sareweb.android.txotx.activity;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.GertaeraCache;
+import net.sareweb.android.txotx.cache.JarraipenCache;
 import net.sareweb.android.txotx.cache.SagardoEgunCache;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
@@ -67,6 +68,9 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		SagardotegiCache.init(this);
 		SagardoEgunCache.init(this);
 		GertaeraCache.init(this);
+		JarraipenCache.init(this);
+		
+		hasieratuKatxeetakoDatuak();
 
 		PlusClient.Builder pcBuilder = new PlusClient.Builder(this,
 				new PlusConnectionCallbacks(),
@@ -112,6 +116,11 @@ public class TxotxActivity extends SherlockFragmentActivity {
 			break;
 		}
 
+	}
+	
+	@Background
+	public void hasieratuKatxeetakoDatuak(){
+		JarraipenCache.eskuratuJarraipenak(AccountUtil.getGoogleEmail(this));
 	}
 
 	@Click(R.id.btnSagardotegiak)

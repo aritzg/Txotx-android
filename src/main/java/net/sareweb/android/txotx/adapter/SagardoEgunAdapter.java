@@ -3,6 +3,8 @@ package net.sareweb.android.txotx.adapter;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.custom.FollowUnfollowButton;
+import net.sareweb.android.txotx.model.Jarraipen;
 import net.sareweb.android.txotx.model.SagardoEgun;
 
 import android.content.Context;
@@ -66,6 +68,9 @@ public class SagardoEgunAdapter extends BaseAdapter{
 		
 		TextView txCountVal = (TextView) convertView.findViewById(R.id.txCountVal);
 		txCountVal.setText(String.valueOf(sagardoEgun.getBalorazioKopurua()));
+		
+		FollowUnfollowButton btnFollowUnfollow = (FollowUnfollowButton)convertView.findViewById(R.id.btnFollowUnfollow);
+		btnFollowUnfollow.setJarraituaIdEtaMota(sagardoEgun.getSagardoEgunId(), Jarraipen.JARRAIPEN_MOTA_SAGARDO_EGUNA);
 		
 		convertView.setTag(sagardoEgunak.get(position));
 		return convertView;

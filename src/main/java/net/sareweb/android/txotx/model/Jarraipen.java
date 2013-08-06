@@ -6,11 +6,10 @@ public class Jarraipen extends LDObject {
 
 	private long jarraipenId;
 	private long jarraitzaileUserId;
-	private long sagardotegiId;
-	private long sagardoEgunId;
-	private long jarraituaUserId;
+	private long jarraituaId;
 	private String jarraipenMota;
 	private long createDate;
+	
 	public long getJarraipenId() {
 		return jarraipenId;
 	}
@@ -23,23 +22,11 @@ public class Jarraipen extends LDObject {
 	public void setJarraitzaileUserId(long jarraitzaileUserId) {
 		this.jarraitzaileUserId = jarraitzaileUserId;
 	}
-	public long getSagardotegiId() {
-		return sagardotegiId;
+	public long getJarraituaId() {
+		return jarraituaId;
 	}
-	public void setSagardotegiId(long sagardotegiId) {
-		this.sagardotegiId = sagardotegiId;
-	}
-	public long getSagardoEgunId() {
-		return sagardoEgunId;
-	}
-	public void setSagardoEgunId(long sagardoEgunId) {
-		this.sagardoEgunId = sagardoEgunId;
-	}
-	public long getJarraituaUserId() {
-		return jarraituaUserId;
-	}
-	public void setJarraituaUserId(long jarraituaUserId) {
-		this.jarraituaUserId = jarraituaUserId;
+	public void setJarraituaId(long jarraituaId) {
+		this.jarraituaId = jarraituaId;
 	}
 	public String getJarraipenMota() {
 		return jarraipenMota;
@@ -54,6 +41,8 @@ public class Jarraipen extends LDObject {
 		this.createDate = createDate;
 	}
 	
-	
+	public static final String JARRAIPEN_MOTA_PERTSONA = "JARRAIPEN_MOTA_PERTSONA";
+	public static final String JARRAIPEN_MOTA_SAGARDOTEGIA = "JARRAIPEN_MOTA_SAGARDOTEGIA";
+	public static final String JARRAIPEN_MOTA_SAGARDO_EGUNA ="JARRAIPEN_MOTA_SAGARDO_EGUNA";
 	
 }

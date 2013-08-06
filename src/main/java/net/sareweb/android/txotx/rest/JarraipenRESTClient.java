@@ -15,12 +15,27 @@ public class JarraipenRESTClient extends LDRESTClient<Jarraipen> {
 		super(connectionData);
 	}
 	
-	public Jarraipen gehituJarraipena(long jarraitzaileUserId, long jarraigaiId, String jarraipenMota){
-		String requestURL = getBaseURL() + "/gehitu-jarraipena";
-		requestURL = addParamToRequestURL(requestURL, "jarraitzaile-user-id", jarraitzaileUserId);
-		requestURL = addParamToRequestURL(requestURL, "jarraigai-id", jarraigaiId);
+	public Jarraipen gehituJarraipenaByEmail(String emailAddress, long jarraituaId, String jarraipenMota){
+		String requestURL = getBaseURL() + "/gehitu-jarraipena-by-email";
+		requestURL = addParamToRequestURL(requestURL, "email-address", emailAddress);
+		requestURL = addParamToRequestURL(requestURL, "jarraitua-id", jarraituaId);
 		requestURL = addParamToRequestURL(requestURL, "jarraipen-mota", jarraipenMota);
 		return run(requestURL, HttpMethod.POST);
+	}
+	
+	public Jarraipen gehituJarraipena(long jarraitzaileUserId, long jarraituaId, String jarraipenMota){
+		String requestURL = getBaseURL() + "/gehitu-jarraipena";
+		requestURL = addParamToRequestURL(requestURL, "jarraitzaile-user-id", jarraitzaileUserId);
+		requestURL = addParamToRequestURL(requestURL, "jarraitua-id", jarraituaId);
+		requestURL = addParamToRequestURL(requestURL, "jarraipen-mota", jarraipenMota);
+		return run(requestURL, HttpMethod.POST);
+	}
+	
+	public List<Jarraipen> getJarraipenakByEmail(String emailAddress){
+		String requestURL = getBaseURL() + "/get-jarraipenak-by-email";
+		requestURL = addParamToRequestURL(requestURL, "email-address", emailAddress);
+		Log.d(TAG,"requestURL : " + requestURL);
+		return getList(requestURL, HttpMethod.GET);
 	}
 	
 	public List<Jarraipen> getJarraipenak(long jarraitzaileUserId){
@@ -49,6 +64,14 @@ public class JarraipenRESTClient extends LDRESTClient<Jarraipen> {
 		requestURL = addParamToRequestURL(requestURL, "sagardo-egun-id", sagardoEgunId);
 		Log.d(TAG,"requestURL : " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
+	}
+	
+	public boolean deleteJarraipena(String emailAddress, long jarraituaId){
+		String requestURL = getBaseURL() + "/delete-jarraipena";
+		requestURL = addParamToRequestURL(requestURL, "email-address", emailAddress);
+		requestURL = addParamToRequestURL(requestURL, "jarraitua-id", jarraituaId);
+		Log.d(TAG, "requestURL " + requestURL);
+		return runForBoolean(requestURL, HttpMethod.GET);
 	}
 	
 	@Override

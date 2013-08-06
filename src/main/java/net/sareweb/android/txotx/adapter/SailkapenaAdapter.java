@@ -3,6 +3,8 @@ package net.sareweb.android.txotx.adapter;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.custom.FollowUnfollowButton;
+import net.sareweb.android.txotx.model.Jarraipen;
 import net.sareweb.android.txotx.model.Sailkapena;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -61,6 +63,9 @@ public class SailkapenaAdapter extends BaseAdapter{
 		txCountMsg.setText(String.valueOf(sailkapena.getIruzkinKopurua()));
 		TextView txCountVal = (TextView)convertView.findViewById(R.id.txCountVal);
 		txCountVal.setText(String.valueOf(sailkapena.getBalorazioKopurua()));
+		
+		FollowUnfollowButton btnFollowUnfollow = (FollowUnfollowButton)convertView.findViewById(R.id.btnFollowUnfollow);
+		btnFollowUnfollow.setJarraituaIdEtaMota(sailkapena.getUserId() , Jarraipen.JARRAIPEN_MOTA_PERTSONA);
 		
 		switch (position) {
 		case 0:
