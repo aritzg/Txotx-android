@@ -2,6 +2,7 @@ package net.sareweb.android.txotx.notification;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.activity.OharraActivity_;
+import net.sareweb.android.txotx.activity.SagardoEgunDetailActivity_;
 import net.sareweb.android.txotx.activity.SagardotegiDetailActivity_;
 import net.sareweb.android.txotx.activity.TxotxActivity_;
 import android.app.Notification;
@@ -12,8 +13,11 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 
 public class TxotxNotifications {
+	
+	private static String TAG = "TxotxNotifications";
 	
 	public static void showDeviceResgistration(Context context, Intent intent){
 		 Builder builder = new NotificationCompat.Builder(context);
@@ -27,24 +31,42 @@ public class TxotxNotifications {
 		 mNotificationManager.notify(0,notification);
 	}
 	
-	public static void showMention(Context context, Intent intent){
+	public static void showMezua(Context context, Intent intent){
 		String testua = intent.getExtras().getString("testua");
+		
 		String sagardotegiIzena = intent.getExtras().getString("sagardotegiIzena");
 		String sagardotegiId = intent.getExtras().getString("sagardotegiId");
 		long sagardotegiIdLng = Long.parseLong(sagardotegiId);
 		
+		String sagardoEgunIzena = intent.getExtras().getString("sagardoEgunIzena");
+		String sagardoEgunId = intent.getExtras().getString("sagardoEgunId");
+		long sagardoEgunIdLng = Long.parseLong(sagardoEgunId);
+		
+		Log.d(TAG, "sagardotegiIzena: " + sagardotegiIzena + " sagardoEgunIzena: " + sagardoEgunIzena);
+		
 		String nork = intent.getExtras().getString("nork");
 		
 		 Builder builder = new NotificationCompat.Builder(context);
-		 builder.setContentTitle(nork +"(e)k " + sagardotegiIzena + "(e)n");
+		 builder.setContentTitle(nork +"(e)k " + sagardotegiIzena + sagardoEgunIzena + "(e)n"); //sagardotegiIzena + sagardoEgunIzena Bietako bat hutsa da
 		 builder.setSmallIcon(R.drawable.notification);
 		 builder.setContentText(testua);
 		 
-		 Intent detailIntent = SagardotegiDetailActivity_.intent(context).sagardotegiId(sagardotegiIdLng).get();
 		 
 		 TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-		 stackBuilder.addParentStack(SagardotegiDetailActivity_.class);
-		 stackBuilder.addNextIntent(detailIntent);
+		 
+		 if(!sagardotegiIzena.equals("")){
+			 stackBuilder.addParentStack(SagardotegiDetailActivity_.class);
+			 //Intent detailIntent = SagardotegiDetailActivity_.intent(context).sagardotegiId(sagardotegiIdLng).get();
+			 Intent detailIntent = TxotxActivity_.intent(context).sagardotegiId(sagardotegiIdLng).get();
+			 stackBuilder.addNextIntent(detailIntent);
+		 }
+		 else if(!sagardoEgunIzena.equals("")){
+			 stackBuilder.addParentStack(SagardoEgunDetailActivity_.class);
+			 //Intent detailIntent = SagardoEgunDetailActivity_.intent(context).sagardoEgunId(sagardoEgunIdLng).get();
+			 Intent detailIntent = TxotxActivity_.intent(context).sagardoEgunId(sagardoEgunIdLng).get();
+			 stackBuilder.addNextIntent(detailIntent);
+		 }
+
 		 PendingIntent resultPendingIntent =
 			        stackBuilder.getPendingIntent(
 			            0,
@@ -56,7 +78,7 @@ public class TxotxNotifications {
 		
 		 NotificationManager mNotificationManager =
 			        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		 mNotificationManager.notify((int)sagardotegiIdLng, notification);
+		 mNotificationManager.notify((int)sagardotegiIdLng + (int)sagardoEgunIdLng, notification); //Bietako bat 0 da
 	}
 	
 	public static void showOharra(Context context, Intent intent){
@@ -89,7 +111,7 @@ public class TxotxNotifications {
 		 mNotificationManager.notify((int)oharraIdLng, notification);
 	}
 	
-	public static void showFollowed(Context context, Intent intent){
+	/*public static void showFollowed(Context context, Intent intent){
 		String testua = intent.getExtras().getString("testua");
 		
 		String sagardotegiIzena = intent.getExtras().getString("sagardotegiIzena");
@@ -112,16 +134,25 @@ public class TxotxNotifications {
 			 builder.setContentTitle(nork +"(e)k " + sagardoEgunIzena + "sagardotegian.");
 		 }
 		 
-		 //TODO: bidalo tokatzen den Activityra
 		 
 		 builder.setSmallIcon(R.drawable.notification);
 		 builder.setContentText(testua);
 		 
-		 Intent detailIntent = SagardotegiDetailActivity_.intent(context).sagardotegiId(sagardotegiIdLng).get();
-		 
 		 TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+		 
+		 if(!sagardotegiIzena.equals("")){
+			 stackBuilder.addParentStack(SagardotegiDetailActivity_.class);
+			 Intent detailIntent = TxotxActivity_.intent(context).sagardotegiId(sagardotegiIdLng).get();
+			 stackBuilder.addNextIntent(detailIntent);
+		 }
+		 else if(!sagardoEgunIzena.equals("")){
+			 stackBuilder.addParentStack(SagardoEgunDetailActivity_.class);
+			 Intent detailIntent = TxotxActivity_.intent(context).sagardoEgunId(sagardoEgunIdLng).get();
+			 stackBuilder.addNextIntent(detailIntent);
+		 }
+		 
+		 
 		 stackBuilder.addParentStack(SagardotegiDetailActivity_.class);
-		 stackBuilder.addNextIntent(detailIntent);
 		 PendingIntent resultPendingIntent =
 			        stackBuilder.getPendingIntent(
 			            0,
@@ -134,6 +165,6 @@ public class TxotxNotifications {
 		 NotificationManager mNotificationManager =
 			        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		 mNotificationManager.notify((int)sagardotegiIdLng, notification);
-	}
+	}*/
 
 }

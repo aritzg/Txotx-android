@@ -30,5 +30,10 @@ public class SagardotegiCache {
 			return null;
 		}
 	}
+	
+	public static int countSagardotegiak(){
+		if(sagardotegiak==null) return 0;
+		return sagardotegiak.size();
+	}
 
 }

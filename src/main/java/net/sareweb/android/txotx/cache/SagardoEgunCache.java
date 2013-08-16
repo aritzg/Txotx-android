@@ -30,5 +30,10 @@ public class SagardoEgunCache {
 			return null;
 		}
 	}
+	
+	public static int countSagardoEgunak(){
+		if(sagardoEgunak==null) return 0;
+		return sagardoEgunak.size();
+	}
 
 }

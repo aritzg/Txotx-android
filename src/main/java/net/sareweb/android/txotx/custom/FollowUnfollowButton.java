@@ -8,6 +8,7 @@ import net.sareweb.android.txotx.rest.TxotxConnectionData;
 import net.sareweb.android.txotx.util.AccountUtil;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -61,8 +62,14 @@ public class FollowUnfollowButton extends RelativeLayout implements OnClickListe
 		this.jarraituaId=jarraituaId;
 		this.jarraipenMota=jarraipenMota;
 		if(JarraipenCache.jarraitzenDut(AccountUtil.getGoogleEmail(context), jarraituaId, false)){
+			Log.d(TAG, "Jarraitzen dut");
 			imgStar.setImageResource(R.drawable.star_true);
 			followingFlag=true;
+		}
+		else{
+			Log.d(TAG, "Ez dut jarraitzen");
+			imgStar.setImageResource(R.drawable.star_false);
+			followingFlag=false;
 		}
 	}
 

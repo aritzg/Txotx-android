@@ -4,12 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.hamcrest.core.IsInstanceOf;
+
+import com.actionbarsherlock.app.SherlockFragment;
+
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.custom.UserPortrait;
 import net.sareweb.android.txotx.custom.UserPortrait_;
 import net.sareweb.android.txotx.fragment.GertaerakFragment;
 import net.sareweb.android.txotx.fragment.GertaerakFragment_;
+import net.sareweb.android.txotx.fragment.SagardoEgunDetailFragment;
 import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Gertaera;
 import net.sareweb.android.txotx.util.Constants;
@@ -26,16 +31,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GertaeraAdapter extends BaseAdapter {
+public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 
 	private Context context;
+	private SherlockFragment fragment;
 	private List<Gertaera> gertaerak;
 	private static String TAG = "GertaeraAdapter";
 	private ImageLoader imgLoader;
 	
-	public GertaeraAdapter(Context context, List<Gertaera> gertaerak){
+	public GertaeraAdapter(Context context, List<Gertaera> gertaerak, SherlockFragment fragment){
 		Log.d(TAG, "gertaera prestatzen " + gertaerak.size() );
 		this.context = context;
+		this.fragment = fragment;
 		this.gertaerak = gertaerak;
 		imgLoader = new ImageLoader(context);
 	}
@@ -83,7 +90,7 @@ public class GertaeraAdapter extends BaseAdapter {
 		
 		ImageView imgReply = (ImageView) convertView.findViewById(R.id.imgReply);
 		imgReply.setTag("@" + gertaera.getScreenName());
-		//imgReply.setOnClickListener(this);	
+		imgReply.setOnClickListener(this);	
 
 		convertView.setTag(gertaerak.get(position));
 		return convertView;
@@ -113,6 +120,16 @@ public class GertaeraAdapter extends BaseAdapter {
 		txGertaeraText.setText(gertaera.getScreenName() + "-k " + gertaera.getBalorazioa() + " izar eman dizkio sagardotegi honi.");
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.rating);
+	}
+	
+	@Override
+	public void onClick(View v) {
+		String izena = (String)v.getTag();
+		Log.d(TAG, izena);
+		if(fragment!=null && fragment instanceof SagardoEgunDetailFragment)
+			((SagardoEgunDetailFragment)fragment).showAddCommentDialog(izena);
+		if(fragment!=null && fragment instanceof GertaerakFragment)
+			((GertaerakFragment)fragment).showAddCommentDialog(izena);
 	}
 
 

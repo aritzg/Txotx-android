@@ -34,7 +34,7 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setSagardotegiakContent(true, "");
+		setSagardotegiakContent(false, "");
 	}
 
 	public void setSagardotegiakContent(boolean refresh, String filter){

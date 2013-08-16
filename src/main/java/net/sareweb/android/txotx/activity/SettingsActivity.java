@@ -88,16 +88,16 @@ public class SettingsActivity extends SherlockFragmentActivity implements OnClic
 			dialog.cancel();
 			return;
 		}
-		pasahitzaEguneratu(pass1, pass2);
+		//pasahitzaEguneratu(pass1, pass2);
 	}
 	
-	@Background
+	/*@Background
 	public void pasahitzaEguneratu(String pass1, String pass2){
 		if(userRESTClient==null){
 			userRESTClient = new UserRESTClient(new TxotxConnectionData(this));
 		}
 		pasahitzaEguneratuResult(userRESTClient.updatePassword(prefs.userId().get(), pass1, pass2, false), pass1);
-	}
+	}*/
 	
 	@UiThread
 	public void pasahitzaEguneratuResult(User user, String pass){
@@ -114,9 +114,9 @@ public class SettingsActivity extends SherlockFragmentActivity implements OnClic
 	}
 	
 	private void loginUser(User user, String pass){
-		prefs.email().put(user.getEmailAddress());
+		/*prefs.email().put(user.getEmailAddress());
 		prefs.user().put(user.getScreenName());
 		prefs.pass().put(pass);
-		prefs.userId().put(user.getUserId());
+		prefs.userId().put(user.getUserId());*/
 	}
 }

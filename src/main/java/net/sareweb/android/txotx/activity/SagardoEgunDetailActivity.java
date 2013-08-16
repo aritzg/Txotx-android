@@ -89,9 +89,10 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 	private void  marraztuPantaila(){
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setTitle(sagardoEgun.getIzena());
-
-		sagardoEgunDetailFragment.setSagardoEgunContent(sagardoEgun);
+		if(sagardoEgun!=null){
+			actionBar.setTitle(sagardoEgun.getIzena());
+			sagardoEgunDetailFragment.setSagardoEgunContent(sagardoEgun);
+		}
 	}
 
 	@OptionsItem

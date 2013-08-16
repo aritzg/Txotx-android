@@ -16,6 +16,7 @@ import net.sareweb.android.txotx.model.Gertaera;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.rest.GertaeraRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
@@ -108,7 +109,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	void getGertaerakResult(){
 		if(gertaerak!=null){
 			gertaeraListView = (ListView) getActivity().findViewById(R.id.gertaera_list_view);
-			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak);
+			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak, this);
 			gertaeraListView.setAdapter(gertaeraAdapter);
 			gertaeraListView.setOnItemClickListener(this);
 		}
@@ -134,7 +135,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 	
 	@OptionsItem({R.id.menu_home,android.R.id.home})
 	void homeSelected() {
-		DashboardActivity_.intent(getSherlockActivity()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP).start();
+		//DashboardActivity_.intent(getSherlockActivity()).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP).start();
 	}
 	
 	@OptionsItem(R.id.menu_reload)
@@ -245,7 +246,7 @@ public class GertaerakFragment extends SherlockFragment implements OnItemClickLi
 				
 				
 				fileUri = Uri.fromFile(ImageUtils.getOutputTmpJpgFile());
-	        	File dest = ImageUtils.getOutputMediaFile(prefs.user().get());
+	        	File dest = ImageUtils.getOutputMediaFile(AccountUtil.getUserName(getSherlockActivity()));
 
 	        	try {
 					ImageUtils.copyInputStreamToFile(getSherlockActivity().getContentResolver().openInputStream(fileUri), dest);

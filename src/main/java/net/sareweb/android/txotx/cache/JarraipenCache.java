@@ -50,7 +50,7 @@ public class JarraipenCache {
 	}
 	
 	public static void ezabatuJarraipena(long jarraituaId){
-		if(!jarraipenak.containsKey(jarraituaId)){
+		if(jarraipenak.containsKey(jarraituaId)){
 			jarraipenak.remove(jarraituaId);
 		}
 	}

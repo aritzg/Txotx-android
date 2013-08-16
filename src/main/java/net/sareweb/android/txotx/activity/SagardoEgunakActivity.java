@@ -85,13 +85,13 @@ public class SagardoEgunakActivity extends SherlockFragmentActivity implements
 		AboutActivity_.intent(this).start();
 	}
 
-	@OptionsItem(R.id.menu_log_out)
+	/*@OptionsItem(R.id.menu_log_out)
 	void logOutSelected() {
 		PrefUtils.clearUserPrefs(prefs);
 		finish();
 		unregisterDevice();
 		LogInActivity_.intent(this).start();
-	}
+	}*/
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -65,17 +65,13 @@ public class TxotxIntentService extends IntentService {
 		if(messageType.equals("registration")){
 			TxotxNotifications.showDeviceResgistration(this, intent);
 		}
-		else if(messageType.equals("mention")){
+		else if(messageType.equals("mention") || messageType.equals("followed")){
 			Log.d(TAG, "Handling mention");
-			TxotxNotifications.showMention(this, intent);
+			TxotxNotifications.showMezua(this, intent);
 		}
 		else if(messageType.equals("oharra")){
 			Log.d(TAG, "Handling oharra");
 			TxotxNotifications.showOharra(this, intent);
-		}
-		else if(messageType.equals("followed")){
-			Log.d(TAG, "Handling message from followed");
-			TxotxNotifications.showFollowed(this, intent);
 		}
 		
 	}

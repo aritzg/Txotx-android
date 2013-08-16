@@ -6,7 +6,9 @@ import net.sareweb.android.txotx.cache.JarraipenCache;
 import net.sareweb.android.txotx.cache.SagardoEgunCache;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.cache.UserCache;
+import net.sareweb.android.txotx.custom.DashboardButton;
 import net.sareweb.android.txotx.drawerToggle.DrawerToggle;
+import net.sareweb.android.txotx.fragment.AboutFragment_;
 import net.sareweb.android.txotx.fragment.OharraFragment_;
 import net.sareweb.android.txotx.fragment.SagardoEgunakFragment_;
 import net.sareweb.android.txotx.fragment.SagardotegiMapFragment_;
@@ -23,6 +25,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.android.gms.plus.PlusClient;
@@ -48,10 +51,15 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	@ViewById(R.id.plus_one_button)
 	PlusOneButton mPlusOneButton;
 
-	@Extra
-	int fragmentToBeLoaded;
-	@Extra
-	long oharraId;
+	@ViewById(R.id.btnSagardotegiak)
+	DashboardButton btnSagardotegiak;
+	@ViewById(R.id.btnSagardoEgunak)
+	DashboardButton btnSagardoEgunak;
+	
+	@Extra int fragmentToBeLoaded;
+	@Extra long sagardotegiId;
+	@Extra long sagardoEgunId;
+	@Extra long oharraId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +71,6 @@ public class TxotxActivity extends SherlockFragmentActivity {
 			fragmentToBeLoaded = savedInstanceState.getInt(FRAGMENT, SAGARDOTEGIAK_FRAGMENT);
 			Log.d(TAG, "fragmentToBeLoaded " + fragmentToBeLoaded);
 		}
-		
-		UserCache.init(this);
-		SagardotegiCache.init(this);
-		SagardoEgunCache.init(this);
-		GertaeraCache.init(this);
-		JarraipenCache.init(this);
-		
-		hasieratuKatxeetakoDatuak();
 
 		PlusClient.Builder pcBuilder = new PlusClient.Builder(this,
 				new PlusConnectionCallbacks(),
@@ -97,31 +97,51 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		
+		//Notifikazioen berbideratzeak
+		if(sagardotegiId!=0){
+			SagardotegiDetailActivity_.intent(this).sagardotegiId(sagardotegiId).start();
+			finish();
+		}
+		else if(sagardoEgunId!=0){
+			SagardoEgunDetailActivity_.intent(this).sagardoEgunId(sagardoEgunId).start();
+			finish();
+		}
 
 		mPlusOneButton.initialize(mPlusClient,
 				"https://play.google.com/store/apps/details?id=net.sareweb.android.txotx", PLUS_ONE_REQUEST_CODE);
 
 		
 		switch (fragmentToBeLoaded) {
-		case OHARRA_FRAGMENT:
-			clickOnOharra();
+		case SAGARDOTEGIAK_FRAGMENT:
+			clickOnSagardotegiList();
 			break;
 		
 		case SAGARDO_EGUNAK_FRAGMENT:
 			clickOnSagardoEgunakList();
 			break;
 			
+		case MAP_FRAGMENT:
+			clickOnSagardotegiMap();
+			break;
+			
+		case OHARRA_FRAGMENT:
+			clickOnOharra();
+			break;
+			
+		case ABOUT_FRAGMENT:
+			clickOnAbout();
+			break;
+			
 		default:
 			clickOnSagardoEgunakList();
 			break;
 		}
-
+		
+		btnSagardotegiak.setButtonNum(String.valueOf(SagardotegiCache.countSagardotegiak()));
+		btnSagardoEgunak.setButtonNum(String.valueOf(SagardoEgunCache.countSagardoEgunak()));
+		
 	}
 	
-	@Background
-	public void hasieratuKatxeetakoDatuak(){
-		JarraipenCache.eskuratuJarraipenak(AccountUtil.getGoogleEmail(this));
-	}
 
 	@Click(R.id.btnSagardotegiak)
 	public void clickOnSagardotegiList() {
@@ -186,10 +206,21 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		oharraId = 0;
 		fragmentToBeLoaded=OHARRA_FRAGMENT;
 	}
+	
+	@Click(R.id.btnAbout)
+	public void clickOnAbout() {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		Fragment fragment = new AboutFragment_();
+
+		fragmentManager.beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
+
+		mDrawerLayout.closeDrawers();
+		fragmentToBeLoaded=ABOUT_FRAGMENT;
+	}
 
 	@OptionsItem
 	boolean homeSelected() {
-		Log.d(TAG, "homeSelected");
 		mDrawerLayout.openDrawer(Gravity.LEFT);
 		return true;
 	}
@@ -232,6 +263,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	public static final int MAP_FRAGMENT = 2;
 	public static final int SAILKAPENA_FRAGMENT = 3;
 	public static final int OHARRA_FRAGMENT = 4;
+	public static final int ABOUT_FRAGMENT = 5;
 
 	private static final int PLUS_ONE_REQUEST_CODE = 0;
 

@@ -24,6 +24,8 @@
         android:dividerHeight="0dp"
         android:orientation="vertical"
         android:paddingLeft="10dp" >
+        
+
 
         <net.sareweb.android.txotx.custom.DashboardButton_
             android:id="@+id/btnSagardotegiak"
@@ -31,7 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             txotx:buttonText="Sagardotegiak"
-            txotx:imgResId="@drawable/list" />
+            txotx:imgResId="@drawable/list" 
+            txotx:buttonNum="XX"
+            />
 
         <net.sareweb.android.txotx.custom.DashboardButton_
             android:id="@+id/btnSagardoEgunak"
@@ -39,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             txotx:buttonText="Sagardo Egunak"
-            txotx:imgResId="@drawable/sagardo_egun" />
+            txotx:imgResId="@drawable/sagardo_egun" 
+            txotx:buttonNum="XX"/>
 
         <net.sareweb.android.txotx.custom.DashboardButton_
             android:id="@+id/btnMap"

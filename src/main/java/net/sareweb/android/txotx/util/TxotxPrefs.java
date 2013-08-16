@@ -5,9 +5,10 @@ import com.googlecode.androidannotations.annotations.sharedpreferences.SharedPre
 
 @SharedPref(value=Scope.UNIQUE)
 public interface TxotxPrefs {
-	String email();
+	/*String email();
 	String user();
 	String pass();
 	long userId();
-	String registrationId();
+	String registrationId();*/
+	int rejectedVersion(); //Codigo de la ultima versión que se ha desestimado actualizar
 }

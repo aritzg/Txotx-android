@@ -26,6 +26,14 @@ public class AccountUtil {
         }
 
     }
+    
+    public static String getUserName(Context context) {
+        String googleEmail = getGoogleEmail(context);
+        if(googleEmail!=null && googleEmail.indexOf("@")!=-1){
+        	return googleEmail.substring(0, googleEmail.indexOf("@"));
+        }
+        return "";
+    }
 
     public static String getGoogleAuthToken(Context context) {
         if (token == null) {

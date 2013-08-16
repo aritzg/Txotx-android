@@ -7,6 +7,7 @@ import net.sareweb.android.txotx.custom.FollowUnfollowButton;
 import net.sareweb.android.txotx.model.Jarraipen;
 import net.sareweb.android.txotx.model.Sailkapena;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class SailkapenaAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Log.d(TAG, "position " + position); 
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.sailkapena_row, null);

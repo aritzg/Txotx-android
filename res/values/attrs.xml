@@ -3,5 +3,6 @@
     <declare-styleable name="DashboardButton">
         <attr name="imgResId" format="integer"/>
         <attr name="buttonText" format="string"/>
+        <attr name="buttonNum" format="string"/>
     </declare-styleable>
 </resources>

@@ -2,7 +2,9 @@ package net.sareweb.android.txotx.fragment;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
@@ -16,6 +18,7 @@ import net.sareweb.android.txotx.plus.PlusOnConnectionFailedListener;
 import net.sareweb.android.txotx.rest.GertaeraRESTClient;
 import net.sareweb.android.txotx.rest.SagardoEgunRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
@@ -32,6 +35,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -65,7 +70,7 @@ import com.googlecode.androidannotations.api.SdkVersionHelper;
 
 @SuppressLint("NewApi") @EFragment(R.layout.sagardoegun_detail_fragment)
 @OptionsMenu(R.menu.sagardoegun_menu)
-public class SagardoEgunDetailFragment extends SherlockFragment implements OnClickListener{
+public class SagardoEgunDetailFragment extends SherlockFragment implements OnClickListener,OnItemClickListener{
 
 	private static String TAG = "SagardoEgunDetailFragment";
 	@Pref TxotxPrefs_ prefs;
@@ -138,8 +143,9 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 	@Override
 	public void onResume() {
 		super.onResume();
-		setSagardoEgunContent(sagardoEgun);
-		getGertaerak(false);
+		if(sagardoEgun!=null){
+			setSagardoEgunContent(sagardoEgun);
+		}
 	}
 	
 	@Override
@@ -174,7 +180,7 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 		}
 		
 		showHideMap(sagardoEgun);
-		
+		getGertaerak(false);
 	}
 	
 	@OptionsItem(R.id.menu_reload)
@@ -250,9 +256,9 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 	@UiThread
 	public void getGertaerakResult(){
 		if(gertaerak!=null){
-			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak);
+			gertaeraAdapter = new GertaeraAdapter(getActivity(), gertaerak, this);
 			gertaeraListView.setAdapter(gertaeraAdapter);
-			//gertaeraListView.setOnItemClickListener(this);
+			gertaeraListView.setOnItemClickListener(this);
 		}
 	}
 	
@@ -447,7 +453,7 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 				
 				
 				fileUri = Uri.fromFile(ImageUtils.getOutputTmpJpgFile());
-	        	File dest = ImageUtils.getOutputMediaFile(prefs.user().get());
+	        	File dest = ImageUtils.getOutputMediaFile(AccountUtil.getUserName(getSherlockActivity()));
 
 	        	try {
 					ImageUtils.copyInputStreamToFile(getSherlockActivity().getContentResolver().openInputStream(fileUri), dest);
@@ -473,4 +479,31 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 101;
 	
 	private static final int PLUS_ONE_REQUEST_CODE = 0;
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Gertaera gertaera = (Gertaera) view.getTag();
+		if(gertaera.getGertaeraMota().equals(Constants.GERTAERA_MOTA_ARGAZKIA)){
+			showArgazkiaDialog(gertaera);
+		}
+	}
+	
+	private void showArgazkiaDialog(Gertaera gertaera){
+		dialog = new Dialog(getActivity(),R.style.Theme_Sherlock_Light);
+		dialog.setContentView(R.layout.image_dialog);
+		dialog.setCanceledOnTouchOutside(true);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd hh:mm");
+		Date tmpDate = new Date(gertaera.getCreateDate());
+		TextView txTitle =(TextView)dialog.findViewById(R.id.txTitle);
+		txTitle.setText(gertaera.getScreenName() + " @ " + sdf.format(tmpDate));
+		
+		ImageView imgGertaera = (ImageView)dialog.findViewById(R.id.imgGertaera);
+		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
+		
+		TextView txImageMessage =(TextView)dialog.findViewById(R.id.txImageMessage);
+		txImageMessage.setText(gertaera.getTestua());
+	
+		dialog.show();
+	}
 }
