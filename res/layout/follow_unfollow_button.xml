@@ -4,10 +4,10 @@
     android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/imgStar"
+            android:id="@+id/imgPin"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:src="@drawable/star_false" />
+            android:src="@drawable/pin_false" />
 
 </merge>

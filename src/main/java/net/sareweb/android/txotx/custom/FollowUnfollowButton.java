@@ -25,7 +25,7 @@ public class FollowUnfollowButton extends RelativeLayout implements OnClickListe
 
 	private String TAG = "FollowUnfollowButton";
 	private Context context;
-	@ViewById ImageView imgStar;
+	@ViewById ImageView imgPin;
 	private long jarraituaId =0;
 	private String jarraipenMota = "";
 	private JarraipenRESTClient jarraipenRESTClient;
@@ -39,13 +39,13 @@ public class FollowUnfollowButton extends RelativeLayout implements OnClickListe
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		imgStar.setOnClickListener(this);
+		imgPin.setOnClickListener(this);
 		jarraipenRESTClient = new JarraipenRESTClient(new TxotxConnectionData(context));
 		if(followingFlag){
-			imgStar.setImageResource(R.drawable.star_true);
+			imgPin.setImageResource(R.drawable.pin_true);
 		}
 		else{
-			imgStar.setImageResource(R.drawable.star_false);
+			imgPin.setImageResource(R.drawable.pin_false);
 		}
 	}
 
@@ -63,12 +63,12 @@ public class FollowUnfollowButton extends RelativeLayout implements OnClickListe
 		this.jarraipenMota=jarraipenMota;
 		if(JarraipenCache.jarraitzenDut(AccountUtil.getGoogleEmail(context), jarraituaId, false)){
 			Log.d(TAG, "Jarraitzen dut");
-			imgStar.setImageResource(R.drawable.star_true);
+			imgPin.setImageResource(R.drawable.pin_true);
 			followingFlag=true;
 		}
 		else{
 			Log.d(TAG, "Ez dut jarraitzen");
-			imgStar.setImageResource(R.drawable.star_false);
+			imgPin.setImageResource(R.drawable.pin_false);
 			followingFlag=false;
 		}
 	}
@@ -82,7 +82,7 @@ public class FollowUnfollowButton extends RelativeLayout implements OnClickListe
 	@UiThread
 	public void followResult(Jarraipen jarraipen){
 		if(jarraipen!=null){
-			imgStar.setImageResource(R.drawable.star_true);
+			imgPin.setImageResource(R.drawable.pin_true);
 			followingFlag=true;
 			JarraipenCache.gehituJarraipena(jarraipen);
 			if(jarraipenMota.equals(Jarraipen.JARRAIPEN_MOTA_PERTSONA)){
@@ -103,7 +103,7 @@ public class FollowUnfollowButton extends RelativeLayout implements OnClickListe
 
 	@UiThread
 	public void unfollowResult(){
-		imgStar.setImageResource(R.drawable.star_false);
+		imgPin.setImageResource(R.drawable.star_false);
 		followingFlag=false;
 		JarraipenCache.ezabatuJarraipena(jarraituaId);
 		if(jarraipenMota.equals(Jarraipen.JARRAIPEN_MOTA_PERTSONA)){

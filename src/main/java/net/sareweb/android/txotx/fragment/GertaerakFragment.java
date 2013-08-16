@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
-import net.sareweb.android.txotx.activity.DashboardActivity_;
 import net.sareweb.android.txotx.adapter.GertaeraAdapter;
 import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.image.ImageLoader;

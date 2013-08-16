@@ -14,8 +14,6 @@ import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.ConnectionUtils;
 import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
-import android.app.Activity;
-import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -23,21 +21,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
+import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
-@EActivity(R.layout.log_in)
+@EActivity(R.layout.loading)
 public class LoadingActivity extends SherlockFragmentActivity implements VersionDialogFragment.VersionDialogListener{
 	
 	private static String TAG = "LoadingActivity";
 	APKVersion version;
 	@Pref TxotxPrefs_ prefs;
 	DialogFragment dialog;
+	@ViewById(R.id.progress)
+	ProgressBar progress;
+	@ViewById(R.id.txProgress)
+	TextView txProgress;
 	boolean mandatory;
 	
 	@Override
@@ -68,17 +72,23 @@ public class LoadingActivity extends SherlockFragmentActivity implements Version
 	
 	@Background
 	void loadData(){
-		UserCache.init(this);
+		UserCache.init(this); 
 		SagardotegiCache.init(this);
+		updateProgress(10);
 		SagardoEgunCache.init(this);
 		GertaeraCache.init(this);
 		JarraipenCache.init(this);
+		updateProgress(20);
 		
 		JarraipenCache.eskuratuJarraipenak(AccountUtil.getGoogleEmail(this));
+		updateProgress(40);
 		SagardotegiCache.getSagardotegiak(true);
+		updateProgress(60);
 		SagardoEgunCache.getSagardoEgunak(true);
+		updateProgress(80);
 		APKVersionRESTClient apkVersionRESTClient = new APKVersionRESTClient(new TxotxConnectionData(this));
 		version = apkVersionRESTClient.getLastAPKVersion();
+		updateProgress(100);
 		checkVersion();
 	}
 	
@@ -111,6 +121,12 @@ public class LoadingActivity extends SherlockFragmentActivity implements Version
 			TxotxActivity_.intent(this).start();
 		}
 		
+	}
+	
+	@UiThread
+	void updateProgress(int percent){
+		txProgress.setText("Kargatzen %" + percent);
+		progress.setProgress(percent);
 	}
 	
 		

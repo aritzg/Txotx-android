@@ -51,24 +51,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TxotxActivity_" />
-        <activity android:name=".activity.SagardotegiakActivity_" />
-        <activity
-            android:name=".activity.SagardotegiMapActivity_"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
+        <activity android:name=".activity.NoConnActivity_" />
+		<activity
             android:name=".activity.SagardotegiDetailActivity_"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".activity.SagardoEgunDetailActivity_"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity android:name=".activity.SagardoEgunakActivity_" />
-        <activity android:name=".activity.DashboardActivity_" />
-        <activity android:name=".activity.SailkapenaActivity_" />
-        <activity android:name=".activity.OharraActivity_" />
-        <activity android:name=".activity.SettingsActivity_" />
-        <activity android:name=".activity.AboutActivity_" />
-        <activity android:name=".activity.NoConnActivity_" />
-
+        
         <receiver
             android:name=".receiver.TxotxReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

@@ -37,7 +37,7 @@ public class NoConnActivity extends SherlockFragmentActivity {
 	@OptionsItem(R.id.menu_reload)
 	void reloadSelected(){
 		finish();
-		LogInActivity_.intent(this).start();
+		LoadingActivity_.intent(this).start();
 	}
 	
 }

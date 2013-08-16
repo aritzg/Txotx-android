@@ -1,7 +1,6 @@
 package net.sareweb.android.txotx.notification;
 
 import net.sareweb.android.txotx.R;
-import net.sareweb.android.txotx.activity.OharraActivity_;
 import net.sareweb.android.txotx.activity.SagardoEgunDetailActivity_;
 import net.sareweb.android.txotx.activity.SagardotegiDetailActivity_;
 import net.sareweb.android.txotx.activity.TxotxActivity_;
@@ -95,7 +94,7 @@ public class TxotxNotifications {
 		Intent detailIntent = TxotxActivity_.intent(context).fragmentToBeLoaded(TxotxActivity_.OHARRA_FRAGMENT).oharraId(oharraIdLng).get();
 		 
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-		stackBuilder.addParentStack(OharraActivity_.class);
+		stackBuilder.addParentStack(TxotxActivity_.class);
 		stackBuilder.addNextIntent(detailIntent);
 		PendingIntent resultPendingIntent =
 			        stackBuilder.getPendingIntent(

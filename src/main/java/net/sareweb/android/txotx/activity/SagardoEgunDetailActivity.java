@@ -3,31 +3,23 @@ package net.sareweb.android.txotx.activity;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
-import net.sareweb.android.txotx.adapter.SagardoEgunAdapter;
 import net.sareweb.android.txotx.cache.SagardoEgunCache;
 import net.sareweb.android.txotx.fragment.SagardoEgunDetailFragment;
-import net.sareweb.android.txotx.listener.tab.SagardoEgunDetailTabListener;
 import net.sareweb.android.txotx.model.SagardoEgun;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
-import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -99,7 +91,6 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 	void homeSelected() {
 		finish();
 		if(sagardoEgunId!=0){
-			//SagardoEgunakActivity_.intent(this).start();
 			TxotxActivity_.intent(this).fragmentToBeLoaded(TxotxActivity.SAGARDO_EGUNAK_FRAGMENT).start();
 		}
 	}

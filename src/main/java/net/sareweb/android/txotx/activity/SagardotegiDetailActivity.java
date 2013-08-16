@@ -98,7 +98,7 @@ public class SagardotegiDetailActivity extends SherlockFragmentActivity{
 	void homeSelected() {
 		finish();
 		if(sagardotegiId!=0){
-			SagardotegiakActivity_.intent(this).start();
+			TxotxActivity_.intent(this).fragmentToBeLoaded(TxotxActivity.SAGARDOTEGIAK_FRAGMENT).start();
 		}
 	}
 
