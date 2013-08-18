@@ -14,6 +14,7 @@ import net.sareweb.android.txotx.fragment.SagardoEgunakFragment_;
 import net.sareweb.android.txotx.fragment.SagardotegiMapFragment_;
 import net.sareweb.android.txotx.fragment.SagardotegiakFragment_;
 import net.sareweb.android.txotx.fragment.SailkapenaFragment_;
+import net.sareweb.android.txotx.fragment.SettingsFragment_;
 import net.sareweb.android.txotx.plus.PlusConnectionCallbacks;
 import net.sareweb.android.txotx.plus.PlusOnConnectionFailedListener;
 import net.sareweb.android.txotx.util.AccountUtil;
@@ -128,6 +129,10 @@ public class TxotxActivity extends SherlockFragmentActivity {
 			clickOnOharra();
 			break;
 			
+		case SETTINGS_FRAGMENT:
+			clickOnSettings();
+			break;
+			
 		case ABOUT_FRAGMENT:
 			clickOnAbout();
 			break;
@@ -207,6 +212,20 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentToBeLoaded=OHARRA_FRAGMENT;
 	}
 	
+	@Click(R.id.btnSettings)
+	public void clickOnSettings() {
+		/*FragmentManager fragmentManager = getSupportFragmentManager();
+		Fragment fragment = new SettingsFragment_();
+
+		fragmentManager.beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
+
+		mDrawerLayout.closeDrawers();
+		oharraId = 0;
+		fragmentToBeLoaded=SETTINGS_FRAGMENT;*/
+		SettingsActivity_.intent(this).start();
+	}
+	
 	@Click(R.id.btnAbout)
 	public void clickOnAbout() {
 		FragmentManager fragmentManager = getSupportFragmentManager();
@@ -262,8 +281,9 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	public static final int SAGARDO_EGUNAK_FRAGMENT = 1;
 	public static final int MAP_FRAGMENT = 2;
 	public static final int SAILKAPENA_FRAGMENT = 3;
-	public static final int OHARRA_FRAGMENT = 4;
-	public static final int ABOUT_FRAGMENT = 5;
+	public static final int SETTINGS_FRAGMENT = 4;
+	public static final int OHARRA_FRAGMENT = 5;
+	public static final int ABOUT_FRAGMENT = 6;
 
 	private static final int PLUS_ONE_REQUEST_CODE = 0;
 

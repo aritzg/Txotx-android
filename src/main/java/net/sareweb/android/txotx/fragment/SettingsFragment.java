@@ -1,80 +1,75 @@
-package net.sareweb.android.txotx.activity;
+package net.sareweb.android.txotx.fragment;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.image.ImageLoader;
+import net.sareweb.android.txotx.model.Oharra;
+import net.sareweb.android.txotx.rest.OharraRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
 import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.ImageUtils;
+import net.sareweb.android.txotx.util.TxotxPrefs_;
+import net.sareweb.lifedroid.model.DLFileEntry;
 import net.sareweb.lifedroid.model.User;
-import net.sareweb.lifedroid.rest.UserRESTClient;
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
-import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
-@EActivity(R.layout.settings)
-public class SettingsActivity extends SherlockActivity {
+@EFragment(R.layout.settings)
+public class SettingsFragment extends SherlockFragment {
 
-	private static String TAG = "SettingsActivity";
+	private static final String TAG = "SettingsFragment";
+	
 	@ViewById(R.id.imgPortrait)
 	ImageView imgPortrait;
-	@ViewById(R.id.btnPortrait)
-	Button btnPortrait;
+	@ViewById(R.id.textView1)
+	TextView textView1;
 	ImageLoader imgLoader;
-	boolean changed=false;
-	ActionBar actionBar;
-	UserRESTClient userRESTClient; 
-	byte[] imageBytes;
+	Uri croppedImageUri;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
-
-		actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		imgLoader = new ImageLoader(this);
+		super.onCreate(savedInstanceState);
+		imgLoader = new ImageLoader(getSherlockActivity());
 		getUser();
 	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		Log.d(TAG, "onResume");
-		userRESTClient = new UserRESTClient(new TxotxConnectionData(this));
-	}
-	
 
-	@OptionsItem(android.R.id.home)
-	void homeSelected() {
-		finish();
+	@Override
+	public void onResume() {
+		Log.d(TAG, "onResume");
+		super.onResume();
+		
 	}
 	
 	@Background
 	public void getUser(){
-		User user = UserCache.getUser(AccountUtil.getGoogleEmail(this));
+		User user = UserCache.getUser(AccountUtil.getGoogleEmail(getSherlockActivity()));
 		if(user!=null){
 			gotUser(user);
 		}
@@ -95,39 +90,32 @@ public class SettingsActivity extends SherlockActivity {
 				reqCode);
 	}
 	
-	@Click(R.id.btnPortrait)
-	void clickOnBtnPortrait(){
-		if(changed){
-			updatePortrait();
-		}
-		else{
-			clickOnPortrait();
-		}
-	}
-	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE:
-			if (resultCode == this.RESULT_OK) {
+			if (resultCode == getActivity().RESULT_OK) {
 				Log.d(TAG, "Got image");
+				/*textView1.setText("Got image");
 				Uri imageUri = data.getData();
-				performCrop(imageUri);
+				imgPortrait.setImageURI(imageUri);*/
+				//performCrop(imageUri);
 			}
 			
 			break;
 		case GET_IMG_FROM_CROP_ACTIVITY_REQUEST_CODE:
 			
-			Bundle extras = data.getExtras();
-			Bitmap cropped = extras.getParcelable("data");
-			imgPortrait.setImageBitmap(cropped);
+			/*Bundle extras = data.getExtras();
+			Bitmap cropped = extras.getParcelable("data");*/
 			
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			cropped.compress(Bitmap.CompressFormat.PNG, 100, stream);
-			imageBytes = stream.toByteArray();
+			croppedImageUri = Uri.fromFile(ImageUtils.getOutputTmpJpgFile());
+			Log.d(TAG, "Image has been cropped " + croppedImageUri);
+			imgPortrait.setImageDrawable(null);
+			imgPortrait.setImageURI(croppedImageUri);
+			imgPortrait.setVisibility(View.GONE);
+			imgPortrait.invalidate();
 			
-			changed=true;
-			btnPortrait.setText("Gorde aldaketak");
+			
 			break;
 		}
 	
@@ -137,42 +125,42 @@ public class SettingsActivity extends SherlockActivity {
 		try {
 		    //call the standard crop action intent (the user device may not support it)
 			Intent cropIntent = new Intent("com.android.camera.action.CROP");
-			//indicate image type and Uri
+			    //indicate image type and Uri
 			cropIntent.setDataAndType(imageUri, "image/*");
-			//set crop properties
+			    //set crop properties
 			cropIntent.putExtra("crop", "true");
-			//indicate aspect of desired crop
+			    //indicate aspect of desired crop
 			cropIntent.putExtra("aspectX", 1);
 			cropIntent.putExtra("aspectY", 1);
-			//indicate output X and Y
+			    //indicate output X and Y
 			cropIntent.putExtra("outputX", 256);
 			cropIntent.putExtra("outputY", 256);
-			//retrieve data on return
+			    //retrieve data on return
 			cropIntent.putExtra("return-data", true);
 			
-			//start the activity - we handle returning in onActivityResult
+			croppedImageUri = Uri.fromFile(ImageUtils.getOutputTmpJpgFile());
+			cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, croppedImageUri);
+			
+			    //start the activity - we handle returning in onActivityResult
 			startActivityForResult(cropIntent, GET_IMG_FROM_CROP_ACTIVITY_REQUEST_CODE);
 		}
 		catch(ActivityNotFoundException anfe){
 		    //display an error message
 		    String errorMessage = "Zotz! Zure segapotoak ez du funtzio hau onartzen!";
-		    Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+		    Toast toast = Toast.makeText(getSherlockActivity(), errorMessage, Toast.LENGTH_SHORT);
 		    toast.show();
 		}
 	}
 	
-	@Background
-	public void updatePortrait(){
-		Log.d(TAG, "Uploading portrait");
-		userRESTClient.updatePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId(), imageBytes);
+	@Override
+	public void onPause() {
+		Log.d(TAG, "onPause");
+		super.onPause();
 	}
 	
-	@UiThread
-	public void portraitUpdated(){
-		
-	}
+
 	
 	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE = 101;
 	final int GET_IMG_FROM_CROP_ACTIVITY_REQUEST_CODE = 102;
-	
+
 }

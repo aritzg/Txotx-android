@@ -9,13 +9,11 @@ public class PlusConnectionCallbacks implements ConnectionCallbacks {
 
 	@Override
 	public void onConnected(Bundle arg0) {
-		Log.d("AAAA", "onConnected");
 
 	}
 
 	@Override
 	public void onDisconnected() {
-		Log.d("AAAA", "onDisconnected");
 	}
 
 }

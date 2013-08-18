@@ -31,13 +31,13 @@ public class UserPortrait extends RelativeLayout {
 		imgLoader = new ImageLoader(context);
 	}
 
-	public void updateForUser(long userId){
+	/*public void updateForUser(long userId){
 		getUser(userId);
-	}
+	}*/
 
 	@Background
-	void getUser(long userId){
-		User user = UserCache.getUser(userId);
+	void getUser(String  emailAddress){
+		User user = UserCache.getUser(emailAddress);
 		getUserResult(user);
 	}
 
@@ -45,7 +45,7 @@ public class UserPortrait extends RelativeLayout {
 	void getUserResult(User user){
 		if(user!=null){
 			txMemberName.setText(user.getScreenName());
-			imgLoader.displayImage("http://" + Constants.SERVICE_URL + ":" + Constants.SERVICE_PORT + "/image/user_male_portrait?img_id="+user.getPortraitId(), imgMember);
+			imgLoader.displayImage("http://" + Constants.SERVICE_URL + ":" + Constants.SERVICE_PORT + "/image/user_portrait?img_id="+user.getPortraitId(), imgMember);
 		}
 		else{
 			imgLoader.displayImage(null, imgMember);

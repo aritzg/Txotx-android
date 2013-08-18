@@ -14,6 +14,7 @@ import net.sareweb.android.txotx.model.Oharra;
 import net.sareweb.android.txotx.model.SagardoEgun;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.lifedroid.model.DLFileEntry;
+import net.sareweb.lifedroid.model.User;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -265,6 +266,16 @@ public class ImageUtils {
 					+ Constants.SERVICE_PORT + "/documents/" + Constants.GROUP
 					+ "/" + oharra.getIrudiKarpetaId() + "/"
 					+ oharra.getIrudia();
+			return imageUrl;
+		}
+	}
+	
+	public static String getPortraitImageUrl(User user) {
+		if (user == null /*|| user.getPortraitId()==0*/) {
+			return "";
+		} else {
+			String imageUrl = "http://" + Constants.SERVICE_URL + ":"
+					+ Constants.SERVICE_PORT + "/image/user_portrait?img_id=" + user.getPortraitId();
 			return imageUrl;
 		}
 	}

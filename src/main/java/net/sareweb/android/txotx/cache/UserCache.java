@@ -12,21 +12,20 @@ public class UserCache {
 
 	private static UserRESTClient userRESTClient;
 
-	private static Map<Long, User> users = new HashMap<Long, User>();
+	private static Map<String, User> users = new HashMap<String, User>();
 
 	public static void init(Context context){
 		userRESTClient = new UserRESTClient(new TxotxConnectionData(context));
 	}
 
-
-	public static User getUser(long userId){
-		if(users.containsKey(userId)){
-			return users.get(userId);
+	public static User getUser(String emailAddress){
+		if(users.containsKey(emailAddress)){
+			return users.get(emailAddress);
 		}
 		else{
-			User user = userRESTClient.getUserById(userId);
+			User user = userRESTClient.getUserByEmailAddress(emailAddress);
 			if(user!=null){
-				users.put(userId, user);
+				users.put(emailAddress, user);
 			}
 			return user;
 		}
