@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class ImageLoader {
@@ -30,6 +31,7 @@ public class ImageLoader {
     private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     ExecutorService executorService;
     Handler handler=new Handler();//handler to display images in UI thread
+    private static final String TAG = "ImageLoader";
     
     public ImageLoader(Context context){
         fileCache=new FileCache(context);
@@ -45,10 +47,9 @@ public class ImageLoader {
         	}
             imageViews.put(imageView, url);
             Bitmap bitmap=memoryCache.get(url);
-            if(bitmap!=null)
+            if(bitmap!=null){
                 imageView.setImageBitmap(bitmap);
-            else
-            {
+    		}else{
                 queuePhoto(url, imageView);
                 imageView.setImageResource(default_image_id);
             }

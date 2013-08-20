@@ -74,7 +74,8 @@ public class SettingsActivity extends SherlockActivity {
 	
 	@Background
 	public void getUser(){
-		User user = UserCache.getUser(AccountUtil.getGoogleEmail(this));
+		boolean refresh = true;
+		User user = UserCache.getUser(AccountUtil.getGoogleEmail(this), refresh);
 		if(user!=null){
 			gotUser(user);
 		}
@@ -164,12 +165,17 @@ public class SettingsActivity extends SherlockActivity {
 	@Background
 	public void updatePortrait(){
 		Log.d(TAG, "Uploading portrait");
+		//Delete portrait so image id, and thus its url will change, to avoid cached file
+		userRESTClient.deletePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId());
 		userRESTClient.updatePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId(), imageBytes);
+		portraitUpdated();
 	}
 	
 	@UiThread
 	public void portraitUpdated(){
-		
+		Toast.makeText(this, "Zure profilaren irudia eguneratu da.", Toast.LENGTH_SHORT).show();
+		finish();
+		SettingsActivity_.intent(this).start();
 	}
 	
 	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE = 101;

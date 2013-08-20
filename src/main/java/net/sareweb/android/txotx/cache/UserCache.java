@@ -19,7 +19,11 @@ public class UserCache {
 	}
 
 	public static User getUser(String emailAddress){
-		if(users.containsKey(emailAddress)){
+		return getUser(emailAddress, false);
+	}
+	
+	public static User getUser(String emailAddress, boolean refresh){
+		if(users.containsKey(emailAddress) && !refresh){
 			return users.get(emailAddress);
 		}
 		else{
