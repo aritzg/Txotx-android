@@ -12,7 +12,8 @@ public class UserCache {
 
 	private static UserRESTClient userRESTClient;
 
-	private static Map<String, User> users = new HashMap<String, User>();
+	private static Map<String, User> usersByMail = new HashMap<String, User>();
+	private static Map<Long, User> usersById = new HashMap<Long, User>();
 
 	public static void init(Context context){
 		userRESTClient = new UserRESTClient(new TxotxConnectionData(context));
@@ -23,13 +24,32 @@ public class UserCache {
 	}
 	
 	public static User getUser(String emailAddress, boolean refresh){
-		if(users.containsKey(emailAddress) && !refresh){
-			return users.get(emailAddress);
+		if(usersByMail.containsKey(emailAddress) && !refresh){
+			return usersByMail.get(emailAddress);
 		}
 		else{
 			User user = userRESTClient.getUserByEmailAddress(emailAddress);
 			if(user!=null){
-				users.put(emailAddress, user);
+				usersByMail.put(emailAddress, user);
+				usersById.put(user.getUserId(), user);
+			}
+			return user;
+		}
+	}
+	
+	public static User getUserById(long userId){
+		return getUserById(userId, false);
+	}
+	
+	public static User getUserById(long userId, boolean refresh){
+		if(usersById.containsKey(userId) && !refresh){
+			return usersById.get(userId);
+		}
+		else{
+			User user = userRESTClient.getUserById(userId);
+			if(user!=null){
+				usersById.put(userId, user);
+				usersByMail.put(user.getEmailAddress(), user);
 			}
 			return user;
 		}

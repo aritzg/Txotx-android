@@ -7,6 +7,8 @@ import java.util.List;
 import org.hamcrest.core.IsInstanceOf;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.api.BackgroundExecutor;
 
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.UserCache;
@@ -17,11 +19,13 @@ import net.sareweb.android.txotx.fragment.GertaerakFragment_;
 import net.sareweb.android.txotx.fragment.SagardoEgunDetailFragment;
 import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Gertaera;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.lifedroid.model.User;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +42,7 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 	private List<Gertaera> gertaerak;
 	private static String TAG = "GertaeraAdapter";
 	private ImageLoader imgLoader;
+	private Handler handler_ = new Handler();
 	
 	public GertaeraAdapter(Context context, List<Gertaera> gertaerak, SherlockFragment fragment){
 		Log.d(TAG, "gertaera prestatzen " + gertaerak.size() );
@@ -104,6 +109,9 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		txGertaeraText.setText(testua);
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
+		
+		PortraitUserLoader portraitUserLoader = new PortraitUserLoader(imgGertaera, gertaera);
+		BackgroundExecutor.execute(portraitUserLoader);
 	}
 
 	public void drawGertaeraIrudia(View convertView, Gertaera gertaera){
@@ -113,6 +121,7 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		txGertaeraText.setText(testua);
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
+		
 	}
 
 	public void drawGertaeraBalorazioa(View convertView, Gertaera gertaera){
@@ -122,6 +131,36 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.rating);
 	}
 	
+	class PortraitUserLoader implements Runnable{
+		Gertaera gertaera;
+		ImageView imageView;
+		public PortraitUserLoader(ImageView imageView, Gertaera gertaera){
+			this.imageView=imageView;
+			this.gertaera=gertaera;
+		}
+		@Override
+		public void run() {
+			User user = UserCache.getUserById(gertaera.getUserId());
+			drawPortrait(imageView, user);
+		}
+		
+	}
+	
+	public void drawPortrait(final ImageView imageView,final User user){
+		handler_.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                	imgLoader.displayImage(ImageUtils.getPortraitImageUrl(user), imageView, R.drawable.ic_launcher);
+                } catch (RuntimeException e) {
+                    Log.e(TAG, "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+	}
+
 	@Override
 	public void onClick(View v) {
 		String izena = (String)v.getTag();
@@ -131,7 +170,6 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		if(fragment!=null && fragment instanceof GertaerakFragment)
 			((GertaerakFragment)fragment).showAddCommentDialog(izena);
 	}
-
 
 }
 

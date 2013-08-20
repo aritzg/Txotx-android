@@ -15,7 +15,7 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EViewGroup;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
-
+@Deprecated
 @EViewGroup(R.layout.user_portrait_small)
 public class UserPortrait extends RelativeLayout {
 

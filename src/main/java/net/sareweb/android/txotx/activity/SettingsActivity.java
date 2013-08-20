@@ -10,6 +10,7 @@ import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.ImageUtils;
 import net.sareweb.lifedroid.model.User;
 import net.sareweb.lifedroid.rest.UserRESTClient;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -45,6 +46,7 @@ public class SettingsActivity extends SherlockActivity {
 	ActionBar actionBar;
 	UserRESTClient userRESTClient; 
 	byte[] imageBytes;
+	private ProgressDialog dialog;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,7 @@ public class SettingsActivity extends SherlockActivity {
 	@Click(R.id.btnPortrait)
 	void clickOnBtnPortrait(){
 		if(changed){
+			dialog = ProgressDialog.show(this, "", "Irudi berria gordetzen...", true);
 			updatePortrait();
 		}
 		else{
@@ -173,6 +176,7 @@ public class SettingsActivity extends SherlockActivity {
 	
 	@UiThread
 	public void portraitUpdated(){
+		dialog.dismiss();
 		Toast.makeText(this, "Zure profilaren irudia eguneratu da.", Toast.LENGTH_SHORT).show();
 		finish();
 		SettingsActivity_.intent(this).start();
