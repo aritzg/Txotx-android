@@ -54,6 +54,11 @@
 		  <type>apklib</type>
 		  <scope>compile</scope>
 		</dependency>
+		<dependency>
+           <groupId>org.twitter4j</groupId>
+           <artifactId>twitter4j-core</artifactId>
+           <version>3.0.3</version>
+       </dependency>
     </dependencies>
 
     <build>

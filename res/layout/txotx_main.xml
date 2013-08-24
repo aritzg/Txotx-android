@@ -69,6 +69,14 @@
             android:layout_weight="1"
             txotx:buttonText="Erronka!"
             txotx:imgResId="@drawable/erronka" />
+        
+        <net.sareweb.android.txotx.custom.DashboardButton_
+            android:id="@+id/btnTwitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            txotx:buttonText="Twitterren"
+            txotx:imgResId="@drawable/twitter_blue" />
 
         <net.sareweb.android.txotx.custom.DashboardButton_
             android:id="@+id/btnSettings"

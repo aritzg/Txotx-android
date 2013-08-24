@@ -9,6 +9,7 @@ import net.sareweb.android.txotx.adapter.SagardotegiAdapter;
 import net.sareweb.android.txotx.cache.SagardotegiCache;
 import net.sareweb.android.txotx.model.Sagardotegi;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,7 +47,6 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	
 	@Background
 	public void getSagardotegiak(boolean refresh, String filter){
-		Log.d(TAG, "Gettings sagardotegiak");
 		List<Sagardotegi> sagardotegiak = SagardotegiCache.getSagardotegiak(refresh);
 		getSagardotegiakResult(filterSagardotegiak(sagardotegiak, filter));
 	}
@@ -54,11 +54,14 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	@UiThread
 	public void getSagardotegiakResult(List<Sagardotegi> sagardotegiak){
 		if(sagardotegiak!=null){
-			ListView gardensListView = (ListView) getActivity().findViewById(R.id.sagardotegiak_list_view);
-			gardensListView.setAdapter(new SagardotegiAdapter(getActivity(), sagardotegiak));
-			SagardotegiAdapter adapter = (SagardotegiAdapter)gardensListView.getAdapter();
-			adapter.notifyDataSetChanged();
-			gardensListView.setOnItemClickListener(this);
+			if(getSherlockActivity()!=null){
+				Log.d(TAG, "NO ES NULL");
+				ListView gardensListView = (ListView) getSherlockActivity().findViewById(R.id.sagardotegiak_list_view);
+				gardensListView.setAdapter(new SagardotegiAdapter(getActivity(), sagardotegiak));
+				SagardotegiAdapter adapter = (SagardotegiAdapter)gardensListView.getAdapter();
+				adapter.notifyDataSetChanged();
+				gardensListView.setOnItemClickListener(this);
+			}
 		}
 		else{
 			Toast.makeText(getActivity(), "Errorea sagardotegiak kargatzen!!", Toast.LENGTH_LONG).show();
@@ -85,4 +88,5 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 		}
 		return sagardotegiakTmp;
 	}
+	
 }
