@@ -112,6 +112,9 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		
 		PortraitUserLoader portraitUserLoader = new PortraitUserLoader(imgGertaera, gertaera);
 		BackgroundExecutor.execute(portraitUserLoader);
+		
+		ImageView imgArgazki = (ImageView) convertView.findViewById(R.id.imgArgazki);
+		imgArgazki.setVisibility(View.GONE);
 	}
 
 	public void drawGertaeraIrudia(View convertView, Gertaera gertaera){
@@ -119,8 +122,14 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		String testua =gertaera.getScreenName() +  "-(e)k ez dio argazkiari iruzkinik jarri!";
 		if(!gertaera.getTestua().equals("") && !gertaera.getTestua().equals("ERROR")) testua = gertaera.getTestua();
 		txGertaeraText.setText(testua);
+		
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
-		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.ic_launcher);
+		PortraitUserLoader portraitUserLoader = new PortraitUserLoader(imgGertaera, gertaera);
+		BackgroundExecutor.execute(portraitUserLoader);
+		
+		ImageView imgArgazki = (ImageView) convertView.findViewById(R.id.imgArgazki);
+		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgArgazki, R.drawable.ic_launcher);
+		imgArgazki.setVisibility(View.VISIBLE);
 		
 	}
 
@@ -129,6 +138,9 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		txGertaeraText.setText(gertaera.getScreenName() + "-k " + gertaera.getBalorazioa() + " izar eman dizkio sagardotegi honi.");
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgGertaera, R.drawable.rating);
+		
+		ImageView imgArgazki = (ImageView) convertView.findViewById(R.id.imgArgazki);
+		imgArgazki.setVisibility(View.GONE);
 	}
 	
 	class PortraitUserLoader implements Runnable{

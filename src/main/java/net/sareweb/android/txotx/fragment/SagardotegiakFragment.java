@@ -55,7 +55,6 @@ public class SagardotegiakFragment extends SherlockFragment implements OnItemCli
 	public void getSagardotegiakResult(List<Sagardotegi> sagardotegiak){
 		if(sagardotegiak!=null){
 			if(getSherlockActivity()!=null){
-				Log.d(TAG, "NO ES NULL");
 				ListView gardensListView = (ListView) getSherlockActivity().findViewById(R.id.sagardotegiak_list_view);
 				gardensListView.setAdapter(new SagardotegiAdapter(getActivity(), sagardotegiak));
 				SagardotegiAdapter adapter = (SagardotegiAdapter)gardensListView.getAdapter();

@@ -3,4 +3,8 @@
     <string name="app_name">Txootx!</string>
     <string name="ireki">Ireki</string>
     <string name="itxi">Itxi</string>
+    <string name="pull_to_refresh_pull_label">Tira beheruntz kargatzeko...</string>
+    <string name="pull_to_refresh_release_label">Askatu kargatzeko...</string>
+    <string name="pull_to_refresh_refreshing_label">Kargatzen...</string>
+    <string name="pull_to_refresh_tap_label">Sakatu kargatzeko...</string>
 </resources>

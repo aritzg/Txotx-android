@@ -68,6 +68,10 @@ public class TwitterAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	public void addItems(List<Status> statuses){
+		this.statuses.addAll(0,statuses);
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

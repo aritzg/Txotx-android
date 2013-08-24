@@ -54,11 +54,13 @@ public class SagardoEgunakFragment extends SherlockFragment implements OnItemCli
 	@UiThread
 	public void getSagardoEgunakResult(List<SagardoEgun> sagardoEgunak){
 		if(sagardoEgunak!=null){
-			ListView sagardoEgunakListView = (ListView) getActivity().findViewById(R.id.sagardoegunak_list_view);
-			sagardoEgunakListView.setAdapter(new SagardoEgunAdapter(getActivity(), sagardoEgunak));
-			SagardoEgunAdapter adapter = (SagardoEgunAdapter)sagardoEgunakListView.getAdapter();
-			adapter.notifyDataSetChanged();
-			sagardoEgunakListView.setOnItemClickListener(this);
+			if(getActivity()!=null){
+				ListView sagardoEgunakListView = (ListView) getActivity().findViewById(R.id.sagardoegunak_list_view);
+				sagardoEgunakListView.setAdapter(new SagardoEgunAdapter(getActivity(), sagardoEgunak));
+				SagardoEgunAdapter adapter = (SagardoEgunAdapter)sagardoEgunakListView.getAdapter();
+				adapter.notifyDataSetChanged();
+				sagardoEgunakListView.setOnItemClickListener(this);
+			}
 		}
 		else{
 			Toast.makeText(getActivity(), "Errorea sagardoEgunak kargatzen!!", Toast.LENGTH_LONG).show();

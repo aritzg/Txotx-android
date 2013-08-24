@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ListView android:id="@+id/twitter_list_view"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_weight="0.9"
-               android:drawSelectorOnTop="false"/>
-
+ 	<net.sareweb.android.txotx.custom.PullToRefreshListView
+    android:id="@+id/twitter_list_view"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    />
+ 	
 </LinearLayout>

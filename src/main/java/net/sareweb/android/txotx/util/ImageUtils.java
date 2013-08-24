@@ -271,7 +271,7 @@ public class ImageUtils {
 	}
 	
 	public static String getPortraitImageUrl(User user) {
-		if (user == null /*|| user.getPortraitId()==0*/) {
+		if (user == null || user.getPortraitId()==0) {
 			return "";
 		} else {
 			String imageUrl = "http://" + Constants.SERVICE_URL + ":"
