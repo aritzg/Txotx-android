@@ -21,7 +21,6 @@ public class SagardoEgunCache {
 
 	public static List<SagardoEgun> getSagardoEgunak(boolean refresh) {
 		try {
-
 			if (sagardoEgunak == null || sagardoEgunak.size() == 0 || refresh) {
 				sagardoEgunak = sagardoEgunRESTClient.getSagardoEgunak();
 			}

@@ -3,6 +3,8 @@ package net.sareweb.android.txotx.adapter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.hamcrest.core.IsInstanceOf;
 
@@ -43,6 +45,7 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 	private static String TAG = "GertaeraAdapter";
 	private ImageLoader imgLoader;
 	private Handler handler_ = new Handler();
+	ExecutorService executorService;
 	
 	public GertaeraAdapter(Context context, List<Gertaera> gertaerak, SherlockFragment fragment){
 		Log.d(TAG, "gertaera prestatzen " + gertaerak.size() );
@@ -50,6 +53,7 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		this.fragment = fragment;
 		this.gertaerak = gertaerak;
 		imgLoader = new ImageLoader(context);
+		executorService=Executors.newFixedThreadPool(5);
 	}
 
 	@Override
@@ -125,7 +129,8 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		
 		ImageView imgGertaera = (ImageView) convertView.findViewById(R.id.imgGertaera);
 		PortraitUserLoader portraitUserLoader = new PortraitUserLoader(imgGertaera, gertaera);
-		BackgroundExecutor.execute(portraitUserLoader);
+		executorService.submit(portraitUserLoader);
+		//BackgroundExecutor.execute(portraitUserLoader);
 		
 		ImageView imgArgazki = (ImageView) convertView.findViewById(R.id.imgArgazki);
 		imgLoader.displayImage(ImageUtils.getGertaeraImageUrl(gertaera), imgArgazki, R.drawable.ic_launcher);
@@ -152,6 +157,7 @@ public class GertaeraAdapter extends BaseAdapter implements OnClickListener{
 		}
 		@Override
 		public void run() {
+			Log.d(TAG, "Getting user " + gertaera.getUserId());
 			User user = UserCache.getUserById(gertaera.getUserId());
 			drawPortrait(imageView, user);
 		}

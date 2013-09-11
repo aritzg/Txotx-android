@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sareweb.android.txotx"
     android:installLocation="preferExternal"
-    android:versionCode="7"
-    android:versionName="v0.7" >
+    android:versionCode="9"
+    android:versionName="v0.7.2" >
 
     <permission
         android:name="net.sareweb.android.txotx.permission.MAPS_RECEIVE"
@@ -73,17 +73,17 @@
 
         <service android:name=".service.TxotxIntentService_" />
 
-<!--         Debug -->
+<!--         Debug 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB_DIIBvjbsncei9CcP3uUBd1AxFwmL4WQ" />
-
+-->
         <!--
-        Release 
+        Release -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAF5uG5kAJCsuUXb25O9_QOyADMEwMkyDk" />
-        -->
+        
     </application>
 
 </manifest>

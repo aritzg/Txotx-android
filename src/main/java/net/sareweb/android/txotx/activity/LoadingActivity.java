@@ -73,6 +73,7 @@ public class LoadingActivity extends SherlockFragmentActivity implements Version
 	@Background
 	void loadData(){
 		UserCache.init(this); 
+		UserCache.preloadUsers();
 		SagardotegiCache.init(this);
 		updateProgress(10);
 		SagardoEgunCache.init(this);

@@ -1,5 +1,6 @@
 package net.sareweb.android.txotx.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import net.sareweb.android.txotx.R;
@@ -20,10 +21,12 @@ public class SagardoEgunAdapter extends BaseAdapter{
 	private Context context;
 	private List<SagardoEgun> sagardoEgunak;
 	private static String TAG = "SagardoEgunAdapter";
+	private SimpleDateFormat sdf;
 	
 	public SagardoEgunAdapter(Context context, List<SagardoEgun> sagardoEgunak){
 		this.context = context;
 		this.sagardoEgunak = sagardoEgunak; 
+		sdf = new SimpleDateFormat("yy/MM/dd");
 	}
 	
 	@Override
@@ -50,6 +53,9 @@ public class SagardoEgunAdapter extends BaseAdapter{
 			convertView = inflater.inflate(R.layout.sagardoegun_row, null);
 		}
 		SagardoEgun sagardoEgun = sagardoEgunak.get(position);
+		
+		TextView txSagardoEgunDate = (TextView) convertView.findViewById(R.id.txSagardoEgunDate);
+		txSagardoEgunDate.setText(sdf.format(sagardoEgun.getHasieraDate()));
 		
 		TextView txSagardoEgunName = (TextView) convertView.findViewById(R.id.txSagardoEgunName);
 		String name=sagardoEgun.getIzena();

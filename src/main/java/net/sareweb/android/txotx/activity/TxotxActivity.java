@@ -68,6 +68,8 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
 		
+		initCaches();
+		
 		if(savedInstanceState!=null){
 			Log.d(TAG, "Restoring state info");
 			fragmentToBeLoaded = savedInstanceState.getInt(FRAGMENT, SAGARDOTEGIAK_FRAGMENT);
@@ -290,6 +292,16 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		outState.putInt(FRAGMENT, fragmentToBeLoaded);
 	}
 
+	@Background
+	public void initCaches() {
+		AccountUtil.getGoogleAuthToken(this);
+		UserCache.init(this); 
+		SagardotegiCache.init(this);
+		SagardoEgunCache.init(this);
+		GertaeraCache.init(this);
+		JarraipenCache.init(this);
+		
+	}
 
 	private static final String FRAGMENT ="fragment";
 	public static final int NO_FRAGMENT = -1;

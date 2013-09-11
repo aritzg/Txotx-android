@@ -4,6 +4,7 @@ import net.sareweb.android.txotx.model.GoogleDevice;
 import net.sareweb.android.txotx.notification.TxotxNotifications;
 import net.sareweb.android.txotx.rest.GoogleDeviceRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.TxotxPrefs_;
 import android.app.IntentService;
 import android.content.Context;
@@ -77,7 +78,7 @@ public class TxotxIntentService extends IntentService {
 	}
 
 	private void handleRegistration(Intent intent) {
-		/*try {
+		try {
 			String error = intent.getExtras().getString("error");
 			String registration_id = intent.getExtras().getString("registration_id");
 			String unregistered = intent.getExtras().getString("unregistered");
@@ -86,17 +87,17 @@ public class TxotxIntentService extends IntentService {
 			Log.d(TAG, "Handling registration");
 			if(error==null){
 				if(registration_id!=null){
-					GoogleDevice googleDevice = googleDeviceRESTClient.addGoogeDevice(prefs.email().get(), registration_id);
-					prefs.registrationId().put(googleDevice.getRegistrationId());
+					GoogleDevice googleDevice = googleDeviceRESTClient.addGoogeDevice(AccountUtil.getGoogleEmail(context) , registration_id);
+					//prefs.registrationId().put(googleDevice.getRegistrationId());
 				}
-				else if(unregistered != null) {
+				/*else if(unregistered != null) {
 					Log.d(TAG, "registration_id: " + registration_id);
 					googleDeviceRESTClient.unregisterGoogleDevice(prefs.registrationId().get());
-				}
+				}*/
 			}
 		} catch (Exception e) {
 			Log.e(TAG, "Error handling registration",e);
-		}*/
+		}
 	}
 	
 

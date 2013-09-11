@@ -34,7 +34,7 @@ public class SagardoEgunakFragment extends SherlockFragment implements OnItemCli
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setSagardoEgunakContent(true, "");
+		setSagardoEgunakContent(false, "");
 	}
 
 	public void setSagardoEgunakContent(boolean refresh, String filter){

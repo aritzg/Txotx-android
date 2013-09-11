@@ -1,15 +1,19 @@
 package net.sareweb.android.txotx.cache;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
+import net.sareweb.android.txotx.util.Constants;
 import net.sareweb.lifedroid.model.User;
 import net.sareweb.lifedroid.rest.UserRESTClient;
 import android.content.Context;
+import android.util.Log;
 
 public class UserCache {
 
+	private static String TAG = "UserCache";
 	private static UserRESTClient userRESTClient;
 
 	private static Map<String, User> usersByMail = new HashMap<String, User>();
@@ -19,6 +23,21 @@ public class UserCache {
 		userRESTClient = new UserRESTClient(new TxotxConnectionData(context));
 	}
 
+	public static void preloadUsers(){
+		try {
+			List<User> users = userRESTClient.getGroupUsers(Constants.GROUP);	
+			if(users!=null){
+				for(User user : users){
+					usersByMail.put(user.getEmailAddress(), user);
+					usersById.put(user.getUserId(), user);
+				}
+			}
+		} catch (Exception e) {
+			Log.e(TAG, "Error preloading users", e);
+		}
+		
+	}
+	
 	public static User getUser(String emailAddress){
 		return getUser(emailAddress, false);
 	}

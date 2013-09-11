@@ -20,14 +20,14 @@ public class TxotxNotifications {
 	
 	public static void showDeviceResgistration(Context context, Intent intent){
 		 Builder builder = new NotificationCompat.Builder(context);
-		 builder.setContentTitle("Txootx! aipuak");
+		 builder.setContentTitle("Txootx!");
 		 builder.setSmallIcon(R.drawable.notification);
-		 builder.setContentText("@izena jarriz aipuak egin daitezke!");
+		 builder.setContentText("Ongi etorri Txootx!-era.");
 		 Notification notification = builder.build();
 		
-		 NotificationManager mNotificationManager =
+		 /*NotificationManager mNotificationManager =
 			        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		 mNotificationManager.notify(0,notification);
+		 mNotificationManager.notify(0,notification);*/
 	}
 	
 	public static void showMezua(Context context, Intent intent){
