@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -37,6 +38,8 @@ import com.googlecode.androidannotations.annotations.ViewById;
 public class SettingsActivity extends SherlockActivity {
 
 	private static String TAG = "SettingsActivity";
+	@ViewById(R.id.txScreenName)
+	TextView txScreenName;
 	@ViewById(R.id.imgPortrait)
 	ImageView imgPortrait;
 	@ViewById(R.id.btnPortrait)
@@ -85,6 +88,7 @@ public class SettingsActivity extends SherlockActivity {
 	
 	@UiThread
 	public void gotUser(User user){
+		txScreenName.setText(user.getScreenName());
 		imgLoader.displayImage(ImageUtils.getPortraitImageUrl(user), imgPortrait, R.drawable.ic_launcher);
 	}
 	

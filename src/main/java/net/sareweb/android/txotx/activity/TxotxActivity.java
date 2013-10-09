@@ -27,6 +27,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -62,6 +63,8 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	@Extra long sagardotegiId;
 	@Extra long sagardoEgunId;
 	@Extra long oharraId;
+	
+	private static boolean drawerOpenedByBackButton=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +165,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
-		mDrawerLayout.closeDrawers();
+		closeDrawer();
 		fragmentToBeLoaded=SAGARDOTEGIAK_FRAGMENT;
 	}
 
@@ -174,7 +177,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
-		mDrawerLayout.closeDrawers();
+		closeDrawer();
 		fragmentToBeLoaded=SAGARDO_EGUNAK_FRAGMENT;
 	}
 
@@ -186,7 +189,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
-		mDrawerLayout.closeDrawers();
+		closeDrawer();
 		fragmentToBeLoaded=MAP_FRAGMENT;
 	}
 
@@ -198,7 +201,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
-		mDrawerLayout.closeDrawers();
+		closeDrawer();
 		fragmentToBeLoaded=SAILKAPENA_FRAGMENT;
 	}
 
@@ -213,7 +216,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
-		mDrawerLayout.closeDrawers();
+		closeDrawer();
 		oharraId = 0;
 		fragmentToBeLoaded=OHARRA_FRAGMENT;
 	}
@@ -226,7 +229,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
-		mDrawerLayout.closeDrawers();
+		closeDrawer();
 		fragmentToBeLoaded=TWITTER_FRAGMENT;
 	}
 	
@@ -252,15 +255,41 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
-		mDrawerLayout.closeDrawers();
+		closeDrawer();
 		fragmentToBeLoaded=ABOUT_FRAGMENT;
 	}
 
 	@OptionsItem
 	boolean homeSelected() {
-		mDrawerLayout.openDrawer(Gravity.LEFT);
+		toggleDrawer();
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+		if(!mDrawerLayout.isDrawerOpen(Gravity.LEFT)){
+			Log.d(TAG, "Opening drawer!");
+			mDrawerLayout.openDrawer(Gravity.LEFT);
+			drawerOpenedByBackButton=true;
+		}
+		else{
+			Log.d(TAG, "Just close");
+			super.onBackPressed();
+			
+		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		if(keyCode == KeyEvent.KEYCODE_MENU){
+			toggleDrawer();
+		}
+		
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -290,6 +319,24 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		super.onSaveInstanceState(outState);
 		Log.d(TAG, "Saving current state info");
 		outState.putInt(FRAGMENT, fragmentToBeLoaded);
+	}
+	
+	public boolean drawerWasOpenedByBackButton(){
+		return drawerOpenedByBackButton;
+	}
+	
+	public void closeDrawer(){
+		drawerOpenedByBackButton=false;
+		mDrawerLayout.closeDrawers();
+	}
+	
+	public void toggleDrawer(){
+		if(mDrawerLayout.isDrawerOpen(Gravity.LEFT)){
+			closeDrawer();
+		}
+		else{
+			mDrawerLayout.openDrawer(Gravity.LEFT);
+		}
 	}
 
 	@Background
