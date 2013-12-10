@@ -1,6 +1,7 @@
 package net.sareweb.android.txotx.fragment;
 
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.activity.WebActivity_;
 import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.image.ImageLoader;
 import net.sareweb.android.txotx.model.Sagardotegi;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.FragmentById;
@@ -186,6 +188,11 @@ public class SagardotegiDetailFragment extends SherlockFragment{
 		} catch (Exception e) {
 			Log.e(TAG, "Errorea gertaerak aldez aurretik kargatzen");
 		}
+	}
+	
+	@Click(R.id.txWeb)
+	public void clickOnWeb(){
+		WebActivity_.intent(getActivity()).webUrl(sagardotegi.getWeborria()).start();
 	}
 	
 	

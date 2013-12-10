@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.hamcrest.core.IsInstanceOf;
+//import org.hamcrest.core.IsInstanceOf;
 
 import twitter4j.Status;
 

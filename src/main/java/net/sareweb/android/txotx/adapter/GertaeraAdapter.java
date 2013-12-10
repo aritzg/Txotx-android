@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.api.BackgroundExecutor;

@@ -16,17 +16,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
@@ -35,17 +33,18 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.settings)
-public class SettingsActivity extends SherlockActivity {
+public class SettingsActivity extends SherlockActivity{
 
 	private static String TAG = "SettingsActivity";
 	@ViewById(R.id.txScreenName)
-	TextView txScreenName;
+	EditText txScreenName;
 	@ViewById(R.id.imgPortrait)
 	ImageView imgPortrait;
 	@ViewById(R.id.btnPortrait)
 	Button btnPortrait;
 	ImageLoader imgLoader;
-	boolean changed=false;
+	boolean imageChanged=false;
+	String originalName;
 	ActionBar actionBar;
 	UserRESTClient userRESTClient; 
 	byte[] imageBytes;
@@ -61,7 +60,13 @@ public class SettingsActivity extends SherlockActivity {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		imgLoader = new ImageLoader(this);
+		
+	}
+	
+	@AfterViews
+	public void afterViews(){
 		getUser();
+		originalName = txScreenName.getText().toString();
 	}
 	
 	@Override
@@ -104,13 +109,8 @@ public class SettingsActivity extends SherlockActivity {
 	
 	@Click(R.id.btnPortrait)
 	void clickOnBtnPortrait(){
-		if(changed){
-			dialog = ProgressDialog.show(this, "", "Irudi berria gordetzen...", true);
-			updatePortrait();
-		}
-		else{
-			clickOnPortrait();
-		}
+		dialog = ProgressDialog.show(this, "", "Datuak gordetzen...", true);
+		updateData();
 	}
 	
 	@Override
@@ -134,7 +134,7 @@ public class SettingsActivity extends SherlockActivity {
 			cropped.compress(Bitmap.CompressFormat.PNG, 100, stream);
 			imageBytes = stream.toByteArray();
 			
-			changed=true;
+			imageChanged=true;
 			btnPortrait.setText("Gorde aldaketak");
 			break;
 		}
@@ -170,23 +170,31 @@ public class SettingsActivity extends SherlockActivity {
 	}
 	
 	@Background
-	public void updatePortrait(){
-		Log.d(TAG, "Uploading portrait");
-		//Delete portrait so image id, and thus its url will change, to avoid cached file
-		userRESTClient.deletePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId());
-		userRESTClient.updatePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId(), imageBytes);
-		portraitUpdated();
+	public void updateData(){
+		if(imageChanged){
+			Log.d(TAG, "Uploading portrait");
+			//Delete portrait so image id, and thus its url will change, to avoid cached file
+			userRESTClient.deletePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId());
+			userRESTClient.updatePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId(), imageBytes);
+		}
+		if(originalName!=null && !originalName.equals(txScreenName.getText().toString())){
+			Log.d(TAG, "Updating screen name");
+		}
+		dataUpdated();
 	}
 	
 	@UiThread
-	public void portraitUpdated(){
+	public void dataUpdated(){
 		dialog.dismiss();
-		Toast.makeText(this, "Zure profilaren irudia eguneratu da.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Zure profilaren datuak eguneratu dira.", Toast.LENGTH_SHORT).show();
 		finish();
 		SettingsActivity_.intent(this).start();
 	}
 	
+	
 	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE = 101;
 	final int GET_IMG_FROM_CROP_ACTIVITY_REQUEST_CODE = 102;
+
+	
 	
 }

@@ -52,6 +52,7 @@
         </activity>
         <activity android:name=".activity.TxotxActivity_" />
         <activity android:name=".activity.SettingsActivity_" />
+        <activity android:name=".activity.WebActivity_" />
         <activity android:name=".activity.NoConnActivity_" />
 		<activity
             android:name=".activity.SagardotegiDetailActivity_"
