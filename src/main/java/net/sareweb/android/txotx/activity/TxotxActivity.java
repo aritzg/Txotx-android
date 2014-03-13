@@ -70,7 +70,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
-		
+		skipRedirectToCurrent=false;
 		initCaches();
 		
 		if(savedInstanceState!=null){
@@ -104,6 +104,11 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		
+		if(sagardoEgunId==0 && !skipRedirectToCurrent){
+			sagardoEgunId = SagardoEgunCache.getActiveSagardoEgunaId();
+			skipRedirectToCurrent=true;
+		}
+		
 		//Notifikazioen berbideratzeak
 		if(sagardotegiId!=0){
 			SagardotegiDetailActivity_.intent(this).sagardotegiId(sagardotegiId).start();
@@ -111,7 +116,8 @@ public class TxotxActivity extends SherlockFragmentActivity {
 		}
 		else if(sagardoEgunId!=0){
 			SagardoEgunDetailActivity_.intent(this).sagardoEgunId(sagardoEgunId).start();
-			finish();
+			fragmentToBeLoaded=SAGARDO_EGUNAK_FRAGMENT;
+			sagardoEgunId=0;
 		}
 
 		mPlusOneButton.initialize(mPlusClient,
@@ -363,5 +369,7 @@ public class TxotxActivity extends SherlockFragmentActivity {
 	
 
 	private static final int PLUS_ONE_REQUEST_CODE = 0;
+	
+	private static boolean skipRedirectToCurrent = false;
 
 }

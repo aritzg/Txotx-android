@@ -2,9 +2,12 @@ package net.sareweb.android.txotx.activity;
 
 import java.io.ByteArrayOutputStream;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sareweb.android.txotx.R;
 import net.sareweb.android.txotx.cache.UserCache;
 import net.sareweb.android.txotx.image.ImageLoader;
+import net.sareweb.android.txotx.rest.TxootxRESTClient;
 import net.sareweb.android.txotx.rest.TxotxConnectionData;
 import net.sareweb.android.txotx.util.AccountUtil;
 import net.sareweb.android.txotx.util.ImageUtils;
@@ -46,7 +49,8 @@ public class SettingsActivity extends SherlockActivity{
 	boolean imageChanged=false;
 	String originalName;
 	ActionBar actionBar;
-	UserRESTClient userRESTClient; 
+	UserRESTClient userRESTClient;
+	TxootxRESTClient txootxRESTClient; 
 	byte[] imageBytes;
 	private ProgressDialog dialog;
 	
@@ -74,6 +78,7 @@ public class SettingsActivity extends SherlockActivity{
 		super.onResume();
 		Log.d(TAG, "onResume");
 		userRESTClient = new UserRESTClient(new TxotxConnectionData(this));
+		txootxRESTClient  = new TxootxRESTClient(new TxotxConnectionData(this));
 	}
 	
 
@@ -171,14 +176,16 @@ public class SettingsActivity extends SherlockActivity{
 	
 	@Background
 	public void updateData(){
+		String newName = txScreenName.getText().toString();
 		if(imageChanged){
 			Log.d(TAG, "Uploading portrait");
 			//Delete portrait so image id, and thus its url will change, to avoid cached file
 			userRESTClient.deletePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId());
 			userRESTClient.updatePortrait(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId(), imageBytes);
 		}
-		if(originalName!=null && !originalName.equals(txScreenName.getText().toString())){
+		if(originalName!=null && !StringUtils.isEmpty(newName) && !originalName.equals(newName)){
 			Log.d(TAG, "Updating screen name");
+			txootxRESTClient.updateScreenName(UserCache.getUser(AccountUtil.getGoogleEmail(this)).getUserId(), newName);
 		}
 		dataUpdated();
 	}

@@ -90,9 +90,9 @@ public class SagardoEgunDetailActivity extends SherlockFragmentActivity{
 	@OptionsItem
 	void homeSelected() {
 		finish();
-		if(sagardoEgunId!=0){
+		/*if(sagardoEgunId!=0){
 			TxotxActivity_.intent(this).fragmentToBeLoaded(TxotxActivity.SAGARDO_EGUNAK_FRAGMENT).start();
-		}
+		}*/
 	}
 
 

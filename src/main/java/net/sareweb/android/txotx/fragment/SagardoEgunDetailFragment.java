@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sareweb.android.txotx.R;
+import net.sareweb.android.txotx.activity.WebActivity_;
 import net.sareweb.android.txotx.adapter.GertaeraAdapter;
 import net.sareweb.android.txotx.cache.GertaeraCache;
 import net.sareweb.android.txotx.image.ImageLoader;
@@ -35,6 +38,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.ScaleAnimation;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -43,10 +49,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -56,6 +64,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.PlusOneButton;
 import com.google.android.gms.plus.PlusShare;
+import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EFragment;
@@ -82,6 +91,8 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 	ImageView imgSagardoEgun;
 	@ViewById
 	ImageView imgMap;
+	@ViewById
+	ImageView imgWeb;
 	@ViewById TextView txTlf;
 	@ViewById LinearLayout txTlfRow;
 	@ViewById TextView txEmail;
@@ -93,6 +104,8 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 	@ViewById TextView txEdukiera;
 	@ViewById LinearLayout txEdukieraRow;
 	@ViewById ListView gertaeraListView;
+	@ViewById LinearLayout mapFragmentContainer;
+	@ViewById RelativeLayout idLayout;
 	List<Gertaera> gertaerak = new ArrayList<Gertaera>();
 	GertaeraAdapter gertaeraAdapter = null;
 	@FragmentArg
@@ -139,7 +152,7 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 		//if(sagardoEgun!=null)
 		//setSagardoEgunContent(sagardoEgun);
 	}
-
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -180,6 +193,7 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 		}
 		
 		showHideMap(sagardoEgun);
+		showHideWeb(sagardoEgun);
 		getGertaerak(false);
 	}
 	
@@ -239,6 +253,15 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 				
 				imgMap.setVisibility(View.GONE);
 			}
+		}
+	}
+	
+	private void showHideWeb(SagardoEgun sagardoEgun){
+		if(StringUtils.isEmpty(sagardoEgun.getWeborria())){
+			imgWeb.setVisibility(View.GONE);
+		}
+		else{
+			imgWeb.setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -307,6 +330,11 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 		dialog.show();
 	}
 	
+	@Click(R.id.imgWeb)
+	public void clickOnWeb(){
+		WebActivity_.intent(getActivity()).webUrl(sagardoEgun.getWeborria()).start();
+	}
+	
 	@Override
 	public void onClick(View v) {
 		Intent intent;
@@ -358,7 +386,6 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 
 		}
 	}
-	
 
 	@Background
 	void gehituArgazkiGertaera(DLFileEntry dlFileEntry, File file){
@@ -475,11 +502,6 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 		}
 	}
 	
-	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 100;
-	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 101;
-	
-	private static final int PLUS_ONE_REQUEST_CODE = 0;
-
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Gertaera gertaera = (Gertaera) view.getTag();
@@ -506,4 +528,9 @@ public class SagardoEgunDetailFragment extends SherlockFragment implements OnCli
 	
 		dialog.show();
 	}
+
+	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 100;
+	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 101;
+	
+	private static final int PLUS_ONE_REQUEST_CODE = 0;
 }

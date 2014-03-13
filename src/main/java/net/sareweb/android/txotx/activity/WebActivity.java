@@ -1,5 +1,7 @@
 package net.sareweb.android.txotx.activity;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sareweb.android.txotx.R;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +39,10 @@ public class WebActivity extends SherlockActivity{
 	
 	@AfterViews
 	public void afterViews(){
-		webview.loadUrl("http://" + webUrl);
+		if(!StringUtils.contains(webUrl, "http://")){
+			webUrl="http://" + webUrl;
+		}
+		webview.loadUrl(webUrl);
 	}
 	
 	@OptionsItem(android.R.id.home)
